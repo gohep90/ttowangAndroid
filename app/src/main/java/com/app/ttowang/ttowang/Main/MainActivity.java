@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
         pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
         pagerAdapter.addFragment(setting.createInstance(3), "설정");
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
