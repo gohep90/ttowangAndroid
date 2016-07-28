@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle("또왕");
+       // mToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
 

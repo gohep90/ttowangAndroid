@@ -81,6 +81,7 @@ public class businessMain extends Fragment {
         listView =(ListView)result.findViewById(R.id.listView);
         listView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
         listView.setAdapter(adapter);
+        listView.setDivider(null);
 
         StoreAsyncTaskCall();
 
@@ -183,10 +184,10 @@ public class businessMain extends Fragment {
 
 
        //클릭 시 이동 보류!!
-        //            Intent intent = new Intent(getContext(),Store.class);
-        //            intent.putExtra("index", myItems.get(pos).index);
-         //           startActivity(intent);
-          //          getActivity().finish();
+                    Intent intent = new Intent(getContext(),business.class);
+                 //   intent.putExtra("index", myItems.get(pos).index);
+                    startActivity(intent);
+                    //getActivity().finish();
                 }
             });
             return convertView;
