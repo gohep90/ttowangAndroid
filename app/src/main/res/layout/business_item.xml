@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="4dp"
-    >
+    android:layout_height="250dp"
+    android:weightSum="10"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="4dp">
+
     <LinearLayout
+        android:elevation="5dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
-        android:padding="8dp"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:weightSum="3"
+        android:padding="1dp"
+        android:background="@drawable/storelist"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        >
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bo"
+                android:scaleType="centerCrop"
+                android:id="@+id/image" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:id="@+id/click"
+            android:weightSum="10">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/itemTextView"
-                android:text="매장이요"
-                android:textSize="50dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:textStyle="bold"
+                android:textColor="#282828"
+                android:text="봉구비어"
+                android:textSize="18dp"
+                android:gravity="top|left"
+                android:id="@+id/txt_title" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:text="신개념 맥주, 감자튀김 전문점"
+                android:textStyle="bold"
+                android:gravity="top|left"
+                android:id="@+id/txt_info" />
+
         </LinearLayout>
 
     </LinearLayout>
-</android.support.v7.widget.CardView>
+
+
+</LinearLayout>
