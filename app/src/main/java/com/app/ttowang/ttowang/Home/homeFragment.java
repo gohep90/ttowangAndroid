@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Business.business;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
@@ -81,6 +83,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
             @Override
             public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
                 Toast.makeText(getActivity(), (String)home.businessName.get(number), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), business.class);
+                startActivity(intent);
             }
         });
 
