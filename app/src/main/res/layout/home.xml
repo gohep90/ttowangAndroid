@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/recyclerView"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,25 @@ android:orientation="vertical">
         android:layout_weight="4.5"
         android:background="#FF5A5A"
         >
-
+<android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
+        <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
+            android:id="@+id/flexibleIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:indicatorRadius="5dp"
+            app:indicatorPadding="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="bottom" />
+
+</android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

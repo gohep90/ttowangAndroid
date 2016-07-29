@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
+import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static View view;
 
+    ExtensiblePageIndicator extensiblePageIndicator;
 
     @Nullable
     @Override
@@ -76,7 +78,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         pager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         pager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
-
+        extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+        extensiblePageIndicator.initViewPager(pager);
         return view;
     }
 
