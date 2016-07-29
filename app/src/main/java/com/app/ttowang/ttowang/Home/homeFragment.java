@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 
@@ -61,7 +62,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override
             public void onClick(View v) {               //오전 오후 눌러도 시간 선택
-                Toast.makeText(getActivity(), number+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), (String)home.myBusiness.get(number), Toast.LENGTH_SHORT).show();
             }
         });
 

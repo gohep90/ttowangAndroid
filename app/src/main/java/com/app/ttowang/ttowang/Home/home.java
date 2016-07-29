@@ -65,7 +65,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         return Home;
     }
 
-    public void onFragmentCreated(int number) {
+    public void onFragmentCreated(int number) { //여기서 쿠폰 갯수 세팅 해줌
         text_home = (TextView) view.findViewById(R.id.text_home);
         text_home.setText("쿠폰 갯수 : " + mycoupon.get(number));
     }
