@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.Main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,12 +23,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     //final DBHelper dbHelper = new DBHelper(getActivi(), "alarm.db", null, 1);
 
+    public static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeBlue);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        mContext = this;
         initToolbar();
         initViewPagerAndTabs();
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     static class PagerAdapter extends FragmentPagerAdapter {
