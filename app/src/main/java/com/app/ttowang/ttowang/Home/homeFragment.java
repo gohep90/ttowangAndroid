@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,8 @@ import com.app.ttowang.ttowang.R;
 public class homeFragment extends android.support.v4.app.Fragment{
 
     private View rootView;
-    private TextView textView;
+    private TextView businessName,myRemainCoupon,myUsedCoupon,businessLocation;
+    private ImageView mybusinessimg;
     private int number = -1;
     private RelativeLayout viewlayout;
 
@@ -53,16 +55,32 @@ public class homeFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.home_fragment, container,false);
-        View textView = view.findViewById(R.id.text);
-
-        ((TextView) textView).setText((String) home.myBusiness.get(number));
-
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
+        businessName = (TextView) view.findViewById(R.id.businessName);
+        businessLocation = (TextView) view.findViewById(R.id.businessLocation);
+        myRemainCoupon = (TextView) view.findViewById(R.id.myRemainCoupon);
+        myUsedCoupon = (TextView) view.findViewById(R.id.myUsedCoupon);
+
+
+        mybusinessimg = (ImageView) view.findViewById(R.id.mybusinessimg); //매장 사진 교체
+        if(number%2==0) {
+            mybusinessimg.setImageDrawable(getResources().getDrawable(R.drawable.bo));
+        }else{
+            mybusinessimg.setImageDrawable(getResources().getDrawable(R.drawable.ilike));
+        }
+
+        businessName.setText((String) home.businessName.get(number));      //매장 이름
+        businessLocation.setText((String) home.businessLocation.get(number));//매장 주소
+        myRemainCoupon.setText((String) home.remainCoupon.get(number)); //남은 쿠폰 갯수
+        myUsedCoupon.setText((String) home.usedCoupon.get(number));     //사용한 쿠폰 갯수
+
+
+
 
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override
-            public void onClick(View v) {               //오전 오후 눌러도 시간 선택
-                Toast.makeText(getActivity(), (String)home.myBusiness.get(number), Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
+                Toast.makeText(getActivity(), (String)home.businessName.get(number), Toast.LENGTH_SHORT).show();
             }
         });
 
