@@ -47,6 +47,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     PagerAdapter pagerAdapter;
 
+    int stampNumber, couponNumber;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -122,8 +124,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private void initViewPagerAndTabs() {
 
         downViewPager = (ViewPager) view.findViewById(R.id.down_viewPager);
-        pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
-
+        //pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getChildFragmentManager());
         pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
         pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
 
@@ -191,7 +193,27 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
-        //text_home.setText("남은 쿠폰 갯수 : " + remainCoupon.get(number));
+        stampNumber =  Integer.parseInt((String) remainCoupon.get(number));
+
+        /*
+        thisisstamp.clear();
+        for(int i=1; i <= stampNumber;i++){
+            thisisstamp.add(String.valueOf(businessName.get(number)) + " 스탬프 " + i);
+        }
+//        initViewPagerAndTabs();
+//        pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+
+        pagerAdapter = new PagerAdapter(getChildFragmentManager());
+        pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
+        pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
+
+        //downViewPager.setOffscreenPageLimit(2);
+        //downViewPager.setAdapter(pagerAdapter);
+
+        pagerAdapter.notifyDataSetChanged();
+
+*/
+
     }
 
     private void setPagerAdapter() {

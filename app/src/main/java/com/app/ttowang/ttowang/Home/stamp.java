@@ -43,6 +43,7 @@ public class stamp extends android.support.v4.app.ListFragment {
 
         Log.d("ArrayListFragment", "onCreate");
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisisstamp);
+        //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
         setListAdapter(adapter);
     }
 
