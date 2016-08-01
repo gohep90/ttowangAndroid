@@ -2,24 +2,28 @@ package com.app.ttowang.ttowang.Home;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.ArrayAdapter;
+
 import com.app.ttowang.ttowang.R;
 
 /**
  * Created by srpgs2 on 2016-08-01.
  */
-public class coupon extends android.support.v4.app.Fragment{
+public class coupon extends android.support.v4.app.ListFragment{
 
     public final static String ITEMS_COUNT_KEY = "Main_C$ItemsCount";
+    static ArrayAdapter<String> adapter;
+    int number;
 
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         View view = in.inflate(R.layout.coupon, ctn, false);
-
 
         return view;
     }
@@ -30,5 +34,14 @@ public class coupon extends android.support.v4.app.Fragment{
         bundle.putInt(ITEMS_COUNT_KEY, itemsCount);
         mainC.setArguments(bundle);
         return mainC;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d("ArrayListFragment", "onCreate");
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisiscoupon);
+        setListAdapter(adapter);
     }
 }

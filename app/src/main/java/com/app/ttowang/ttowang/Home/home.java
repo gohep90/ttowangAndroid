@@ -27,6 +27,8 @@ import java.util.List;
 public class home extends Fragment implements homeFragment.OnFragmentInteractionListener {
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
+    static ArrayList<String> thisisstamp = new ArrayList<String>();
+    static ArrayList<String> thisiscoupon = new ArrayList<String>();
 
     private ViewPager upViewPager, downViewPager;;
     private TextView text_home;
@@ -42,6 +44,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     static View view;
 
     ExtensiblePageIndicator extensiblePageIndicator;
+
+    PagerAdapter pagerAdapter;
 
     @Nullable
     @Override
@@ -87,8 +91,30 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+        thisisstamp.add("스탬프1");
+        thisisstamp.add("스탬프2");
+        thisisstamp.add("스탬프3");
+        thisisstamp.add("스탬프4");
+        thisisstamp.add("스탬프5");
+        thisisstamp.add("스탬프6");
+        thisisstamp.add("스탬프7");
+        thisisstamp.add("스탬프8");
+
+        thisiscoupon.add("쿠폰1");
+        thisiscoupon.add("쿠폰2");
+        thisiscoupon.add("쿠폰3");
+        thisiscoupon.add("쿠폰4");
+        thisiscoupon.add("쿠폰5");
+        thisiscoupon.add("쿠폰6");
+        thisiscoupon.add("쿠폰7");
+        thisiscoupon.add("쿠폰8");
+
         initViewPagerAndTabs();
 
+        pagerAdapter.notifyDataSetChanged();
+
+
+        //thisisstamp.add("Chesse"+(position + 1));
 
         return view;
     }
@@ -96,7 +122,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private void initViewPagerAndTabs() {
 
         downViewPager = (ViewPager) view.findViewById(R.id.down_viewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
 
         pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
         pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
@@ -106,6 +132,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.add_tabLayout);
         tabLayout.setupWithViewPager(downViewPager);
 
+        /*
         downViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {        //현재 뷰페이저 번호 가져오기
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
@@ -120,6 +147,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             }
         });
+        */
     }
 
     static class PagerAdapter extends FragmentPagerAdapter {
@@ -164,8 +192,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
         //text_home.setText("남은 쿠폰 갯수 : " + remainCoupon.get(number));
-
-
     }
 
     private void setPagerAdapter() {

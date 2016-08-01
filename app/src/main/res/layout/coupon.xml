@@ -7,63 +7,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <ListView android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15px">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false"/>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-
-                    android:layout_margin="10dp"
-                    card_view:cardCornerRadius="4dp"
-                    >
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="저장"
-                    android:background="#00ff0000"
-                    android:id="@+id/save_button"/>
-</android.support.v7.widget.CardView>
-                <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-
-                    android:layout_margin="10dp"
-                    card_view:cardCornerRadius="4dp"
-                    >
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:text="취소"
-                    android:background="#00ff0000"
-                    android:id="@+id/cancel_button"/>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>
