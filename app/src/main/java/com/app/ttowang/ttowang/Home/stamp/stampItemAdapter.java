@@ -58,53 +58,73 @@ public class stampItemAdapter extends BaseAdapter {
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         stampItemClass stampItemClass = listViewItemList.get(position);
-        if(home.usedStampNumber >=  ((position*10)+0+1)){
+        if(home.usedStampNumber >=  ((position*10)+1)){
             stamp0.setText(position+"1"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+1)) {
+            stamp0.setText(position+"1"+"\n 있다");
         }else{
             stamp0.setText(position+"1"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+1+1)){
+        if(home.usedStampNumber >=  ((position*10)+2)){
             stamp1.setText(position+"2"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+2)) {
+            stamp1.setText(position+"2"+"\n 있다");
         }else{
             stamp1.setText(position+"2"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+2+1)){
+        if(home.usedStampNumber >=  ((position*10)+3)){
             stamp2.setText(position+"3"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+3)) {
+            stamp2.setText(position+"3"+"\n 있다");
         }else{
             stamp2.setText(position+"3"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+3+1)){
+        if(home.usedStampNumber >=  ((position*10)+4)){
             stamp3.setText(position+"4"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+4)) {
+            stamp3.setText(position+"4"+"\n 있다");
         }else{
             stamp3.setText(position+"4"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+4+1)){
+        if(home.usedStampNumber >=  ((position*10)+5)){
             stamp4.setText(position+"5"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+5)) {
+            stamp4.setText(position+"5"+"\n 있다");
         }else{
             stamp4.setText(position+"5"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+5+1)){
+        if(home.usedStampNumber >=  ((position*10)+6)){
             stamp5.setText(position+"6"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+6)) {
+            stamp5.setText(position+"6"+"\n 있다");
         }else{
             stamp5.setText(position+"6"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+6+1)){
+        if(home.usedStampNumber >=  ((position*10)+7)){
             stamp6.setText(position+"7"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+7)) {
+            stamp6.setText(position+"7"+"\n 있다");
         }else{
             stamp6.setText(position+"7"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+7+1)){
+        if(home.usedStampNumber >=  ((position*10)+8)){
             stamp7.setText(position+"8"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+8)) {
+            stamp7.setText(position+"8"+"\n 있다");
         }else{
             stamp7.setText(position+"8"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+8+1)){
+        if(home.usedStampNumber >=  ((position*10)+9)){
             stamp8.setText(position+"9"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+9)) {
+            stamp8.setText(position+"9"+"\n 있다");
         }else{
             stamp8.setText(position+"9"+"\n no");
         }
-        if(home.usedStampNumber >=  ((position*10)+9+1)){
+        if(home.usedStampNumber >=  ((position*10)+10)){
             stamp9.setText((position+1)+"0"+"\n 사용");
+        }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+10)) {
+            stamp9.setText((position+1)+"0"+"\n 있다");
         }else{
             stamp9.setText((position+1)+"0"+"\n no");
         }
