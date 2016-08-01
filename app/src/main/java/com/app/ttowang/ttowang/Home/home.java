@@ -2,8 +2,13 @@ package com.app.ttowang.ttowang.Home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +28,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
-    private ViewPager pager;
+    private ViewPager upViewPager, downViewPager;;
     private TextView text_home;
     private homeAdapter adapter;
     private RelativeLayout viewlayout;
@@ -43,7 +48,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
         view = inflater.inflate(R.layout.home,container, false);
-        pager = (ViewPager)view.findViewById(R.id.viewpager);
+        upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
 
         businessName.clear();
@@ -74,13 +79,76 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         usedCoupon.add("9000");
         usedCoupon.add("2");
 
-
-        pager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
-        pager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
+        upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
+        upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
         extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
-        extensiblePageIndicator.initViewPager(pager);
+        extensiblePageIndicator.initViewPager(upViewPager);
+
+////////////////////////////////////////////////////////////////////////////////////
+
+        initViewPagerAndTabs();
+
+
         return view;
+    }
+
+    private void initViewPagerAndTabs() {
+
+        downViewPager = (ViewPager) view.findViewById(R.id.down_viewPager);
+        PagerAdapter pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+
+        pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
+        pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
+
+        downViewPager.setOffscreenPageLimit(2);
+        downViewPager.setAdapter(pagerAdapter);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.add_tabLayout);
+        tabLayout.setupWithViewPager(downViewPager);
+
+        downViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {        //현재 뷰페이저 번호 가져오기
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.i("Add - ", "fragment 번호 = " + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    static class PagerAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitleList = new ArrayList<>();
+
+        public PagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentTitleList.get(position);
+        }
     }
 
     public static home createInstance(int itemsCount) {
@@ -92,10 +160,10 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     }
 
     public void onFragmentCreated(int number) { //여기서 쿠폰 갯수 세팅 해줌
-        text_home = (TextView) view.findViewById(R.id.text_home);
+        //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
-        text_home.setText("남은 쿠폰 갯수 : " + remainCoupon.get(number));
+        //text_home.setText("남은 쿠폰 갯수 : " + remainCoupon.get(number));
 
 
     }
@@ -103,6 +171,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private void setPagerAdapter() {
         //adapter = new homeAdapter(getActivity().getSupportFragmentManager());
         adapter = new homeAdapter(getChildFragmentManager());
-        pager.setAdapter(adapter);
+        upViewPager.setAdapter(adapter);
     }
 }

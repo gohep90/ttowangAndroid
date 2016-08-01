@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
         pagerAdapter.addFragment(home.createInstance(0), "홈");
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
         pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
