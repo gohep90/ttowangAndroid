@@ -1,23 +1,22 @@
 package com.app.ttowang.ttowang.Home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.app.ttowang.ttowang.Home.coupon.coupon;
+import com.app.ttowang.ttowang.Home.stamp.stamp;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;
@@ -28,21 +27,21 @@ import java.util.List;
 public class home extends Fragment implements homeFragment.OnFragmentInteractionListener {
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
-    static ArrayList<String> thisisstamp = new ArrayList<String>();
-    static ArrayList<String> thisiscoupon = new ArrayList<String>();
+    public static ArrayList<String> thisisstamp = new ArrayList<String>();
+    public static ArrayList<String> thisiscoupon = new ArrayList<String>();
 
     private ViewPager upViewPager, downViewPager;;
-    private TextView text_home;
+
     private homeAdapter adapter;
     private RelativeLayout viewlayout;
     private ImageView mybusinessimg;
 
     static List businessName = new ArrayList();     //즐겨찾기 매장 이름
     static List businessLocation = new ArrayList(); //즐겨찾기 매장 위치
-    static List remainStamp = new ArrayList();      //즐겨찾기 매장 사용가능 쿠폰
-    static List usedStamp = new ArrayList();        //즐겨찾기 매장 사용한 쿠폰
+    public static List remainStamp = new ArrayList();      //즐겨찾기 매장 사용가능 쿠폰
+    public static List usedStamp = new ArrayList();        //즐겨찾기 매장 사용한 쿠폰
     static List myCoupon = new ArrayList();         //즐겨찾기 매장 내 쿠폰(사용가능한것과 사용한 것 포함)
-    //static List usedCoupon = new ArrayList();
+
 
     static View view;
 
@@ -50,8 +49,9 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     PagerAdapter pagerAdapter;
 
-    int stampNumber, couponNumber;
+    int remainStampNumber,usedStampNumber, myCouponNumber;
 
+    Context context;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,13 +79,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         remainStamp.add("10");
         remainStamp.add("100");
         remainStamp.add("50");
-        remainStamp.add("500");
+        remainStamp.add("90");
 
         usedStamp.clear();
         usedStamp.add("108");
         usedStamp.add("15");
         usedStamp.add("30");
-        usedStamp.add("9000");
+        usedStamp.add("90");
         usedStamp.add("2");
 
         myCoupon.clear();
@@ -103,14 +103,16 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-        thisisstamp.add("스탬프1");
-
+        thisiscoupon.clear();
         thisiscoupon.add("쿠폰1");
-
+/*
+        usedStampNumber = Integer.parseInt((String) usedStamp.get(0));
+        stamp.setAddAdapter((usedStampNumber / 10) + 1);
+*/
         initViewPagerAndTabs();
 
-        pagerAdapter.notifyDataSetChanged();
-
+        //pagerAdapter.notifyDataSetChanged();
+        //stamp.setAddAdapter(((Integer.parseInt((String) home.usedStamp.get(0))/ 10) + 1));    //처음 초기화
 
         return view;
     }
@@ -184,22 +186,51 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     }
 
     public void onFragmentCreated(int number) { //여기서 쿠폰 갯수 세팅 해줌
+
         Log.i("home - ","쿠폰 바꿈 : " + String.valueOf(businessName.get(number)));
         //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
-        stampNumber =  Integer.parseInt((String) remainStamp.get(number));
-        couponNumber = Integer.parseInt((String) myCoupon.get(number));
-        thisisstamp.clear();
-        for(int i=1; i <= stampNumber;i++){
-            thisisstamp.add(String.valueOf(businessName.get(number)) + " 스탬프 " + i);
+        remainStampNumber =  Integer.parseInt((String) remainStamp.get(number));
+        usedStampNumber = Integer.parseInt((String) usedStamp.get(number));
+        myCouponNumber = Integer.parseInt((String) myCoupon.get(number));
+
+        if(MainActivity.first==0){
+            MainActivity.first = 1;
+        }else{
+            try {
+                stamp.setAddAdapter(((usedStampNumber+remainStampNumber) / 10) + 1);
+                Log.i("home - ", "스템프 리스트 갯수 : " + (((usedStampNumber+remainStampNumber) / 10) + 1));
+            } catch (Exception e) {
+
+            }
         }
 
+        /*
+        for(int i =1; i<= (usedStampNumber%10) +1; i++){
+            stamp.adapter.addItem();
+        }
+        */
+
+        /*
+        thisisstamp.clear();
+        int i;
+
+        for(i=1; i<=usedStampNumber; i++){
+            thisisstamp.add(String.valueOf(businessName.get(number)) + " 사용 스탬프 " + i);
+        }
+
+        for(i= 1; i <= remainStampNumber;i++){
+            thisisstamp.add(String.valueOf(businessName.get(number)) + " 노사용 스탬프 " + i);
+        }
+*/
+        /*
         thisiscoupon.clear();
-        for(int i=1; i <= couponNumber;i++){
+        for(i=1; i <= myCouponNumber;i++){
             thisiscoupon.add(String.valueOf(businessName.get(number)) + " 쿠폰 " + i);
         }
-
+*/
+        /*
         try{        //초기화 할때는 오류난다. 초기화 다음부터 이걸 사용해야한다.
             stamp.thisisstampRefresh();
             coupon.thisiscouponRefresh();
@@ -207,6 +238,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         }catch (Exception e){
 
         }
+        */
     }
 
     private void setPagerAdapter() {

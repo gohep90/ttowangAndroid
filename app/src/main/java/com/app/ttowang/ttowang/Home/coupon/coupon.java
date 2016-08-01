@@ -1,15 +1,13 @@
-package com.app.ttowang.ttowang.Home;
+package com.app.ttowang.ttowang.Home.coupon;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.ArrayAdapter;
 
+import com.app.ttowang.ttowang.Home.home;
 import com.app.ttowang.ttowang.R;
 
 /**
@@ -47,5 +45,6 @@ public class coupon extends android.support.v4.app.ListFragment{
 
     public static void thisiscouponRefresh(){
         adapter.notifyDataSetChanged();
+
     }
 }
