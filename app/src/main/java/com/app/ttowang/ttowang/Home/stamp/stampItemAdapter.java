@@ -61,112 +61,112 @@ public class stampItemAdapter extends BaseAdapter {
         if(home.usedStampNumber >=  ((position*10)+0+1)){
             stamp0.setText(position+"1"+"\n 사용");
         }else{
-            stamp0.setText(position+"1"+"\n 미사용");
+            stamp0.setText(position+"1"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+1+1)){
             stamp1.setText(position+"2"+"\n 사용");
         }else{
-            stamp1.setText(position+"2"+"\n 미사용");
+            stamp1.setText(position+"2"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+2+1)){
             stamp2.setText(position+"3"+"\n 사용");
         }else{
-            stamp2.setText(position+"3"+"\n 미사용");
+            stamp2.setText(position+"3"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+3+1)){
             stamp3.setText(position+"4"+"\n 사용");
         }else{
-            stamp3.setText(position+"4"+"\n 미사용");
+            stamp3.setText(position+"4"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+4+1)){
             stamp4.setText(position+"5"+"\n 사용");
         }else{
-            stamp4.setText(position+"5"+"\n 미사용");
+            stamp4.setText(position+"5"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+5+1)){
             stamp5.setText(position+"6"+"\n 사용");
         }else{
-            stamp5.setText(position+"6"+"\n 미사용");
+            stamp5.setText(position+"6"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+6+1)){
             stamp6.setText(position+"7"+"\n 사용");
         }else{
-            stamp6.setText(position+"7"+"\n 미사용");
+            stamp6.setText(position+"7"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+7+1)){
             stamp7.setText(position+"8"+"\n 사용");
         }else{
-            stamp7.setText(position+"8"+"\n 미사용");
+            stamp7.setText(position+"8"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+8+1)){
             stamp8.setText(position+"9"+"\n 사용");
         }else{
-            stamp8.setText(position+"9"+"\n 미사용");
+            stamp8.setText(position+"9"+"\n no");
         }
         if(home.usedStampNumber >=  ((position*10)+9+1)){
             stamp9.setText((position+1)+"0"+"\n 사용");
         }else{
-            stamp9.setText((position+1)+"0"+"\n 미사용");
+            stamp9.setText((position+1)+"0"+"\n no");
         }
 
         stamp0.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"0", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"1", Toast.LENGTH_SHORT).show();
             }
         });
         stamp1.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"1", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"2", Toast.LENGTH_SHORT).show();
             }
         });
         stamp2.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"3", Toast.LENGTH_SHORT).show();
             }
         });
         stamp3.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"3", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"4", Toast.LENGTH_SHORT).show();
             }
         });
         stamp4.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"4", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"5", Toast.LENGTH_SHORT).show();
             }
         });
         stamp5.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"5", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"6", Toast.LENGTH_SHORT).show();
             }
         });
         stamp6.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"6", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"7", Toast.LENGTH_SHORT).show();
             }
         });
         stamp7.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"7", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"8", Toast.LENGTH_SHORT).show();
             }
         });
         stamp8.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"8", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, position+"9", Toast.LENGTH_SHORT).show();
             }
         });
         stamp9.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"9", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, (position+1)+"0", Toast.LENGTH_SHORT).show();
             }
         });
 
