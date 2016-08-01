@@ -49,7 +49,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     PagerAdapter pagerAdapter;
 
-    int remainStampNumber,usedStampNumber, myCouponNumber;
+    public static int remainStampNumber,usedStampNumber, myCouponNumber;
 
     Context context;
     @Nullable

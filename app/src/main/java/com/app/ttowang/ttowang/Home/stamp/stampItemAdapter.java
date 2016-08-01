@@ -58,16 +58,56 @@ public class stampItemAdapter extends BaseAdapter {
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         stampItemClass stampItemClass = listViewItemList.get(position);
-        stamp0.setText(position+"0");
-        stamp1.setText(position+"1");
-        stamp2.setText(position+"2");
-        stamp3.setText(position+"3");
-        stamp4.setText(position+"4");
-        stamp5.setText(position+"5");
-        stamp6.setText(position+"6");
-        stamp7.setText(position+"7");
-        stamp8.setText(position+"8");
-        stamp9.setText(position+"9");
+        if(home.usedStampNumber >=  ((position*10)+0+1)){
+            stamp0.setText(position+"1"+"\n 사용");
+        }else{
+            stamp0.setText(position+"1"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+1+1)){
+            stamp1.setText(position+"2"+"\n 사용");
+        }else{
+            stamp1.setText(position+"2"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+2+1)){
+            stamp2.setText(position+"3"+"\n 사용");
+        }else{
+            stamp2.setText(position+"3"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+3+1)){
+            stamp3.setText(position+"4"+"\n 사용");
+        }else{
+            stamp3.setText(position+"4"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+4+1)){
+            stamp4.setText(position+"5"+"\n 사용");
+        }else{
+            stamp4.setText(position+"5"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+5+1)){
+            stamp5.setText(position+"6"+"\n 사용");
+        }else{
+            stamp5.setText(position+"6"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+6+1)){
+            stamp6.setText(position+"7"+"\n 사용");
+        }else{
+            stamp6.setText(position+"7"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+7+1)){
+            stamp7.setText(position+"8"+"\n 사용");
+        }else{
+            stamp7.setText(position+"8"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+8+1)){
+            stamp8.setText(position+"9"+"\n 사용");
+        }else{
+            stamp8.setText(position+"9"+"\n 미사용");
+        }
+        if(home.usedStampNumber >=  ((position*10)+9+1)){
+            stamp9.setText((position+1)+"0"+"\n 사용");
+        }else{
+            stamp9.setText((position+1)+"0"+"\n 미사용");
+        }
 
         stamp0.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
             @Override
