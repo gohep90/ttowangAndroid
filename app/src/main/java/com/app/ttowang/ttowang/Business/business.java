@@ -10,7 +10,7 @@ public class business extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeBlue);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business);
 

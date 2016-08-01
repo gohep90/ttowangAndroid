@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeBlue);
+        setTheme(R.style.AppThemeRed);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mContext = this;
