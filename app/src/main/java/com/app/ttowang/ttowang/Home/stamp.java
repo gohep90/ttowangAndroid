@@ -26,6 +26,7 @@ public class stamp extends android.support.v4.app.ListFragment {
     {
         View view = in.inflate(R.layout.stamp, ctn, false);
         number = getArguments() != null ? getArguments().getInt("number") : 1;
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisisstamp);
         return view;
     }
 
@@ -42,10 +43,17 @@ public class stamp extends android.support.v4.app.ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         Log.d("ArrayListFragment", "onCreate");
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisisstamp);
+
         //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
         setListAdapter(adapter);
+
+
     }
+
+    public static void thisisstampRefresh(){
+        adapter.notifyDataSetChanged();
+    }
+
 
     /*
     @Override

@@ -73,8 +73,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
         businessName.setText((String) home.businessName.get(number));      //매장 이름
         businessLocation.setText((String) home.businessLocation.get(number));//매장 주소
-        myRemainCoupon.setText((String) home.remainCoupon.get(number)); //남은 쿠폰 갯수
-        myUsedCoupon.setText((String) home.usedCoupon.get(number));     //사용한 쿠폰 갯수
+        myRemainCoupon.setText((String) home.remainStamp.get(number)); //남은 쿠폰 갯수
+        myUsedCoupon.setText((String) home.usedStamp.get(number));     //사용한 쿠폰 갯수
 
 
 

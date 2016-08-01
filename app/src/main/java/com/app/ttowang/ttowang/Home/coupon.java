@@ -24,7 +24,7 @@ public class coupon extends android.support.v4.app.ListFragment{
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         View view = in.inflate(R.layout.coupon, ctn, false);
-
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisiscoupon);
         return view;
     }
 
@@ -41,7 +41,11 @@ public class coupon extends android.support.v4.app.ListFragment{
         super.onActivityCreated(savedInstanceState);
 
         Log.d("ArrayListFragment", "onCreate");
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisiscoupon);
+
         setListAdapter(adapter);
+    }
+
+    public static void thisiscouponRefresh(){
+        adapter.notifyDataSetChanged();
     }
 }

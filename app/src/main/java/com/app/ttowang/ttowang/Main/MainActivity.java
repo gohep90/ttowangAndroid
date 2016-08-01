@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     //final DBHelper dbHelper = new DBHelper(getActivi(), "alarm.db", null, 1);
 
     public static Context mContext;
-
+    public static int first = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeRed);

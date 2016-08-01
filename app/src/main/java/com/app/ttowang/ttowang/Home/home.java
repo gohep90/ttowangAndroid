@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,10 +37,12 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private RelativeLayout viewlayout;
     private ImageView mybusinessimg;
 
-    static List businessName = new ArrayList();
-    static List businessLocation = new ArrayList();
-    static List remainCoupon = new ArrayList();
-    static List usedCoupon = new ArrayList();
+    static List businessName = new ArrayList();     //즐겨찾기 매장 이름
+    static List businessLocation = new ArrayList(); //즐겨찾기 매장 위치
+    static List remainStamp = new ArrayList();      //즐겨찾기 매장 사용가능 쿠폰
+    static List usedStamp = new ArrayList();        //즐겨찾기 매장 사용한 쿠폰
+    static List myCoupon = new ArrayList();         //즐겨찾기 매장 내 쿠폰(사용가능한것과 사용한 것 포함)
+    //static List usedCoupon = new ArrayList();
 
     static View view;
 
@@ -71,19 +74,26 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         businessLocation.add("비트위의 나그네");
         businessLocation.add("더빠르게 빨려들어가");
 
-        remainCoupon.clear();
-        remainCoupon.add("5");
-        remainCoupon.add("10");
-        remainCoupon.add("100");
-        remainCoupon.add("50");
-        remainCoupon.add("5000");
+        remainStamp.clear();
+        remainStamp.add("5");
+        remainStamp.add("10");
+        remainStamp.add("100");
+        remainStamp.add("50");
+        remainStamp.add("500");
 
-        usedCoupon.clear();
-        usedCoupon.add("108");
-        usedCoupon.add("15");
-        usedCoupon.add("30");
-        usedCoupon.add("9000");
-        usedCoupon.add("2");
+        usedStamp.clear();
+        usedStamp.add("108");
+        usedStamp.add("15");
+        usedStamp.add("30");
+        usedStamp.add("9000");
+        usedStamp.add("2");
+
+        myCoupon.clear();
+        myCoupon.add("3");
+        myCoupon.add("5");
+        myCoupon.add("10");
+        myCoupon.add("7");
+        myCoupon.add("20");
 
         upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
@@ -94,29 +104,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 ////////////////////////////////////////////////////////////////////////////////////
 
         thisisstamp.add("스탬프1");
-        thisisstamp.add("스탬프2");
-        thisisstamp.add("스탬프3");
-        thisisstamp.add("스탬프4");
-        thisisstamp.add("스탬프5");
-        thisisstamp.add("스탬프6");
-        thisisstamp.add("스탬프7");
-        thisisstamp.add("스탬프8");
 
         thisiscoupon.add("쿠폰1");
-        thisiscoupon.add("쿠폰2");
-        thisiscoupon.add("쿠폰3");
-        thisiscoupon.add("쿠폰4");
-        thisiscoupon.add("쿠폰5");
-        thisiscoupon.add("쿠폰6");
-        thisiscoupon.add("쿠폰7");
-        thisiscoupon.add("쿠폰8");
 
         initViewPagerAndTabs();
 
         pagerAdapter.notifyDataSetChanged();
 
-
-        //thisisstamp.add("Chesse"+(position + 1));
 
         return view;
     }
@@ -190,30 +184,29 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     }
 
     public void onFragmentCreated(int number) { //여기서 쿠폰 갯수 세팅 해줌
+        Log.i("home - ","쿠폰 바꿈 : " + String.valueOf(businessName.get(number)));
         //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
-        stampNumber =  Integer.parseInt((String) remainCoupon.get(number));
-
-        /*
+        stampNumber =  Integer.parseInt((String) remainStamp.get(number));
+        couponNumber = Integer.parseInt((String) myCoupon.get(number));
         thisisstamp.clear();
         for(int i=1; i <= stampNumber;i++){
             thisisstamp.add(String.valueOf(businessName.get(number)) + " 스탬프 " + i);
         }
-//        initViewPagerAndTabs();
-//        pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
 
-        pagerAdapter = new PagerAdapter(getChildFragmentManager());
-        pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
-        pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
+        thisiscoupon.clear();
+        for(int i=1; i <= couponNumber;i++){
+            thisiscoupon.add(String.valueOf(businessName.get(number)) + " 쿠폰 " + i);
+        }
 
-        //downViewPager.setOffscreenPageLimit(2);
-        //downViewPager.setAdapter(pagerAdapter);
+        try{        //초기화 할때는 오류난다. 초기화 다음부터 이걸 사용해야한다.
+            stamp.thisisstampRefresh();
+            coupon.thisiscouponRefresh();
+            Log.i("home - ","스템프, 쿠폰 리프레쉬");
+        }catch (Exception e){
 
-        pagerAdapter.notifyDataSetChanged();
-
-*/
-
+        }
     }
 
     private void setPagerAdapter() {
