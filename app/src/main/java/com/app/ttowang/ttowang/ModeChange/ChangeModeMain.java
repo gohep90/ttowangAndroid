@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,16 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 
-import com.app.ttowang.ttowang.Main.Business.businessMain;
-import com.app.ttowang.ttowang.Main.Event.eventMain;
-import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
 import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
-import com.app.ttowang.ttowang.ModeChange.setting.setting;
+import com.app.ttowang.ttowang.ModeChange.setting.Modesetting;
 import com.app.ttowang.ttowang.R;
 
 import java.util.ArrayList;
@@ -30,6 +29,9 @@ public class ChangeModeMain extends AppCompatActivity {
 
     public static Context mContext;
     public static int first = 0;
+    String where;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeRed);
@@ -39,6 +41,10 @@ public class ChangeModeMain extends AppCompatActivity {
         initToolbar();
         initViewPagerAndTabs();
 
+        Intent intent = getIntent();
+
+        where = intent.getStringExtra("where");
+        Log.i("ChangeModeMain - ","intent where : " + where);
     }
 
     private void initToolbar() {
@@ -56,7 +62,7 @@ public class ChangeModeMain extends AppCompatActivity {
         pagerAdapter.addFragment(stamp.createInstance(0), "Stamp");
         pagerAdapter.addFragment(recent.createInstance(1), "MY SHOP");
         pagerAdapter.addFragment(myshop.createInstance(2), "RECENT");
-        pagerAdapter.addFragment(setting.createInstance(3), "SETTING");
+        pagerAdapter.addFragment(Modesetting.createInstance(3), "SETTING");
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -100,13 +106,15 @@ public class ChangeModeMain extends AppCompatActivity {
         return true;
     }
 
-
+/*
     @Override
     public boolean dispatchKeyEvent(KeyEvent event){
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
             Log.i("버튼","뒤로가기");
-
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            setResult(RESULT_CANCELED, intent);
+            finish();
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
             Log.i("버튼","홈");
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_MENU){
@@ -114,5 +122,22 @@ public class ChangeModeMain extends AppCompatActivity {
         }
         return true;
     }
+*/
 
+    @Override
+    public void onBackPressed(){
+        Log.i("ChangeModeMain","뒤로가기");
+        if(where.equals("MainActivity")){
+            Log.i("ChangeModeMain","where - MainActivity");
+            Intent intent = new Intent(getApplication(), MainActivity.class);
+            setResult(RESULT_CANCELED, intent);
+        }else if(where.equals("Mainsetting")){
+            Log.i("ChangeModeMain","where - Mainsetting");
+            //Intent intent = new Intent(getApplication(), Mainsetting.class);
+            Intent intent = new Intent(getApplication(), MainActivity.class);
+            setResult(RESULT_CANCELED, intent);
+        }
+
+        finish();
+    }
 }

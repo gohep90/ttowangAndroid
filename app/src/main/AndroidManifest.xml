@@ -34,13 +34,19 @@
         </activity>
 
         <activity
-                     android:name=".ModeChange.ChangeModeMain"
-                     android:label="또왕"
-                     android:screenOrientation="portrait">
-                     <intent-filter>
-                         <action android:name="android.intent.action.MAIN" />
-                     </intent-filter>
-                 </activity>
+             android:name=".ModeChange.ChangeModeMain"
+             android:label="또왕"
+             android:screenOrientation="portrait">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+             </intent-filter>
+         </activity>
+
+        <activity
+            android:name=".Main.Loading.Loading"
+
+            android:screenOrientation="portrait">
+        </activity>
 
 
     <activity android:name=".Main.Business.business"></activity>
