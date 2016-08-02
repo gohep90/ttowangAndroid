@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Main.Setting;
+package com.app.ttowang.ttowang.ModeChange.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,8 +40,9 @@ public class setting extends Fragment {
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "체인지모드 실행", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
+                Toast.makeText(getActivity(), "체인지모드 종료", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
+                getActivity().finish();
             }
         });
         return view;

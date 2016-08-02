@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 
 import com.app.ttowang.ttowang.Main.Business.businessMain;
@@ -17,8 +19,8 @@ import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
 import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
+import com.app.ttowang.ttowang.ModeChange.setting.setting;
 import com.app.ttowang.ttowang.R;
-import com.app.ttowang.ttowang.Main.Setting.setting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +97,19 @@ public class ChangeModeMain extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event){
+
+        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+            Log.i("버튼","뒤로가기");
+        }else if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
+            Log.i("버튼","홈");
+        }else if(event.getKeyCode() == KeyEvent.KEYCODE_MENU){
+            Log.i("버튼","메뉴");
+        }
         return true;
     }
 
