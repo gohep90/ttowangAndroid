@@ -100,11 +100,13 @@ public class ChangeModeMain extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event){
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
             Log.i("버튼","뒤로가기");
+
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
             Log.i("버튼","홈");
         }else if(event.getKeyCode() == KeyEvent.KEYCODE_MENU){
