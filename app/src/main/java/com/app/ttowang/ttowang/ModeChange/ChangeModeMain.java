@@ -29,7 +29,7 @@ public class ChangeModeMain extends AppCompatActivity {
 
     public static Context mContext;
     public static int first = 0;
-    String where;
+
 
 
     @Override
@@ -41,10 +41,6 @@ public class ChangeModeMain extends AppCompatActivity {
         initToolbar();
         initViewPagerAndTabs();
 
-        Intent intent = getIntent();
-
-        where = intent.getStringExtra("where");
-        Log.i("ChangeModeMain - ","intent where : " + where);
     }
 
     private void initToolbar() {
@@ -126,18 +122,9 @@ public class ChangeModeMain extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Log.i("ChangeModeMain","뒤로가기");
-        if(where.equals("MainActivity")){
-            Log.i("ChangeModeMain","where - MainActivity");
-            Intent intent = new Intent(getApplication(), MainActivity.class);
-            setResult(RESULT_CANCELED, intent);
-        }else if(where.equals("Mainsetting")){
-            Log.i("ChangeModeMain","where - Mainsetting");
-            //Intent intent = new Intent(getApplication(), Mainsetting.class);
-            Intent intent = new Intent(getApplication(), MainActivity.class);
-            setResult(RESULT_CANCELED, intent);
-        }
-
+        Log.i("ChangeModeMain - ","뒤로가기 버튼");
+        Intent intent = new Intent(getApplication(), MainActivity.class);
+        setResult(RESULT_CANCELED, intent);
         finish();
     }
 }

@@ -40,13 +40,13 @@ public class Modesetting extends Fragment {
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "체인지모드 종료", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
+
                 MainActivity.Edit.putString("nowMode", "off");
                 Log.i("setting - ", "가맹점 모드 : off");
                 MainActivity.Edit.commit();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 getActivity().setResult(getActivity().RESULT_OK, intent);
+                Toast.makeText(getActivity(), "사업자 모드 종료", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
         });

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Business.businessMain;
 import com.app.ttowang.ttowang.Main.Event.eventMain;
@@ -45,25 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
         Edit = sharedPreferences.edit();
-        if(sharedPreferences.getInt("openNumber",0) == 0){  //처음 열었으면
 
+        if(sharedPreferences.getInt("openNumber",0) == 0){  //처음 열었으면
             Edit.putString("nowMode", "off");
             Edit.putInt("openNumber", 1);
             Log.i("MainActivity - ", "첫 로딩 초기화");
             Log.i("MainActivity - ", "가맹점 모드 : off");
             Edit.commit();
-
         }else{    //처음 연게 아니면
             String nowMode = sharedPreferences.getString("nowMode","");
             Log.i("MainActivity - ", "가맹점 모드 : " + nowMode);
             if(nowMode.equals("on")){   //마지막으로 종료한게 사업자 모드면
                 Intent intent = new Intent(mContext, ChangeModeMain.class);
-                intent.putExtra("where","MainAvtivity");
+                Toast.makeText(getApplicationContext(), "사업자 모드 실행", Toast.LENGTH_SHORT).show();
                 startActivityForResult(intent, 0);
             }
         }
-
-
 
         initToolbar();
         initViewPagerAndTabs();
@@ -128,22 +126,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-/*
-    public final void goModeChange(){
-        Toast.makeText(mContext, "체인지모드 실행", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(mContext, ChangeModeMain.class);
-        startActivityForResult(intent, 0);
-        MainActivity.Edit.putString("nowMode", "on");
-        Log.i("setting - ", "가맹점 모드 : on");
-        MainActivity.Edit.commit();
-    }
-*/
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {    //설정한 시간 가져오기 부분
         switch (requestCode) {
             case 0:
-
                 if(resultCode == RESULT_OK) {                 //ChangeMode에서 Modechange 버튼 누르면 기본 화면 전환
                     Log.i("MainActivity - ","가맹점 모드 RESULT_OK 받음");
                 }else if(resultCode == RESULT_CANCELED) {      //ChangeMode에서 뒤로가기 누르면 어플 종료
@@ -153,5 +139,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }

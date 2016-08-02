@@ -42,16 +42,11 @@ public class Mainsetting extends Fragment {
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //MainActivity.goModeChange();
-
-                Toast.makeText(getActivity(), "체인지모드 실행", Toast.LENGTH_SHORT).show();
-
                 MainActivity.Edit.putString("nowMode", "on");
                 Log.i("setting - ", "가맹점 모드 : on");
                 MainActivity.Edit.commit();
-
                 Intent intent = new Intent(MainActivity.mContext, ChangeModeMain.class);
-                intent.putExtra("where","Mainsetting");
+                Toast.makeText(getActivity(), "사업자 모드 실행", Toast.LENGTH_SHORT).show();
                 getActivity().startActivityForResult(intent, 0);
             }
         });
