@@ -24,7 +24,7 @@ public class coupon extends android.support.v4.app.ListFragment{
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         Log.i("coupon - ", "초기화");
-        view = in.inflate(R.layout.coupon, ctn, false);
+        view = in.inflate(R.layout.couponview, ctn, false);
         number = getArguments() != null ? getArguments().getInt("number") : 1;
         list = (ListView) view.findViewById(android.R.id.list);
 

@@ -14,6 +14,9 @@ import android.view.Menu;
 import com.app.ttowang.ttowang.Main.Business.businessMain;
 import com.app.ttowang.ttowang.Main.Event.eventMain;
 import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
+import com.app.ttowang.ttowang.ModeChange.Recent.recent;
+import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 import com.app.ttowang.ttowang.Main.Setting.setting;
 
@@ -48,9 +51,9 @@ public class ChangeModeMain extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment(home.createInstance(0), "Stamp");
-        pagerAdapter.addFragment(businessMain.createInstance(1), "MY SHOP");
-        pagerAdapter.addFragment(eventMain.createInstance(2), "RECENT");
+        pagerAdapter.addFragment(stamp.createInstance(0), "Stamp");
+        pagerAdapter.addFragment(recent.createInstance(1), "MY SHOP");
+        pagerAdapter.addFragment(myshop.createInstance(2), "RECENT");
         pagerAdapter.addFragment(setting.createInstance(3), "SETTING");
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);

@@ -26,7 +26,7 @@ public class stamp extends android.support.v4.app.ListFragment {
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         Log.i("stamp - ", "초기화");
-        view = in.inflate(R.layout.stamp, ctn, false);
+        view = in.inflate(R.layout.stampview, ctn, false);
         number = getArguments() != null ? getArguments().getInt("number") : 1;
         list = (ListView) view.findViewById(android.R.id.list);
 
