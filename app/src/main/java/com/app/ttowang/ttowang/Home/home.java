@@ -211,7 +211,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             }
         }
-
     }
 
     private void setPagerAdapter() {

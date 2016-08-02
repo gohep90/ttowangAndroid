@@ -77,8 +77,6 @@ public class homeFragment extends android.support.v4.app.Fragment{
         myUsedCoupon.setText((String) home.usedStamp.get(number));     //사용한 쿠폰 갯수
 
 
-
-
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override
             public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
