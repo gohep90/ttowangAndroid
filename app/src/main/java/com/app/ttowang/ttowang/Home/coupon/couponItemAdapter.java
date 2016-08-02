@@ -50,13 +50,19 @@ public class couponItemAdapter extends BaseAdapter {
         couponName = (TextView)convertView.findViewById(R.id.couponName);
         couponNumber = (TextView)convertView.findViewById(R.id.couponNumber);
 
-
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         couponItemClass couponItemClass = listViewItemList.get(position);
 
         couponName.setText(position + "번째 쿠폰");
         couponNumber.setText(position*45 + " - "+position*7+" - "+position);
         // 아이템 내 각 위젯에 데이터 반영
+
+        useCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.mContext, position+"번째", Toast.LENGTH_SHORT).show();
+            }
+        });
         return convertView;
     }
 

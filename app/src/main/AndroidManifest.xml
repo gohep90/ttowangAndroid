@@ -9,7 +9,8 @@
         android:theme="@style/AppThemeRed2">
         <activity
             android:name=".Main.MainActivity"
-            android:label="또왕">
+            android:label="또왕"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

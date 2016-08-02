@@ -129,61 +129,61 @@ public class stampItemAdapter extends BaseAdapter {
             stamp9.setText((position+1)+"0"+"\n no");
         }
 
-        stamp0.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"1", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp1.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"2", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp2.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"3", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp3.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"4", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp4.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"5", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp5.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"6", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp6.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"7", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp7.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"8", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp8.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, position+"9", Toast.LENGTH_SHORT).show();
             }
         });
-        stamp9.setOnClickListener(new View.OnClickListener() {        //경로보기의 버튼
+        stamp9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.mContext, (position+1)+"0", Toast.LENGTH_SHORT).show();
