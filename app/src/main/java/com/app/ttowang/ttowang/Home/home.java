@@ -27,8 +27,6 @@ import java.util.List;
 public class home extends Fragment implements homeFragment.OnFragmentInteractionListener {
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
-    public static ArrayList<String> thisisstamp = new ArrayList<String>();
-    public static ArrayList<String> thisiscoupon = new ArrayList<String>();
 
     private ViewPager upViewPager, downViewPager;;
 
@@ -103,8 +101,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-        thisiscoupon.clear();
-        thisiscoupon.add("쿠폰1");
 /*
         usedStampNumber = Integer.parseInt((String) usedStamp.get(0));
         stamp.setAddAdapter((usedStampNumber / 10) + 1);
@@ -196,7 +192,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         myCouponNumber = Integer.parseInt((String) myCoupon.get(number));
 
         if(MainActivity.first==0){
-            MainActivity.first = 1;
         }else{
             try {
                 stamp.setAddAdapter(((usedStampNumber+remainStampNumber) / 10) + 1);
@@ -206,39 +201,17 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
         }
 
-        /*
-        for(int i =1; i<= (usedStampNumber%10) +1; i++){
-            stamp.adapter.addItem();
-        }
-        */
+        if(MainActivity.first==0){
+            MainActivity.first = 1;
+        }else{
+            try {
+                coupon.setAddAdapter(myCouponNumber);
+                Log.i("home - ", "쿠폰 리스트 갯수 : " + myCouponNumber);
+            } catch (Exception e) {
 
-        /*
-        thisisstamp.clear();
-        int i;
-
-        for(i=1; i<=usedStampNumber; i++){
-            thisisstamp.add(String.valueOf(businessName.get(number)) + " 사용 스탬프 " + i);
+            }
         }
 
-        for(i= 1; i <= remainStampNumber;i++){
-            thisisstamp.add(String.valueOf(businessName.get(number)) + " 노사용 스탬프 " + i);
-        }
-*/
-        /*
-        thisiscoupon.clear();
-        for(i=1; i <= myCouponNumber;i++){
-            thisiscoupon.add(String.valueOf(businessName.get(number)) + " 쿠폰 " + i);
-        }
-*/
-        /*
-        try{        //초기화 할때는 오류난다. 초기화 다음부터 이걸 사용해야한다.
-            stamp.thisisstampRefresh();
-            coupon.thisiscouponRefresh();
-            Log.i("home - ","스템프, 쿠폰 리프레쉬");
-        }catch (Exception e){
-
-        }
-        */
     }
 
     private void setPagerAdapter() {

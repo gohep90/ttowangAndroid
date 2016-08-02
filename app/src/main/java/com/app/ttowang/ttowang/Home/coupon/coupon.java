@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.app.ttowang.ttowang.Home.home;
 import com.app.ttowang.ttowang.R;
@@ -16,13 +16,22 @@ import com.app.ttowang.ttowang.R;
 public class coupon extends android.support.v4.app.ListFragment{
 
     public final static String ITEMS_COUNT_KEY = "Main_C$ItemsCount";
-    static ArrayAdapter<String> adapter;
     int number;
+    View view;
+    public static couponItemAdapter adapter;
+    ListView list;
 
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
-        View view = in.inflate(R.layout.coupon, ctn, false);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, home.thisiscoupon);
+        Log.i("coupon - ", "초기화");
+        view = in.inflate(R.layout.coupon, ctn, false);
+        number = getArguments() != null ? getArguments().getInt("number") : 1;
+        list = (ListView) view.findViewById(android.R.id.list);
+
+        adapter = new couponItemAdapter() ;
+
+        list.setAdapter(adapter);
+
         return view;
     }
 
@@ -38,13 +47,22 @@ public class coupon extends android.support.v4.app.ListFragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Log.d("ArrayListFragment", "onCreate");
+        Log.d("coupon - ", "onActivityCreated");
 
-        setListAdapter(adapter);
+        setAddAdapter(home.myCouponNumber);    //처음 초기화
+
+        //list.setSelection(home.myCouponNumber);      // 처음은 코드로 하단으로 넘어준다
+        Log.i("coupon - ","초기화 쿠폰 리스트 갯수 " +home.myCouponNumber);
+
     }
 
-    public static void thisiscouponRefresh(){
-        adapter.notifyDataSetChanged();
+    public static void setAddAdapter(int a){
 
+        adapter.clearItem();                 //클리어 해주고
+        for(int i = 1; i <= a; i++){        //하나씩 추가
+            adapter.addItem();
+            Log.i("coupon - ","스템프 리스트 추가" + i);
+        }
+        adapter.notifyDataSetChanged();      //수정됐다고 알림
     }
 }
