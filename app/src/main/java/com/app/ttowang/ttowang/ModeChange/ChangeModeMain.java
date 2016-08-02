@@ -56,8 +56,8 @@ public class ChangeModeMain extends AppCompatActivity {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragment(stamp.createInstance(0), "Stamp");
-        pagerAdapter.addFragment(recent.createInstance(1), "MY SHOP");
-        pagerAdapter.addFragment(myshop.createInstance(2), "RECENT");
+        pagerAdapter.addFragment(myshop.createInstance(1), "MY SHOP");
+        pagerAdapter.addFragment(recent.createInstance(2), "RECENT");
         pagerAdapter.addFragment(Modesetting.createInstance(3), "SETTING");
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
