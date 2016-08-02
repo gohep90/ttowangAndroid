@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home.coupon;
+package com.app.ttowang.ttowang.Main.Home.coupon;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 

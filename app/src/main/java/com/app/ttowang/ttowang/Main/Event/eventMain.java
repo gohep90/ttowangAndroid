@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Event;
+package com.app.ttowang.ttowang.Main.Event;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

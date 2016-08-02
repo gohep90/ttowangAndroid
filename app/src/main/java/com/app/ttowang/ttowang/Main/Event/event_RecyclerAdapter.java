@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Event;
+package com.app.ttowang.ttowang.Main.Event;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

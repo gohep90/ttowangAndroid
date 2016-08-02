@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home.stamp;
+package com.app.ttowang.ttowang.Main.Home.stamp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Home.home;
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 

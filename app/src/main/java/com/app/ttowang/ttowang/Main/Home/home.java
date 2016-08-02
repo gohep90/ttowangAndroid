@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home;
+package com.app.ttowang.ttowang.Main.Home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.app.ttowang.ttowang.Home.coupon.coupon;
-import com.app.ttowang.ttowang.Home.stamp.stamp;
+import com.app.ttowang.ttowang.Main.Home.coupon.coupon;
+import com.app.ttowang.ttowang.Main.Home.stamp.stamp;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;

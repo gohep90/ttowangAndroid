@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home.coupon;
+package com.app.ttowang.ttowang.Main.Home.coupon;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.app.ttowang.ttowang.Home.home;
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.R;
 
 /**

@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home;
+package com.app.ttowang.ttowang.Main.Home;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Business.business;
-import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.Main.Business.business;
 import com.app.ttowang.ttowang.R;
 
 

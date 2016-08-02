@@ -1,14 +1,13 @@
-package com.app.ttowang.ttowang.Home.stamp;
+package com.app.ttowang.ttowang.Main.Home.stamp;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.app.ttowang.ttowang.Home.home;
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.R;
 
 /**

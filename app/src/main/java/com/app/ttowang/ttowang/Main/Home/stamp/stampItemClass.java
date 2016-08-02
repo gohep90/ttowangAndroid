@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Home.stamp;
+package com.app.ttowang.ttowang.Main.Home.stamp;
 
 import android.widget.Button;
 

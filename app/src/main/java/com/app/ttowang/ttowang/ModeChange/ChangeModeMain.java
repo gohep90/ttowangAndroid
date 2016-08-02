@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Main;
+package com.app.ttowang.ttowang.ModeChange;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.app.ttowang.ttowang.Main.Setting.setting;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ChangeModeMain extends AppCompatActivity {
     //final DBHelper dbHelper = new DBHelper(getActivi(), "alarm.db", null, 1);
 
     public static Context mContext;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeRed);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.modechangemain);
         mContext = this;
         initToolbar();
         initViewPagerAndTabs();
@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment(home.createInstance(0), "홈");
-        pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
-        pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
-        pagerAdapter.addFragment(setting.createInstance(3), "설정");
+        pagerAdapter.addFragment(home.createInstance(0), "Stamp");
+        pagerAdapter.addFragment(businessMain.createInstance(1), "MY SHOP");
+        pagerAdapter.addFragment(eventMain.createInstance(2), "RECENT");
+        pagerAdapter.addFragment(setting.createInstance(3), "SETTING");
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
