@@ -54,21 +54,59 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:elevation="5dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:weightSum="10"
+                        android:background="#000000"
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="2.5"
+                            android:layout_height="match_parent"
+                            android:text="혜택"
+                            android:gravity="center"
+                            android:textSize="20dp"
+                            android:textColor="#ffffff" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="7.5"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="스탬프 10개 적립 시 조각 케이크 무료!"
+                            android:textSize="15dp"
+                            android:textColor="#ffffff" />
+
+
+                    </LinearLayout>
+
+
+
+                    <android.support.design.widget.CoordinatorLayout
                         android:elevation="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:background="#FF385E">
 
-                        <ImageView
+         <!--               <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/bo"
                             android:scaleType="centerCrop"
                             android:id="@+id/img_store" />
+        -->
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_marginBottom="2dp"
+                            >
 
-                    </LinearLayout>
+                        </android.support.v4.view.ViewPager>
+                    </android.support.design.widget.CoordinatorLayout>
 
 
 
@@ -272,11 +310,9 @@
                    <fragment
                        android:id="@+id/map"
                        android:layout_width="match_parent"
-                       android:layout_height="400dp"
+                       android:layout_height="250dp"
                        class="com.google.android.gms.maps.MapFragment"
                        />
-
-
 
 
 

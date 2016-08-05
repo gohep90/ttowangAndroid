@@ -82,7 +82,6 @@ public class businessMain extends Fragment {
 
         StoreAsyncTaskCall();
 
-
         return result;
     }
 
