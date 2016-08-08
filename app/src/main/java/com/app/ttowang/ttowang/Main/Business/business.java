@@ -16,12 +16,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import com.merhold.extensiblepageindicator.ExtensiblePageIndicator;
 
 public class business extends AppCompatActivity implements OnMapReadyCallback {
 
     ViewPager pager;
-
+    ExtensiblePageIndicator extensiblePageIndicator;
 
     static final LatLng SEOUL = new LatLng(37.56, 126.97);
     private GoogleMap googleMap;
@@ -75,11 +75,10 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-
-
 //////////////////////////////////////사진///////////////////////////////////////////////////
-        pager= (ViewPager)findViewById(R.id.pager);
 
+        pager= (ViewPager)findViewById(R.id.pager);
+        extensiblePageIndicator = (ExtensiblePageIndicator)findViewById(R.id.flexibleIndicator);
         //ViewPager에 설정할 Adapter 객체 생성
         //ListView에서 사용하는 Adapter와 같은 역할.
         //다만. ViewPager로 스크롤 될 수 있도록 되어 있다는 것이 다름
@@ -89,6 +88,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
         //ViewPager에 Adapter 설정
         pager.setAdapter(adapter);
+        extensiblePageIndicator.initViewPager(pager);
 
     }
 

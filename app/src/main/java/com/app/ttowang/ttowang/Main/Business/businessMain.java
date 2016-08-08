@@ -2,9 +2,6 @@ package com.app.ttowang.ttowang.Main.Business;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.ttowang.ttowang.R;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +52,7 @@ public class businessMain extends Fragment {
     MyListAdapter adapter;
 
     String encodedString="";
-    String ip="";
+    String ip="117.17.142.99";
 
 
     @Nullable
@@ -63,13 +61,13 @@ public class businessMain extends Fragment {
 
         View result =inflater.inflate(R.layout.business_main, container, false);
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        ip = sharedPreferences.getString("ip", ""); //데이터 가져오기
+       // SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+      //  ip = sharedPreferences.getString("ip", ""); //데이터 가져오기
 
 
-         Bitmap img= BitmapFactory.decodeResource(getResources(),R.drawable.bo);
-         storeList.add(new MyItem(img,"카페베네","빙수가 오지게 맛나요","0"));
-         storeList.add(new MyItem(img,"대구반야월막창","막창이 오지게 맛나요","1"));
+         //Bitmap img= BitmapFactory.decodeResource(getResources(),R.drawable.bo);
+        // storeList.add(new MyItem(img,"카페베네","빙수가 오지게 맛나요","0"));
+         //storeList.add(new MyItem(img,"대구반야월막창","막창이 오지게 맛나요","1"));
         // storeList.add(new MyItem(img,"롯데시네마","팝콘이 오지게 맛나요",2));
         //storeList.add(new MyItem(img,"이마트","수박이 오지게 맛나요",3));
 
@@ -88,14 +86,16 @@ public class businessMain extends Fragment {
 
 
     public class MyItem{
-        Bitmap image=null;
+
+        public String url="http://" + ip + ":8080/ttowang/image/";
+        String image="";
         String title="";
         String info="";
         String index="";
 
-        public MyItem(Bitmap image, String title, String info, String index){
+        public MyItem(String image, String title, String info, String index){
             super();
-            this.image=image;
+            this.image=url+image;
             this.title=title;
             this.info=info;
             this.index=index;
@@ -139,7 +139,8 @@ public class businessMain extends Fragment {
             // final LinearLayout click =(LinearLayout)convertView.findViewById(R.id.click);
 
             final ImageView imageView=(ImageView)convertView.findViewById(R.id.image);
-            imageView.setImageBitmap(myItems.get(pos).image);
+            //imageView.setImageBitmap(myItems.get(pos).image);
+            Glide.with(this.context).load(myItems.get(pos).image).into(imageView);
 
             TextView title=(TextView)convertView.findViewById(R.id.txt_title);
             title.setText(myItems.get(pos).title);
@@ -236,7 +237,7 @@ public class businessMain extends Fragment {
 
             try{
 
-                url=new URL("http://" + ip + ":8080/MyCard/storeList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -282,7 +283,7 @@ public class businessMain extends Fragment {
 
         try{
             JSONObject json=new JSONObject(recv);
-            JSONArray jArr =json.getJSONArray("List");
+            JSONArray jArr =json.getJSONArray("businessList");
     /*        totalListNum=jArr.length();
             //Toast.makeText(SellBoardBook.this, String.valueOf(totalListNum), Toast.LENGTH_SHORT).show();
 
@@ -303,7 +304,7 @@ public class businessMain extends Fragment {
             int i;
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
-                storeList.add(new MyItem(BitmapFactory.decodeResource(getResources(),R.drawable.bo),json.getString("매장이름"), json.getString("한줄소개"), json.getString("사업자등록번호")));
+                storeList.add(new MyItem(json.getString("businessPhoto"),json.getString("businessName"), json.getString("businessInfo"), json.getString("businessId")));
 
             }
 
