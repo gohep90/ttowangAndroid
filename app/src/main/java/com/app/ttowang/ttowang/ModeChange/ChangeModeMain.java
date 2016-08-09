@@ -40,7 +40,7 @@ public class ChangeModeMain extends AppCompatActivity {
         mContext = this;
         initToolbar();
         initViewPagerAndTabs();
-
+//
     }
 
     private void initToolbar() {
