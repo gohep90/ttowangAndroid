@@ -19,7 +19,6 @@ import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
 
-
 public class Mainsetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 

@@ -48,11 +48,12 @@ public class stamp extends Fragment {
     //Button modeChange;
 
     Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_addstamp, btn_back;
-    TextView text_telvalue;
-    EditText edt_stampnum;
+    TextView text_telvalue, text_stampnum;
 
     String encodedString;
     String ip;
+
+    int focus = 0;
 
     public static stamp createInstance(int itemsCount) {
         stamp stamp = new stamp();
@@ -85,7 +86,7 @@ public class stamp extends Fragment {
 
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
         btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
-        edt_stampnum = (EditText) view.findViewById(R.id.edt_stampnum);
+        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
 
         btn_0 = (Button) view.findViewById(R.id.btn_0);
         btn_1 = (Button) view.findViewById(R.id.btn_1);
@@ -98,8 +99,6 @@ public class stamp extends Fragment {
         btn_8 = (Button) view.findViewById(R.id.btn_8);
         btn_9 = (Button) view.findViewById(R.id.btn_9);
         btn_back = (Button) view.findViewById(R.id.btn_back);
-
-        edt_stampnum.setInputType(0);
 
         buttonClickListener();
 
@@ -120,7 +119,9 @@ public class stamp extends Fragment {
 
         btn_addstamp.setOnClickListener(ClickListener);
         btn_back.setOnClickListener(ClickListener);
-        edt_stampnum.setOnClickListener(ClickListener);
+
+        text_stampnum.setOnClickListener(ClickListener);
+        text_telvalue.setOnClickListener(ClickListener);
     }
 
     View.OnClickListener ClickListener = new View.OnClickListener() {
@@ -131,9 +132,9 @@ public class stamp extends Fragment {
                 case R.id.btn_addstamp:
                     //AddStampAsyncTaskCall();
 
-                    if(edt_stampnum.getText().toString().equals("") || edt_stampnum.getText().toString().length() == 0)
+                    if(text_stampnum.getText().toString().equals("") || text_stampnum.getText().toString().length() == 0)
                         Toast.makeText(getActivity(), "스템프 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(edt_stampnum.getText().toString().equals("0"))
+                    else if(text_stampnum.getText().toString().equals("0"))
                         Toast.makeText(getActivity(), "스템프 갯수를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
                     else if(text_telvalue.getText().toString().equals("") || text_telvalue.getText().toString().length() == 0)
                         Toast.makeText(getActivity(), "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -141,7 +142,7 @@ public class stamp extends Fragment {
                         Toast.makeText(getActivity(), "전화번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
 
                     else {
-                        Toast.makeText(getActivity(), edt_stampnum.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), text_stampnum.getText().toString(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), text_telvalue.getText().toString(), Toast.LENGTH_SHORT).show();
 
                         //입력한 스템프 갯수를 입력한 번호에 적립
@@ -150,120 +151,101 @@ public class stamp extends Fragment {
                     }
                     break;
 
-                case R.id.btn_0:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "0");
-                    break;
-                case R.id.btn_1:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "1");
-                    break;
-                case R.id.btn_2:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "2");
-                    break;
-                case R.id.btn_3:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "3");
-                    break;
-                case R.id.btn_4:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "4");
-                    break;
-                case R.id.btn_5:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "5");
-                    break;
-                case R.id.btn_6:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "6");
-                    break;
-                case R.id.btn_7:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "7");
-                    break;
-                case R.id.btn_8:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "8");
-                    break;
-                case R.id.btn_9:
-                    text_telvalue.setText(text_telvalue.getText().toString() + "9");
-                    break;
-                case R.id.btn_back:
-                    if (text_telvalue.getText().toString().length() == 0) {
-                    } else
-                        text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
+                case R.id.text_telvalue:
+                    focus = 1;
                     break;
 
-
-
-                case R.id.edt_stampnum:
+                case R.id.text_stampnum:
+                    focus = 0;
                     //edt_stampnum.setInputType(1);
 
                     // 숫자로 나오게 하기
-                    edt_stampnum.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    //edt_stampnum.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                     //키보드 올라올때 화면 고정시키기(밀리지않게)
-                    getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
                     //이거 안하면 edittext를 두번 눌러야 키보드가 나와서
-                    InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    mgr.showSoftInput(edt_stampnum, InputMethodManager.SHOW_IMPLICIT);
+                    //InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    //mgr.showSoftInput(edt_stampnum, InputMethodManager.SHOW_IMPLICIT);
 
-                    //왜 안지워지는거야 ㅅㅂ
-                    /*
-                    edt_stampnum.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View v, int keyCode, KeyEvent event) {
-                            //You can identify which key pressed buy checking keyCode value with KeyEvent.KEYCODE_
-                            if(keyCode == KeyEvent.KEYCODE_DEL) {
-                                //this is for backspace
-                            }
-                            return false;
-                        }
-                    });
-                    */
-                    /*
-                    edt_stampnum.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View arg0, int arg1, KeyEvent event) {
-                            // TODO Auto-generated method stub
-                            if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 
-                                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                in.hideSoftInputFromWindow(edt_stampnum.getApplicationWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-                            }
-                            return false;
-                        }
-                    });
-                    */
-                    /*
-                    edt_stampnum.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View arg0, int arg1, KeyEvent event) {
-                            // TODO Auto-generated method stub
-                            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
-                            {
-                                //something here
-                                return true;
-                            }
-                            //else
-                            return false;
-                        }
-                    });
-                    */
-                    /*
-                    edt_stampnum.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View arg0, int arg1, KeyEvent event) {
+                    break;
 
-                            return true; // Try to return false instead
-                        }
-                    });
-                    */
-                    /*
-                    edt_stampnum.setOnKeyListener(new View.OnKeyListener() {
+                case R.id.btn_0:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "0");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "0");
+                    break;
+                case R.id.btn_1:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "1");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "1");
+                    break;
+                case R.id.btn_2:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "2");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "2");
+                    break;
+                case R.id.btn_3:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "3");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "3");
+                    break;
+                case R.id.btn_4:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "4");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "4");
+                    break;
+                case R.id.btn_5:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "5");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "5");
+                    break;
+                case R.id.btn_6:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "6");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "6");
+                    break;
+                case R.id.btn_7:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "7");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "7");
+                    break;
+                case R.id.btn_8:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "8");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "8");
+                    break;
+                case R.id.btn_9:
+                    if(focus == 0)
+                        text_stampnum.setText(text_stampnum.getText().toString() + "9");
+                    else
+                        text_telvalue.setText(text_telvalue.getText().toString() + "9");
+                    break;
+                case R.id.btn_back:
+                    if(focus == 0){
+                        if (text_stampnum.getText().toString().length() == 0) {
+                        } else
+                            text_stampnum.setText(text_stampnum.getText().toString().substring(0, text_stampnum.getText().toString().length() - 1));
+                        break;
+                    }
 
-                        @Override
-                        public boolean onKey(View v, int keyCode, KeyEvent event) {
-                            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
-                                Log.i("test", "keycode delete");
-                            }
-                            return false;
-                        }
-                    });
-                    */
+                    else {
+                        if (text_telvalue.getText().toString().length() == 0) {
+                        } else
+                            text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
+                        break;
+                    }
             }
         }
     };
@@ -306,7 +288,7 @@ public class stamp extends Fragment {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("stampNum", edt_stampnum.getText().toString());
+            prop.setProperty("stampNum", text_stampnum.getText().toString());
             prop.setProperty("stampTel", text_telvalue.getText().toString());
             encodedString = encodeString(prop);
 

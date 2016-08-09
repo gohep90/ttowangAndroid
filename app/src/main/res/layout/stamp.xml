@@ -12,43 +12,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:weightSum="10"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="또왕"
-                android:gravity="center_horizontal|bottom"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.2"
+            android:layout_weight="3.5"
             android:weightSum="10"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"/>
+                android:layout_weight="2.2"/>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
+                android:layout_weight="5.6"
                 android:background="@color/white">
 
                 <LinearLayout
@@ -57,17 +41,16 @@
                     android:background="#FF5A5A"
                     android:layout_marginBottom="1.5dp">
 
-                    <EditText
-                        android:id="@+id/edt_stampnum"
+                    <TextView
+                        android:id="@+id/text_stampnum"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="10dp"
                         android:hint="스탬프 갯수를 입력해주세요"
                         android:textColorHint="@color/white"
                         android:textSize="15dp"
-                        android:gravity="center_horizontal|bottom"
-                        android:paddingBottom="10dp"
-                        android:textColor="@color/white"
-                        android:background="@null"/>
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -78,7 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5.3"
+            android:layout_weight="6.5"
             android:weightSum="10"
             android:orientation="horizontal">
 
@@ -133,7 +116,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="6.5"
         android:background="@color/white"
         android:weightSum="4"
         android:orientation="vertical">
@@ -355,8 +338,8 @@
                     android:background="@drawable/btn_koo"
                     android:textColor="@color/white"
                     android:layout_marginLeft="15dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
                     android:paddingLeft="7dp"
                     android:paddingRight="7dp"/>
 
