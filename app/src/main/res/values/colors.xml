@@ -12,5 +12,9 @@
     <color name="color_accent_pink">#ff4081</color>
     <color name="color_shadow">#44000000</color>
     <color name="toolbar">#FF385E</color>
+    <color name="white">#FFFFFF</color>
+    <color name = "m">#eaeaea</color>
+    <color name = "w">#D92E5B</color>
+    <color name = "black">#000000</color>
 
 </resources>
