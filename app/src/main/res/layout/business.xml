@@ -97,6 +97,39 @@
                             android:layout_marginBottom="2dp"
                             />
 
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_gravity="bottom"
+                            android:background="#77000000"
+                            android:padding="5dp"
+                            android:id="@+id/click"
+                            android:weightSum="10"
+                            android:layout_alignParentBottom="true"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:textStyle="bold"
+                                android:text="봉구비어"
+                                android:textColor="#ffffff"
+                                android:textSize="20dp"
+                                android:gravity="center|left"
+                                android:id="@+id/txt_title" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="4"
+                                android:text="신개념 맥주, 감자튀김 전문점"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"
+                                android:gravity="top|left"
+                                android:id="@+id/txt_info" />
+
+                        </LinearLayout>
 
                         <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
                             android:id="@+id/flexibleIndicator"
