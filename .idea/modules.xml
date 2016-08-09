@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ttowang.iml" filepath="$PROJECT_DIR$/ttowang.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ttowangAndroid.iml" filepath="$PROJECT_DIR$/ttowangAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/ttowangAndroid.iml" filepath="$PROJECT_DIR$/ttowangAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/ttowangAndroid.iml" filepath="$PROJECT_DIR$/ttowangAndroid.iml" />
     </modules>
