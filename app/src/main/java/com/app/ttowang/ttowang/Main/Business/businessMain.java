@@ -155,36 +155,10 @@ public class businessMain extends Fragment {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-      /*              SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-                    myname = sharedPreferences.getString("name", "");
 
-                    if(!myname.equals("")) {     //로그인 됐으면
-                        Intent intent = new Intent(getApplicationContext(), SellBoardInform.class);
-                        //int whereindex = myItems.get(pos).index;
-                        //Log.i("aaa", String.valueOf(myItems.get(pos).index));
-                        //Toast.makeText(SellBoardBook.this, whereindex, Toast.LENGTH_SHORT).show();
-                        intent.putExtra("index", myItems.get(pos).index);
-                        startActivity(intent);
-
-                    }
-                    else{   //로그인 안됐으면
-                        Toast.makeText(SellBoardBook.this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
-                        Intent newIntent = new Intent(getBaseContext(), Login.class);
-                        newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//넘기는 메인 flag에 설정을 넣은거야, 원래있던게 사라지고 다시 로드되는건가?
-                        // 메인 액티비티를 다시 띄웁니다.
-                        newIntent.putExtra("where", "sellBook");
-                        newIntent.putExtra("index", myItems.get(pos).index);
-                        //Log.i("이건 인덱스 처음 넘겨줌aaa", String.valueOf(whereindex));
-                        startActivity(newIntent);
-                    }
-
-*/
-                    //    click.setBackgroundColor(Color.parseColor("#6B66FF"));
-
-
-       //클릭 시 이동 보류!!
+                //클릭 시 이동 !!
                     Intent intent = new Intent(getContext(),business.class);
-                 //   intent.putExtra("index", myItems.get(pos).index);
+                    intent.putExtra("index", myItems.get(pos).index);
                     startActivity(intent);
                     //getActivity().finish();
                 }

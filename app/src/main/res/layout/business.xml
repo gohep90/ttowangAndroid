@@ -71,6 +71,7 @@
                             android:textSize="20dp"
                             android:textColor="#ffffff" />
                         <TextView
+                            android:id="@+id/txt_benefit"
                             android:layout_width="0dp"
                             android:layout_weight="7.5"
                             android:layout_height="match_parent"
@@ -127,7 +128,7 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"
                                 android:gravity="top|left"
-                                android:id="@+id/txt_info" />
+                                android:id="@+id/txt_title2" />
 
                         </LinearLayout>
 
@@ -184,7 +185,7 @@
                             android:layout_weight="8"
                             android:layout_height="wrap_content"
                             android:text="가게 벽면은 사진이나 그림 등의 작품을 걸어 놓아 전시공간으로 꾸몄다"
-                            android:id="@+id/txt_title2"
+                            android:id="@+id/txt_info"
                             android:textSize="15dp" />
 
                     </LinearLayout>
