@@ -98,11 +98,19 @@
                             android:layout_marginBottom="2dp"
                             />
 
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="right|top"
+                            android:layout_margin="13dp"
+                            android:src="@drawable/love" />
+
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="75dp"
                             android:layout_gravity="bottom"
+                            android:layout_marginBottom="2dp"
                             android:background="#77000000"
                             android:padding="5dp"
                             android:id="@+id/click"

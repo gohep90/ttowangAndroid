@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.app.ttowang.ttowang.R;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by Park on 2016-08-05.
@@ -14,18 +15,19 @@ import com.app.ttowang.ttowang.R;
 public class businessAdapter extends PagerAdapter {
 
 
-    int [] photos={     //생성자로 이미지 정보 받아와서 실행
-            R.drawable.bo,
-            R.drawable.ilike
-    };
+    int count=0;
+    String [] photoList = new String[10];   //사진 최대 10개??
 
     LayoutInflater inflater;
 
-    public businessAdapter(LayoutInflater inflater) {
+    public businessAdapter(LayoutInflater inflater, String[] photoList,int count) {
         // TODO Auto-generated constructor stub
         //전달 받은 LayoutInflater를 멤버변수로 전달
         this.inflater=inflater;
+        this.photoList=photoList;
+        this.count=count;
     }
+
 
     //PagerAdapter가 가지고 잇는 View의 개수를 리턴
     //보통 보여줘야하는 이미지 배열 데이터의 길이를 리턴
@@ -33,7 +35,7 @@ public class businessAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return 2; //이미지 개수 리턴(그림이 10개라서 10을 리턴)
+        return count; //이미지 개수 리턴
     }
 
     //ViewPager가 현재 보여질 Item(View객체)를 생성할 필요가 있는 때 자동으로 호출
@@ -44,7 +46,6 @@ public class businessAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         // TODO Auto-generated method stub
-
         //새로운 View 객체를 Layoutinflater를 이용해서 생성
         //만들어질 View의 설계는 res폴더>>layout폴더>>viewpater_childview.xml 레이아웃 파일 사용
 
@@ -57,7 +58,8 @@ public class businessAdapter extends PagerAdapter {
 
         //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
         //현재 position에 해당하는 이미지를 setting
-        img.setImageResource(photos[position]);
+        //img.setImageResource(photos[position]);
+        Glide.with(container.getContext()).load(photoList[position]).into(img);
 
 
         //ViewPager에 만들어 낸 View 추가
@@ -90,5 +92,6 @@ public class businessAdapter extends PagerAdapter {
         // TODO Auto-generated method stub
         return v==obj;
     }
+
 
 }
