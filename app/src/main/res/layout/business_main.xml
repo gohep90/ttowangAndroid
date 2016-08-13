@@ -13,7 +13,6 @@
         android:layout_weight="10"
         android:id="@+id/listView"
         android:background="#F1F1F1"
-        android:layout_marginTop="1dp"
         />
 
 </LinearLayout>
