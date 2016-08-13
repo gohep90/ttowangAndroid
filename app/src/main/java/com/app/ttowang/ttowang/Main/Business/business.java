@@ -281,7 +281,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
             }
 
-
             //////////////////////////////////////사진///////////////////////////////////////////////////
 
             pager= (ViewPager)findViewById(R.id.pager);
