@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
+import com.app.ttowang.ttowang.Main.Setting.myInfoEdit;
 
 public class Mainsetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
@@ -45,6 +46,7 @@ public class Mainsetting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        context = MainActivity.mContext;
         view = inflater.inflate(R.layout.setting,container, false);
         modeChange = (Button) view.findViewById(R.id.modeChange);
         myInfo=(Button) view.findViewById(R.id.myInfo);//위에꺼처럼 myInfo해
@@ -89,7 +91,7 @@ public class Mainsetting extends Fragment {
         myInfo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), myInfoEdit.class);//ChangeModeMain수정
+                Intent intent = new Intent(context, myInfoEdit.class);//ChangeModeMain수정
                 startActivity(intent);
 
             }
