@@ -45,6 +45,8 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView txt_title,txt_title2,txt_info,txt_phone,txt_time,txt_menu,txt_map,txt_benefit;
     String index="";
+    String [] photoList = new String[10];   //사진 최대 10개??
+    int count=0;
 
     String ip="117.17.142.99";
 
@@ -62,23 +64,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
 
-
-//////////////////////////////////////사진///////////////////////////////////////////////////
-
-        pager= (ViewPager)findViewById(R.id.pager);
-        extensiblePageIndicator = (ExtensiblePageIndicator)findViewById(R.id.flexibleIndicator);
-        //ViewPager에 설정할 Adapter 객체 생성
-        //ListView에서 사용하는 Adapter와 같은 역할.
-        //다만. ViewPager로 스크롤 될 수 있도록 되어 있다는 것이 다름
-        //PagerAdapter를 상속받은 businessAdapter 객체 생성
-        //businessAdapter에게 LayoutInflater 객체 전달
-        businessAdapter adapter= new businessAdapter(getLayoutInflater());
-
-        //ViewPager에 Adapter 설정
-        pager.setAdapter(adapter);
-        extensiblePageIndicator.initViewPager(pager);
-
-
 //////////////////////////////////////설정///////////////////////////////////////////////////
         Intent i = getIntent();
         index = i.getExtras().getString("index");
@@ -91,7 +76,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         txt_menu    =   (TextView)findViewById(R.id.txt_menu);
         txt_map     =   (TextView)findViewById(R.id.txt_map);
         txt_benefit =   (TextView)findViewById(R.id.txt_benefit);
-
 
         //초기값 불러오기
         BusinessAsyncTaskCall();
@@ -270,7 +254,9 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         try{
             JSONObject json=new JSONObject(recv);
             JSONArray jArr =json.getJSONArray("List");
+            JSONArray jArr2 =json.getJSONArray("Photo");
 
+            String url="http://" + ip + ":8080/ttowang/image/";
 
             for(int i=0; i<jArr.length();i++){
                 json=jArr.getJSONObject(i);
@@ -285,6 +271,34 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
                 txt_benefit.setText(json.getString("businessBenefit"));
                 // image.setImageBitmap(imageAsyncTaskCall(json.getString("photo"),json.getString("exif")));
             }
+
+            count=jArr2.length();
+            for(int i=0; i<jArr2.length();i++){
+                json=jArr2.getJSONObject(i);
+
+                photoList[i]=url+json.getString("photoName");
+              //  Log.i("사진사진 : ", photoList[i]);
+
+            }
+
+
+            //////////////////////////////////////사진///////////////////////////////////////////////////
+
+            pager= (ViewPager)findViewById(R.id.pager);
+            extensiblePageIndicator = (ExtensiblePageIndicator)findViewById(R.id.flexibleIndicator);
+            //ViewPager에 설정할 Adapter 객체 생성
+            //ListView에서 사용하는 Adapter와 같은 역할.
+            //다만. ViewPager로 스크롤 될 수 있도록 되어 있다는 것이 다름
+            //PagerAdapter를 상속받은 businessAdapter 객체 생성
+            //businessAdapter에게 LayoutInflater 객체 전달
+
+            businessAdapter adapter= new businessAdapter(getLayoutInflater(),photoList,count);
+
+            //ViewPager에 Adapter 설정
+            pager.setAdapter(adapter);
+            extensiblePageIndicator.initViewPager(pager);
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }
