@@ -280,7 +280,7 @@ public class businessMain extends Fragment {
             int i;
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
-                storeList.add(new MyItem(json.getString("businessPhoto"),json.getString("businessName"), json.getString("businessInfo"), json.getString("businessId")));
+                storeList.add(new MyItem(json.getString("photoName"),json.getString("businessName"), json.getString("businessInfo"), json.getString("businessId")));
 
             }
 
