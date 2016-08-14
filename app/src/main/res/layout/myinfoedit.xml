@@ -354,7 +354,7 @@
             android:layout_weight="6.6">
 
             <Button
-                android:id="@+id/btn_join"
+                android:id="@+id/btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="수정하기"
