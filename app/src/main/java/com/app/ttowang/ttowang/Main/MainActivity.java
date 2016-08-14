@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor Edit;
 
+    public static String ip = "192.168.0.2";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //startActivity(new Intent(this,Loading.class));  //로딩화면

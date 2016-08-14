@@ -123,7 +123,10 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#FFA7A7"/>
-    <LinearLayout
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
@@ -136,6 +139,7 @@
             android:layout_marginLeft="20dp"
             android:weightSum="5"
             >
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -223,7 +227,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
