@@ -118,8 +118,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
-        extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
-        extensiblePageIndicator.initViewPager(upViewPager);
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -348,6 +347,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             adapter.notifyDataSetChanged();     //리스트
             //     mLockListView=false;
+            extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+            extensiblePageIndicator.initViewPager(upViewPager);
             initViewPagerAndTabs();
         }catch(JSONException e){
             e.printStackTrace();
