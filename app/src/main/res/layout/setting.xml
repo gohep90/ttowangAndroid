@@ -410,7 +410,6 @@
                     android:textColor="#ff005c"
                     android:text="CALL"
                     android:gravity="center"
-                    android:layyout_gravity="center"
                     android:layout_gravity="center_vertical"
                     />
             </RelativeLayout>

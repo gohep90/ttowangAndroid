@@ -37,17 +37,10 @@ public class ChangeModeMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modechangemain);
         mContext = this;
-        initToolbar();
         initViewPagerAndTabs();
 //
     }
 
-    private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-       // mToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-    }
 
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
