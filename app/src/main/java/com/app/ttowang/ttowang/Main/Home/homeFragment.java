@@ -70,11 +70,12 @@ public class homeFragment extends android.support.v4.app.Fragment{
             mybusinessimg.setImageDrawable(getResources().getDrawable(R.drawable.ilike));
         }
 
-        businessName.setText((String) home.businessName.get(number));      //매장 이름
-        businessLocation.setText((String) home.businessLocation.get(number));//매장 주소
-        myRemainCoupon.setText((String) home.remainStamp.get(number)); //남은 쿠폰 갯수
-        myUsedCoupon.setText((String) home.usedStamp.get(number));     //사용한 쿠폰 갯수
+        businessName.setText(String.valueOf(home.businessName.get(number)));      //매장 이름
+        businessLocation.setText(String.valueOf(home.businessLocation.get(number)));//매장 주소
+        myRemainCoupon.setText(String.valueOf(home.remainStamp.get(number))); //남은 쿠폰 갯수
+        myUsedCoupon.setText(String.valueOf(home.usedStamp.get(number)));     //사용한 쿠폰 갯수
 
+        String as = String.valueOf(home.usedStamp.get(number));
 
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override

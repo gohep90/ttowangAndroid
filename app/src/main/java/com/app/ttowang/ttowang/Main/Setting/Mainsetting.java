@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.Main.Setting;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ public class Mainsetting extends Fragment {
     View view;
     Button modeChange;
     Button myInfo;
+    ViewGroup myInfoclick, logoutclick, alarm, emailclick, callclick,facebookclick;
     Context context;
 
     TextView myName, myPhone, myEmail;
@@ -46,7 +48,12 @@ public class Mainsetting extends Fragment {
 
         view = inflater.inflate(R.layout.setting,container, false);
         modeChange = (Button) view.findViewById(R.id.modeChange);
-        myInfo=(Button) view.findViewById(R.id.myInfo);//위에꺼처럼 myInfo해
+        myInfoclick=(ViewGroup) view.findViewById(R.id.myInfo);
+        logoutclick=(ViewGroup) view.findViewById(R.id.logout);
+        alarm=(ViewGroup) view.findViewById(R.id.alarm);
+        emailclick=(ViewGroup) view.findViewById(R.id.emailclick);
+        callclick=(ViewGroup) view.findViewById(R.id.callclick);
+        facebookclick=(ViewGroup) view. findViewById(R.id.facebookclick);
 
         myName=(TextView)view.findViewById(R.id.myName);//xml에서 TextView id가져와
         myPhone=(TextView)view.findViewById(R.id.myPhone);//xml에서 TextView id가져와
@@ -87,13 +94,45 @@ public class Mainsetting extends Fragment {
         });
 
 
-        myInfo.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(getContext(),myInfoEdit.class);
+        myInfoclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), myInfoEdit.class);
                 startActivity(intent);
             }
         });
 
+        logoutclick.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(getActivity(), "로그아웃 클릭", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "공지사항 클릭", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        emailclick.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(getActivity(), "이메일 클릭", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        callclick.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:010-3193-3763"));//액션 수행할 때도 Intent 사용
+                startActivity(intent);
+            }
+        });
+
+        facebookclick.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(getActivity(), "페이스북", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
