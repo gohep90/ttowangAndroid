@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:id="@+id/alarm"
         android:background="#ffffff">
 
         <LinearLayout
@@ -33,7 +34,7 @@
                 android:textColor="#ff005c"
                 android:background="#ffffff"
                 android:textStyle="bold" />
-            <Button
+            <TextView
                 android:layout_width="0dp"
                 android:layout_weight="7"
                 android:layout_height="match_parent"
@@ -41,7 +42,7 @@
                 android:text="업데이트 알림"
                 android:textSize="20dp"
                 android:background="#ffffff"
-                android:id="@+id/alarm2" />
+                 />
         </LinearLayout>
 
     </LinearLayout>
@@ -70,7 +71,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ring"
+                android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
             <TextView
@@ -126,11 +127,13 @@
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:id="@+id/myInfo"
+        >
 
         <LinearLayout
             android:orientation="vertical"
@@ -153,10 +156,10 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/ring"
+                    android:src="@drawable/seto"
                     android:foregroundGravity="left|center" />
 
-                <Button
+                <TextView
                     android:layout_width="0dp"
                     android:layout_weight="9"
                     android:background="#ffffff"
@@ -166,7 +169,7 @@
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:gravity="left|center"
-                    android:id="@+id/myInfo" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -227,7 +230,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -255,7 +258,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ring"
+                android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
             <TextView
@@ -299,6 +302,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:id="@+id/logout"
         android:background="#ffffff"
         >
         <LinearLayout
@@ -312,14 +316,15 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ring"
+                android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
-            <Button
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:background="#ffffff"
+                android:textColor="#000000"
                 android:text="LOGOUT"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -352,7 +357,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ring"
+                android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
             <TextView
@@ -374,32 +379,56 @@
             android:background="#ffffff"
             >
 
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/emailclick"
                 android:layout_marginLeft="30dp"
-                android:background="#ffffff"
-                android:textSize="20dp"
-                android:textColor="#ff005c"
-                android:text="EMAIL" />
-            <Button
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="#ffffff"
+                    android:textSize="20dp"
+                    android:textColor="#ff005c"
+                    android:text="EMAIL"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/callclick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#ffffff"
+                    android:textSize="20dp"
+                    android:textColor="#ff005c"
+                    android:text="CALL"
+                    android:gravity="center"
+                    android:layyout_gravity="center"
+                    android:layout_gravity="center_vertical"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/facebookclick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:background="#ffffff"
                 android:textSize="20dp"
                 android:textColor="#ff005c"
-                android:text="CALL"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="#ffffff"
-                android:textSize="20dp"
-                android:textColor="#ff005c"
-                android:text="FACEBOOK"
-                />
+                android:text="FACEBOOK" />
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
