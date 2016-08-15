@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,7 +49,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
-    String ip="117.17.142.99";
+    String ip= MainActivity.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.bumptech.glide.Glide;
 
@@ -54,7 +55,7 @@ public class businessMain extends Fragment {
     MyListAdapter adapter;
 
     String encodedString="";
-    String ip="117.17.142.99";
+    String ip= MainActivity.ip;
 
 
     @Nullable

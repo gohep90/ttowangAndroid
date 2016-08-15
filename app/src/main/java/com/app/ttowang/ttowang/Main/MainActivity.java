@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,9 +18,9 @@ import android.widget.Toast;
 import com.app.ttowang.ttowang.Main.Business.businessMain;
 import com.app.ttowang.ttowang.Main.Event.eventMain;
 import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
-import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor Edit;
 
-    public static String ip = "192.168.0.2";
+    //public static String ip = "192.168.0.2";  주용
+
+    public static String ip = "192.168.21.118";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
