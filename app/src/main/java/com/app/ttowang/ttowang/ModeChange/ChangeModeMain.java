@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
 import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
@@ -46,7 +45,6 @@ public class ChangeModeMain extends AppCompatActivity {
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        setTitle("또왕");
        // mToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }

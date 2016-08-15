@@ -34,9 +34,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
-
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_scrollFlags="scroll|enterAlways" />
+                    app:layout_scrollFlags="scroll|enterAlways" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/logo"/>
+
+                </android.support.v7.widget.Toolbar>
 
 
             </android.support.design.widget.AppBarLayout>
@@ -57,23 +64,23 @@
                         android:elevation="5dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="45dp"
                         android:weightSum="10"
                         android:background="#000000"
                         >
 
-                        <TextView
+                        <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="2.5"
-                            android:layout_height="match_parent"
-                            android:text="혜택"
-                            android:gravity="center"
-                            android:textSize="20dp"
-                            android:textColor="#ffffff" />
+                            android:layout_weight="3"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/benefit"
+                           />
+
                         <TextView
                             android:id="@+id/txt_benefit"
                             android:layout_width="0dp"
-                            android:layout_weight="7.5"
+                            android:layout_weight="7"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="스탬프 10개 적립 시 조각 케이크 무료!"
@@ -99,11 +106,11 @@
                             />
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="right|top"
                             android:layout_margin="13dp"
-                            android:src="@drawable/love" />
+                            android:src="@drawable/heart" />
 
                         <LinearLayout
                             android:orientation="vertical"
@@ -184,13 +191,14 @@
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="20dp"
-                            android:foregroundGravity="left"
-                            android:src="@drawable/ring" />
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ring"
+                            android:scaleType="centerInside"/>
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight="8"
+                            android:layout_weight="8.8"
                             android:layout_height="wrap_content"
                             android:text="가게 벽면은 사진이나 그림 등의 작품을 걸어 놓아 전시공간으로 꾸몄다"
                             android:id="@+id/txt_info"
@@ -210,8 +218,8 @@
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="20dp"
-                            android:foregroundGravity="left"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
                             android:src="@drawable/ring" />
 
                         <TextView
@@ -249,8 +257,8 @@
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="20dp"
-                            android:foregroundGravity="left"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
                             android:src="@drawable/ring" />
 
                         <TextView
@@ -287,7 +295,8 @@
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
                             android:foregroundGravity="left"
                             android:src="@drawable/ring" />
 
@@ -326,7 +335,8 @@
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
                             android:foregroundGravity="left"
                             android:src="@drawable/ring" />
 
@@ -360,20 +370,9 @@
 
 
 
-
-                    <Button
-                        android:id="@+id/btn_enroll"
-                        style="@style/Widget.AppCompat.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:textSize="20dp"
-                        android:textColor="#ffffff"
-                        android:text="┼ 단골등록"
-                        android:textStyle="bold" />
-
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="50dp" />
+                        android:layout_height="40dp" />
 
 
 

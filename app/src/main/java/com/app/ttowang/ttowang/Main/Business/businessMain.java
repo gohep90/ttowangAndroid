@@ -46,8 +46,6 @@ public class businessMain extends Fragment {
 
 
 
-
-
     ListView listView;
 
     ArrayList<MyItem> storeList = new ArrayList<MyItem>();

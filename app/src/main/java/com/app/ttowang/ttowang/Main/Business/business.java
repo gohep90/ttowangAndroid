@@ -116,18 +116,10 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 */
 
 
-
-
-
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        setTitle("또왕");
-        // mToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
-
-
 
 
 
