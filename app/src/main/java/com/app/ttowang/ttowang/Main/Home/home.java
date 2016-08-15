@@ -73,27 +73,25 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
         businessName.clear();
-
+        businessLocation.clear();
+        remainStamp.clear();
+        usedStamp.clear();
 
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
 
 
-        //new selectMyBusinessAsyncTask().execute();
+        new selectMyBusinessAsyncTask().execute();
+        /*
         businessName.add("애들아");
         businessName.add("빡세게");
         businessName.add("하고 있니");
         businessName.add("나만");
         businessName.add("하나여..");
+*/
 
-        businessLocation.clear();
-        businessLocation.add("누구보다 빠르게");
-        businessLocation.add("난 남들과는 다르게");
-        businessLocation.add("색다르게 리듬을 타는");
-        businessLocation.add("비트위의 나그네");
-        businessLocation.add("더빠르게 빨려들어가");
-
+/*
         remainStamp.clear();
         remainStamp.add("5");
         remainStamp.add("10");
@@ -107,6 +105,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         usedStamp.add("30");
         usedStamp.add("90");
         usedStamp.add("2");
+*/
+
 
         myCoupon.clear();
         myCoupon.add("3");
@@ -118,8 +118,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
-        extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
-        extensiblePageIndicator.initViewPager(upViewPager);
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -127,7 +126,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         usedStampNumber = Integer.parseInt((String) usedStamp.get(0));
         stamp.setAddAdapter((usedStampNumber / 10) + 1);
 */
-        initViewPagerAndTabs();
+        //initViewPagerAndTabs();
 
         //pagerAdapter.notifyDataSetChanged();
         //stamp.setAddAdapter(((Integer.parseInt((String) home.usedStamp.get(0))/ 10) + 1));    //처음 초기화
@@ -209,9 +208,11 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
-        remainStampNumber =  Integer.parseInt((String) remainStamp.get(number));
-        usedStampNumber = Integer.parseInt((String) usedStamp.get(number));
-        myCouponNumber = Integer.parseInt((String) myCoupon.get(number));
+
+        remainStampNumber =  Integer.parseInt(String.valueOf(remainStamp.get(number)));
+
+        usedStampNumber = Integer.parseInt(String.valueOf(usedStamp.get(number)));
+        myCouponNumber = Integer.parseInt(String.valueOf(myCoupon.get(number)));
 
         if(MainActivity.first==0){
         }else{
@@ -279,13 +280,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID","1");
+            prop.setProperty("USERID","2");
 
             encodedString = encodeString(prop);
 
             try{
 
-                url=new URL("http://" + MainActivity.ip + ":8181/ttowang/selectMyBusinesses.do");
+                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/selectMyBusinesses.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
@@ -330,7 +331,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
         try{
             JSONObject json=new JSONObject(recv);
-            JSONArray jArr =json.getJSONArray("businessList");
+            JSONArray jArr =json.getJSONArray("list");
 
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
 
@@ -339,12 +340,16 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
                 businessName.add(json.getString("businessName"));
-
+                businessLocation.add(json.getString("businessAddress"));
+                remainStamp.add(json.getString("stampCount"));
+                usedStamp.add(json.getInt("totalStampCount") - json.getInt("stampCount"));
             }
 
-            //adapter.notifyDataSetChanged();     //리스트
+            adapter.notifyDataSetChanged();     //리스트
             //     mLockListView=false;
-
+            extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+            extensiblePageIndicator.initViewPager(upViewPager);
+            initViewPagerAndTabs();
         }catch(JSONException e){
             e.printStackTrace();
         }

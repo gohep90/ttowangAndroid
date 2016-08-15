@@ -70,10 +70,11 @@ public class stamp extends android.support.v4.app.ListFragment {
         Log.d("stamp - ", "onCreate");
 
         //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
-        setAddAdapter(((Integer.parseInt((String) home.usedStamp.get(0)) + Integer.parseInt((String) home.remainStamp.get(0)))/10) +1);    //처음 초기화
+        setAddAdapter(((Integer.parseInt(String.valueOf(home.usedStamp.get(0))) + Integer.parseInt(String.valueOf(home.remainStamp.get(0))))/10) +1);    //처음 초기화
+        list.setSelection((Integer.parseInt((String.valueOf(home.usedStamp.get(0)))+String.valueOf(home.remainStamp.get(0)))/ 10));      // 처음은 코드로 하단으로 넘어준다
 
-        list.setSelection((Integer.parseInt(((String) home.usedStamp.get(0))+(String) home.remainStamp.get(0))/ 10));      // 처음은 코드로 하단으로 넘어준다
-        Log.i("stamp - ","초기화 스템프 리스트 갯수 " +(Integer.parseInt(((String) home.usedStamp.get(0))+(String) home.remainStamp.get(0))/ 10));
+
+        //Log.i("stamp - ","초기화 스템프 리스트 갯수 " +(Integer.parseInt(((String) home.usedStamp.get(0))+(String) home.remainStamp.get(0))/ 10));
     }
 
 

@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor Edit;
 
-    //public static String ip = "192.168.0.2";  주용
+    //public static String ip = "192.168.0.2";  // 박주용 아이피
 
-    public static String ip = "192.168.21.118";
+    //public static String ip = "192.168.21.118";   //박민수 아이피
+
+    public static String ip = "192.168.21.208"; //장지은 아이피
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
