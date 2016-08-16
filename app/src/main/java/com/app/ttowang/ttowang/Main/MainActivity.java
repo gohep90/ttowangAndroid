@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     //public static String ip = "192.168.21.118";   //박민수 아이피
 
     public static String ip = "192.168.21.208"; //장지은 아이피
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +71,74 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initViewPagerAndTabs();
+
+
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {        //현재 뷰페이저 번호 가져오기
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                switch (position){
+                    case 0:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.chome);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.event);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
+                        break;
+                    case 1:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.cshop);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.event);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
+                        break;
+                    case 2:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.cevent);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
+                        break;
+                    case 3:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.event);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.cset);
+                        break;
+                }
+                Log.i("MainActivity - ", "fragment 번호 = " + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+
     }
 
 
     private void initViewPagerAndTabs() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragment(home.createInstance(0), "홈");
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
         pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
         pagerAdapter.addFragment(Mainsetting.createInstance(3), "설정");
+
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.chome);
+        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
+        tabLayout.getTabAt(2).setIcon(R.drawable.event);
+        tabLayout.getTabAt(3).setIcon(R.drawable.set);
 
     }
 
