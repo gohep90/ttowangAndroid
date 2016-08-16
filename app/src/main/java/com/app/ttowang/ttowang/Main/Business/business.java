@@ -44,7 +44,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap googleMap;
 
     TextView txt_title,txt_title2,txt_info,txt_phone,txt_time,txt_menu,txt_map,txt_benefit;
-    String index="";
+    String businessId="";
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
@@ -65,7 +65,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
 //////////////////////////////////////설정///////////////////////////////////////////////////
         Intent i = getIntent();
-        index = i.getExtras().getString("index");
+        businessId = i.getExtras().getString("businessId");
 
         txt_title   =   (TextView)findViewById(R.id.txt_title);
         txt_title2   =   (TextView)findViewById(R.id.txt_title2);
@@ -186,7 +186,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("businessId", index);
+            prop.setProperty("businessId", businessId);
 
             String encodedString = encodeString(prop);
 

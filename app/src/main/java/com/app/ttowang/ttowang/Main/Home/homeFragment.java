@@ -83,6 +83,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
             public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
                 Toast.makeText(getActivity(), (String)home.businessName.get(number), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), business.class);
+                intent.putExtra("businessId", String.valueOf(home.businessId.get(number)));
                 startActivity(intent);
             }
         });

@@ -92,14 +92,14 @@ public class businessMain extends Fragment {
         String image="";
         String title="";
         String info="";
-        String index="";
+        String businessId="";
 
-        public MyItem(String image, String title, String info, String index){
+        public MyItem(String image, String title, String info, String businessId){
             super();
             this.image=url+image;
             this.title=title;
             this.info=info;
-            this.index=index;
+            this.businessId=businessId;
         }
     }
 
@@ -157,7 +157,7 @@ public class businessMain extends Fragment {
 
                 //클릭 시 이동 !!
                     Intent intent = new Intent(getContext(),business.class);
-                    intent.putExtra("index", myItems.get(pos).index);
+                    intent.putExtra("businessId", myItems.get(pos).businessId);
                     startActivity(intent);
                     //getActivity().finish();
                 }
