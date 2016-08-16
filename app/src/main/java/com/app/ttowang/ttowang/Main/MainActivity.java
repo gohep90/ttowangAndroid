@@ -84,18 +84,24 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         tabLayout.getTabAt(0).setIcon(R.drawable.chome);
                         tabLayout.getTabAt(1).setIcon(R.drawable.shop);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.event);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 1:
                         tabLayout.getTabAt(0).setIcon(R.drawable.home);
                         tabLayout.getTabAt(1).setIcon(R.drawable.cshop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.event);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 2:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
                         tabLayout.getTabAt(1).setIcon(R.drawable.shop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.cevent);
                         tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 3:
+                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.event);
                         tabLayout.getTabAt(3).setIcon(R.drawable.cset);
                         break;
