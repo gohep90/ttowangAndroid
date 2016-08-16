@@ -57,7 +57,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     public static List usedStamp = new ArrayList();        //즐겨찾기 매장 사용한 쿠폰
     static List myCoupon = new ArrayList();         //즐겨찾기 매장 내 쿠폰(사용가능한것과 사용한 것 포함)
 
-
+    static ArrayList<ArrayList<String>> mycoupon1 = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> mycoupon1Child;
     static View view;
 
     ExtensiblePageIndicator extensiblePageIndicator;
@@ -109,14 +110,14 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         usedStamp.add("2");
 */
 
-
+/*
         myCoupon.clear();
         myCoupon.add("3");
         myCoupon.add("5");
         myCoupon.add("10");
         myCoupon.add("7");
         myCoupon.add("20");
-
+*/
         upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
@@ -329,11 +330,12 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     private void jsonFirstList(String recv) {
 
-        Log.i("서버에서 받은 전체 내용 : ", recv);
+        Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
 
         try{
             JSONObject json=new JSONObject(recv);
             JSONArray jArr =json.getJSONArray("list");
+            JSONArray jCoupon =json.getJSONArray("coupon");
 
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
 
@@ -348,6 +350,33 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 remainStamp.add(json.getString("stampCount"));
                 usedStamp.add(json.getInt("totalStampCount") - json.getInt("stampCount"));
             }
+
+            String nowcouponbusinessId = "0";
+            int nowcouponbusinessnum = 0;
+            for (i = 0; i < jCoupon.length(); i++ ) {
+                mycoupon1Child = new ArrayList<String>();
+                json = jCoupon.getJSONObject(i);
+
+                mycoupon1Child.add(json.getString("businessId"));
+                mycoupon1Child.add(json.getString("couponNum"));
+                mycoupon1Child.add(json.getString("couponCode"));
+                mycoupon1Child.add(json.getString("couponUse"));
+                mycoupon1.add(mycoupon1Child);
+
+                Log.i("home - ","쿠폰 갯수 " + (i+1) + " "+ json.getString("businessId") + " " + json.getString("couponNum") + " " + json.getString("couponCode")+" " + json.getString("couponUse"));
+
+                if(nowcouponbusinessId.equals("0")){
+                    nowcouponbusinessId = json.getString("businessId");
+                    nowcouponbusinessnum += 1;
+                }else if(!nowcouponbusinessId.equals("0") & nowcouponbusinessId.equals(json.getString("businessId"))){
+                    nowcouponbusinessnum += 1;
+                }else{
+                    myCoupon.add(nowcouponbusinessnum);
+                    nowcouponbusinessnum = 1;
+                }
+
+            }
+
 
             adapter.notifyDataSetChanged();     //리스트
             //     mLockListView=false;

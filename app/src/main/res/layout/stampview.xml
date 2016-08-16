@@ -52,7 +52,8 @@
                         android:text="쿠폰 바꾸기"
                         android:textColor="#ffffff"
                         android:background="#F15F5F"
-                        android:id="@+id/save_button"/>
+                        android:id="@+id/coupon_change_button"/>
+
                 </android.support.v7.widget.CardView>
                 <android.support.v7.widget.CardView
                     xmlns:android="http://schemas.android.com/apk/res/android"

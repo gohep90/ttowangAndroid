@@ -5,9 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 /**
@@ -22,6 +25,7 @@ public class stamp extends android.support.v4.app.ListFragment {
     View view;
     public static stampItemAdapter adapter;
     ListView list;
+    Button coupon_change_button;
 
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
@@ -50,8 +54,15 @@ public class stamp extends android.support.v4.app.ListFragment {
             adapter.addItem();
         }
         */
-
+        coupon_change_button = (Button)view.findViewById(R.id.coupon_change_button);
         //adapter = new ArrayAdapter<String>(getActivity(), R.layout.stampitem, home.thisisstamp);
+
+        coupon_change_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
 
