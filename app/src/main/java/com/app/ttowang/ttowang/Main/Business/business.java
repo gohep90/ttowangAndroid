@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -57,7 +56,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business);
 
-        initToolbar();
 
         //////////////////////////지도///////////////////////////////////
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -114,13 +112,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 */
-
-
-    private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-    }
-
 
 
     @Override

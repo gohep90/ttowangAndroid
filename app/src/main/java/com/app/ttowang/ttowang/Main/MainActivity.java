@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     //public static String ip = "192.168.0.2";  // 박주용 아이피
 
-    public static String ip = "192.168.21.118";   //박민수 아이피
+    public static String ip = "117.17.142.99";   //박민수 아이피
 
     //public static String ip = "192.168.21.208"; //장지은 아이피
     ViewPager viewPager;
@@ -85,24 +84,18 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         tabLayout.getTabAt(0).setIcon(R.drawable.chome);
                         tabLayout.getTabAt(1).setIcon(R.drawable.shop);
-                        tabLayout.getTabAt(2).setIcon(R.drawable.event);
-                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 1:
                         tabLayout.getTabAt(0).setIcon(R.drawable.home);
                         tabLayout.getTabAt(1).setIcon(R.drawable.cshop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.event);
-                        tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
                         tabLayout.getTabAt(1).setIcon(R.drawable.shop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.cevent);
                         tabLayout.getTabAt(3).setIcon(R.drawable.set);
                         break;
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.home);
-                        tabLayout.getTabAt(1).setIcon(R.drawable.shop);
                         tabLayout.getTabAt(2).setIcon(R.drawable.event);
                         tabLayout.getTabAt(3).setIcon(R.drawable.cset);
                         break;
