@@ -49,6 +49,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private RelativeLayout viewlayout;
     private ImageView mybusinessimg;
 
+    static List photoName = new ArrayList();     //즐겨찾기 매장 이름
     static List businessName = new ArrayList();     //즐겨찾기 매장 이름
     static List businessLocation = new ArrayList(); //즐겨찾기 매장 위치
     public static List remainStamp = new ArrayList();      //즐겨찾기 매장 사용가능 쿠폰
@@ -339,6 +340,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
+                photoName.add(json.getString("photoName"));
                 businessName.add(json.getString("businessName"));
                 businessLocation.add(json.getString("businessAddress"));
                 remainStamp.add(json.getString("stampCount"));

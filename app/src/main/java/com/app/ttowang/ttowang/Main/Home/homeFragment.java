@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Business.business;
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
+import com.bumptech.glide.Glide;
 
 
 public class homeFragment extends android.support.v4.app.Fragment{
@@ -23,6 +25,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
     private ImageView mybusinessimg;
     private int number = -1;
     private RelativeLayout viewlayout;
+
+    String ip= MainActivity.ip;
 
 
 
@@ -64,11 +68,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
 
         mybusinessimg = (ImageView) view.findViewById(R.id.mybusinessimg); //매장 사진 교체
-        if(number%2==0) {
-            mybusinessimg.setImageDrawable(getResources().getDrawable(R.drawable.bo));
-        }else{
-            mybusinessimg.setImageDrawable(getResources().getDrawable(R.drawable.ilike));
-        }
+
+        Glide.with(container.getContext()).load("http://" + ip + ":8080/ttowang/image/"+home.photoName.get(number)).into(mybusinessimg);
 
         businessName.setText(String.valueOf(home.businessName.get(number)));      //매장 이름
         businessLocation.setText(String.valueOf(home.businessLocation.get(number)));//매장 주소
