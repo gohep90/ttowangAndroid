@@ -96,7 +96,10 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         remainStamp.clear();
         usedStamp.clear();
 */
-
+        myAllBusiness.clear();
+        myAllBusinessCouponNum.clear();
+        myAllBusinessCouponUse.clear();
+        myAllBusinessCouponName.clear();
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
