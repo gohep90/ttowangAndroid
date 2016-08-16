@@ -69,21 +69,23 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
         mybusinessimg = (ImageView) view.findViewById(R.id.mybusinessimg); //매장 사진 교체
 
-        Glide.with(container.getContext()).load("http://" + ip + ":8080/ttowang/image/"+home.photoName.get(number)).into(mybusinessimg);
+        Glide.with(container.getContext()).load("http://" + ip + ":8080/ttowang/image/"+home.myAllBusiness.get(number).get(3)).into(mybusinessimg);
 
-        businessName.setText(String.valueOf(home.businessName.get(number)));      //매장 이름
-        businessLocation.setText(String.valueOf(home.businessLocation.get(number)));//매장 주소
-        myRemainCoupon.setText(String.valueOf(home.remainStamp.get(number))); //남은 쿠폰 갯수
-        myUsedCoupon.setText(String.valueOf(home.usedStamp.get(number)));     //사용한 쿠폰 갯수
+        businessName.setText(String.valueOf(home.myAllBusiness.get(number).get(1)));      //매장 이름
+        businessLocation.setText(String.valueOf(home.myAllBusiness.get(number).get(2)));//매장 주소
+        myRemainCoupon.setText(String.valueOf(home.myAllBusiness.get(number).get(4))); //남은 쿠폰 갯수
+        myUsedCoupon.setText(String.valueOf(home.myAllBusiness.get(number).get(5)));     //사용한 쿠폰 갯수
 
-        String as = String.valueOf(home.usedStamp.get(number));
+        String as = String.valueOf(home.myAllBusiness.get(number).get(5));
 
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override
             public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
-                Toast.makeText(getActivity(), (String)home.businessName.get(number), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), (String)home.
+                        myAllBusiness.get(number).get(1), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), business.class);
-                intent.putExtra("businessId", String.valueOf(home.businessId.get(number)));
+                intent.putExtra("businessId", String.valueOf(home.
+                        myAllBusiness.get(number).get(0)));
                 startActivity(intent);
             }
         });

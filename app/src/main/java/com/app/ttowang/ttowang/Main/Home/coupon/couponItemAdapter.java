@@ -1,14 +1,17 @@
 package com.app.ttowang.ttowang.Main.Home.coupon;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
@@ -22,6 +25,8 @@ public class couponItemAdapter extends BaseAdapter {
     private ArrayList<couponItemClass> listViewItemList = new ArrayList<couponItemClass>() ;
     private Button useCoupon;
     private TextView couponName, couponNumber;
+
+    private LinearLayout thisCoupon;
     // ListViewAdapter의 생성자
     public couponItemAdapter() {
 
@@ -48,12 +53,18 @@ public class couponItemAdapter extends BaseAdapter {
         useCoupon = (Button)convertView.findViewById(R.id.useCoupon);
         couponName = (TextView)convertView.findViewById(R.id.couponName);
         couponNumber = (TextView)convertView.findViewById(R.id.couponNumber);
-
+        thisCoupon = (LinearLayout)convertView.findViewById(R.id.thisCoupon);
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         couponItemClass couponItemClass = listViewItemList.get(position);
 
-        couponName.setText(position + "번째 쿠폰");
-        couponNumber.setText(position*45 + " - "+position*7+" - "+position);
+        couponName.setText(home.myAllBusinessCouponName.get(home.nowbusiness).get(position));
+        couponNumber.setText(home.myAllBusinessCouponNum.get(home.nowbusiness).get(position));
+        if(home.myAllBusinessCouponUse.get(home.nowbusiness).get(position).equals("0")){    //사용했으면
+            thisCoupon.setBackgroundColor(Color.parseColor("#ededed"));
+            useCoupon.setBackgroundColor(Color.parseColor("#d8d8d8"));
+            useCoupon.setText("사용됨");
+            useCoupon.setClickable(false);
+        }
         // 아이템 내 각 위젯에 데이터 반영
 
         useCoupon.setOnClickListener(new View.OnClickListener() {

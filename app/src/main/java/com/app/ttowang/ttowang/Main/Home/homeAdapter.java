@@ -17,7 +17,7 @@ public class homeAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return home.businessName.size();
+        return home.myAllBusiness.size();
     }
 
     @Override

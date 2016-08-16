@@ -49,16 +49,30 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     private RelativeLayout viewlayout;
     private ImageView mybusinessimg;
 
+
+    public static ArrayList<ArrayList<String>> myAllBusiness = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> myBusiness;
+
+    public static ArrayList<ArrayList<String>> myAllBusinessCouponNum = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> myBusinessCouponNum;
+
+    public static ArrayList<ArrayList<String>> myAllBusinessCouponUse = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> myBusinessCouponUse;
+
+    public static ArrayList<ArrayList<String>> myAllBusinessCouponName = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> myBusinessCouponName;
+
+
+    /*
     static List photoName = new ArrayList();     //즐겨찾기 매장 사진
     static List businessId = new ArrayList();     //즐겨찾기 매장 Id
     static List businessName = new ArrayList();     //즐겨찾기 매장 이름
     static List businessLocation = new ArrayList(); //즐겨찾기 매장 위치
     public static List remainStamp = new ArrayList();      //즐겨찾기 매장 사용가능 쿠폰
     public static List usedStamp = new ArrayList();        //즐겨찾기 매장 사용한 쿠폰
-    static List myCoupon = new ArrayList();         //즐겨찾기 매장 내 쿠폰(사용가능한것과 사용한 것 포함)
+*/
+//    static List myCoupon = new ArrayList();         //즐겨찾기 매장 내 쿠폰(사용가능한것과 사용한 것 포함)
 
-    static ArrayList<ArrayList<String>> mycoupon1 = new ArrayList<ArrayList<String>>();
-    static ArrayList<String> mycoupon1Child;
     static View view;
 
     ExtensiblePageIndicator extensiblePageIndicator;
@@ -71,14 +85,17 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     String encodedString="";
 
+    public static int nowbusiness;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
+        /*
         businessName.clear();
         businessLocation.clear();
         remainStamp.clear();
         usedStamp.clear();
+*/
 
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
@@ -118,6 +135,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         myCoupon.add("7");
         myCoupon.add("20");
 */
+
         upViewPager.setClipToPadding(false);      //양 옆의 카드 보이게 해주는거
         upViewPager.setPadding(100,0,100,0);      //양 옆의 카드 보이게 해주는거(패딩)
         setPagerAdapter();
@@ -207,17 +225,21 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     public void onFragmentCreated(int number) { //여기서 쿠폰 갯수 세팅 해줌
 
-        Log.i("home - ","쿠폰 바꿈 : " + String.valueOf(businessName.get(number)));
+        nowbusiness = number;
+
+        Log.i("home - ","쿠폰 바꿈 : " + String.valueOf(myAllBusiness.get(number).get(1)));
         //text_home = (TextView) view.findViewById(R.id.text_home);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
 
 
-        remainStampNumber =  Integer.parseInt(String.valueOf(remainStamp.get(number)));
+        remainStampNumber =  Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(4)));
 
-        usedStampNumber = Integer.parseInt(String.valueOf(usedStamp.get(number)));
-        myCouponNumber = Integer.parseInt(String.valueOf(myCoupon.get(number)));
+        usedStampNumber = Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(5)));
+
+        myCouponNumber = Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(6)));
 
         if(MainActivity.first==0){
+
         }else{
             try {
                 stamp.setAddAdapter(((usedStampNumber+remainStampNumber) / 10) + 1);
@@ -341,40 +363,115 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             int i;
 
+            //asdasdasd
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
-                businessId.add(json.getString("businessId"));
-                photoName.add(json.getString("photoName"));
-                businessName.add(json.getString("businessName"));
-                businessLocation.add(json.getString("businessAddress"));
-                remainStamp.add(json.getString("stampCount"));
-                usedStamp.add(json.getInt("totalStampCount") - json.getInt("stampCount"));
+                myBusiness = new ArrayList<String>();
+
+                myBusiness.add(json.getString("businessId"));
+                myBusiness.add(json.getString("businessName"));
+                myBusiness.add(json.getString("businessAddress"));
+                myBusiness.add(json.getString("photoName"));
+                myBusiness.add(json.getString("stampCount"));
+                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add("0");
+
+                myAllBusiness.add(myBusiness);
+
+
+                myBusinessCouponNum = new ArrayList<String>();
+                myBusinessCouponUse = new ArrayList<String>();
+                myBusinessCouponName = new ArrayList<String>();
+
+                myBusinessCouponNum.add("0");
+                myBusinessCouponUse.add("0");
+                myBusinessCouponName.add("0");
+
+                myAllBusinessCouponNum.add(myBusinessCouponNum);
+                myAllBusinessCouponUse.add(myBusinessCouponUse);
+                myAllBusinessCouponName.add(myBusinessCouponName);
             }
+
 
             String nowcouponbusinessId = "0";
             int nowcouponbusinessnum = 0;
+            int nowcouponbusinesswhere = 0;
+
             for (i = 0; i < jCoupon.length(); i++ ) {
-                mycoupon1Child = new ArrayList<String>();
+
                 json = jCoupon.getJSONObject(i);
 
-                mycoupon1Child.add(json.getString("businessId"));
-                mycoupon1Child.add(json.getString("couponNum"));
-                mycoupon1Child.add(json.getString("couponCode"));
-                mycoupon1Child.add(json.getString("couponUse"));
-                mycoupon1.add(mycoupon1Child);
 
-                Log.i("home - ","쿠폰 갯수 " + (i+1) + " "+ json.getString("businessId") + " " + json.getString("couponNum") + " " + json.getString("couponCode")+" " + json.getString("couponUse"));
+                Log.i("home - ","쿠폰있다");
 
-                if(nowcouponbusinessId.equals("0")){
+                if(nowcouponbusinessId.equals("0")){        //처음이면
                     nowcouponbusinessId = json.getString("businessId");
-                    nowcouponbusinessnum += 1;
-                }else if(!nowcouponbusinessId.equals("0") & nowcouponbusinessId.equals(json.getString("businessId"))){
-                    nowcouponbusinessnum += 1;
-                }else{
-                    myCoupon.add(nowcouponbusinessnum);
                     nowcouponbusinessnum = 1;
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0,json.getString("couponName"));
+
+                    Log.i("home - ","처음매장");
+                }else if(!nowcouponbusinessId.equals("0") & nowcouponbusinessId.equals(json.getString("businessId"))){  //처음도 아니고, 기존 매장 쿠폰이면
+                    nowcouponbusinessnum += 1;
+                    Log.i("home - ","기존매장");
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponName"));
+
+
+                }else{      //처음도 아니고, 기존 매장 쿠폰도 아니면
+
+
+                    myAllBusiness.get(nowcouponbusinesswhere).set(6, String.valueOf(nowcouponbusinessnum));
+                    Log.i("home - ","쿠폰 갯수 삽입 " + nowcouponbusinesswhere + "번째 " + nowcouponbusinessnum + "개");
+
+                    nowcouponbusinessId = json.getString("businessId");
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add(0,json.getString("couponName"));
+                    //Log.i("home - ",nowcouponbusinessId + "번째 매장 " + nowcouponbusinessnum + "개 쿠폰");
+
+                    nowcouponbusinessnum = 1;
+                    Log.i("home - ","새로운매장");
                 }
 
+                if(i == (jCoupon.length()-1) & nowcouponbusinessnum != 0){
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            myAllBusiness.get(j).set(6, String.valueOf(nowcouponbusinessnum));
+
+                            Log.i("home - ","쿠폰 갯수 삽입 " + j + "번째 " + nowcouponbusinessnum + "개");
+
+                            if(nowcouponbusinessnum == 0) {
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0, json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0, json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0, json.getString("couponName"));
+                            }else{
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponName"));
+                            }
+                            break;
+                        }
+                    }
+                }
             }
 
 
