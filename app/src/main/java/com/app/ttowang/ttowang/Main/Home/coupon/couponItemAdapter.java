@@ -62,15 +62,19 @@ public class couponItemAdapter extends BaseAdapter {
         if(home.myAllBusinessCouponUse.get(home.nowbusiness).get(position).equals("0")){    //사용했으면
             thisCoupon.setBackgroundColor(Color.parseColor("#ededed"));
             useCoupon.setBackgroundColor(Color.parseColor("#d8d8d8"));
-            useCoupon.setText("사용됨");
-            useCoupon.setClickable(false);
+            useCoupon.setText("사용 완료");
+            //useCoupon.setClickable(false);
         }
         // 아이템 내 각 위젯에 데이터 반영
 
         useCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, position+"번째", Toast.LENGTH_SHORT).show();
+                if(useCoupon.getText().equals("사용 하기")) {
+                    Toast.makeText(MainActivity.mContext, position + "번째", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.mContext, position + "번째 사용 완료", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return convertView;
