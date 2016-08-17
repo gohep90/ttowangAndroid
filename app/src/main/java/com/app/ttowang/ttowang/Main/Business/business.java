@@ -131,8 +131,8 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         }
         googleMap.setMyLocationEnabled(true);
         Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL).title("Seoul"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 10));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 15));  //숫자가 작을수록 넓은범위 보임
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() { //지도 클릭
             @Override
