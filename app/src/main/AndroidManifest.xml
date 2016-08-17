@@ -24,6 +24,7 @@
         android:theme="@style/AppThemeRed">
 
         <activity
+            android:name="android.support.multidex.MultiDexApplication"
             android:name=".Main.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
