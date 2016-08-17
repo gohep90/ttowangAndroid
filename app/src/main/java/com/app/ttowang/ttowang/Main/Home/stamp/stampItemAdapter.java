@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.home;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class stampItemAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<stampItemClass> listViewItemList = new ArrayList<stampItemClass>() ;
-    private Button stamp0,stamp1,stamp2,stamp3,stamp4,stamp5,stamp6,stamp7,stamp8,stamp9;
+    private ImageView stamp0,stamp1,stamp2,stamp3,stamp4,stamp5,stamp6,stamp7,stamp8,stamp9;
 
     // ListViewAdapter의 생성자
     public stampItemAdapter() {
@@ -44,89 +44,119 @@ public class stampItemAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.stampitem, parent, false);
         }
-        stamp0 = (Button)convertView.findViewById(R.id.stamp0);
-        stamp1 = (Button)convertView.findViewById(R.id.stamp1);
-        stamp2 = (Button)convertView.findViewById(R.id.stamp2);
-        stamp3 = (Button)convertView.findViewById(R.id.stamp3);
-        stamp4 = (Button)convertView.findViewById(R.id.stamp4);
-        stamp5 = (Button)convertView.findViewById(R.id.stamp5);
-        stamp6 = (Button)convertView.findViewById(R.id.stamp6);
-        stamp7 = (Button)convertView.findViewById(R.id.stamp7);
-        stamp8 = (Button)convertView.findViewById(R.id.stamp8);
-        stamp9 = (Button)convertView.findViewById(R.id.stamp9);
+        stamp0 = (ImageView)convertView.findViewById(R.id.stamp0);
+        stamp1 = (ImageView)convertView.findViewById(R.id.stamp1);
+        stamp2 = (ImageView)convertView.findViewById(R.id.stamp2);
+        stamp3 = (ImageView)convertView.findViewById(R.id.stamp3);
+        stamp4 = (ImageView)convertView.findViewById(R.id.stamp4);
+        stamp5 = (ImageView)convertView.findViewById(R.id.stamp5);
+        stamp6 = (ImageView)convertView.findViewById(R.id.stamp6);
+        stamp7 = (ImageView)convertView.findViewById(R.id.stamp7);
+        stamp8 = (ImageView)convertView.findViewById(R.id.stamp8);
+        stamp9 = (ImageView)convertView.findViewById(R.id.stamp9);
 
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         stampItemClass stampItemClass = listViewItemList.get(position);
         if(home.usedStampNumber >=  ((position*10)+1)){
-            stamp0.setText(position+"1"+"\n 사용");
+            //stamp0.setText(position+"1"+"\n 사용");
+            stamp0.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+1)) {
-            stamp0.setText(position+"1"+"\n 있다");
+            //stamp0.setText(position+"1"+"\n 있다");
+            stamp0.setImageResource(R.drawable.stamp2);
         }else{
-            stamp0.setText(position+"1"+"\n no");
+            //stamp0.setText(position+"1"+"\n no");
+            stamp0.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+2)){
-            stamp1.setText(position+"2"+"\n 사용");
+            //stamp1.setText(position+"2"+"\n 사용");
+            stamp1.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+2)) {
-            stamp1.setText(position+"2"+"\n 있다");
+            //stamp1.setText(position+"2"+"\n 있다");
+            stamp1.setImageResource(R.drawable.stamp2);
         }else{
-            stamp1.setText(position+"2"+"\n no");
+            //stamp1.setText(position+"2"+"\n no");
+            stamp1.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+3)){
-            stamp2.setText(position+"3"+"\n 사용");
+            //stamp2.setText(position+"3"+"\n 사용");
+            stamp2.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+3)) {
-            stamp2.setText(position+"3"+"\n 있다");
+            //stamp2.setText(position+"3"+"\n 있다");
+            stamp2.setImageResource(R.drawable.stamp2);
         }else{
-            stamp2.setText(position+"3"+"\n no");
+           // stamp2.setText(position+"3"+"\n no");
+            stamp2.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+4)){
-            stamp3.setText(position+"4"+"\n 사용");
+          //  stamp3.setText(position+"4"+"\n 사용");
+            stamp3.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+4)) {
-            stamp3.setText(position+"4"+"\n 있다");
+          //  stamp3.setText(position+"4"+"\n 있다");
+            stamp3.setImageResource(R.drawable.stamp2);
         }else{
-            stamp3.setText(position+"4"+"\n no");
+           // stamp3.setText(position+"4"+"\n no");
+            stamp3.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+5)){
-            stamp4.setText(position+"5"+"\n 사용");
+           // stamp4.setText(position+"5"+"\n 사용");
+            stamp4.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+5)) {
-            stamp4.setText(position+"5"+"\n 있다");
+           // stamp4.setText(position+"5"+"\n 있다");
+            stamp4.setImageResource(R.drawable.stamp2);
         }else{
-            stamp4.setText(position+"5"+"\n no");
+           // stamp4.setText(position+"5"+"\n no");
+            stamp4.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+6)){
-            stamp5.setText(position+"6"+"\n 사용");
+           // stamp5.setText(position+"6"+"\n 사용");
+            stamp5.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+6)) {
-            stamp5.setText(position+"6"+"\n 있다");
+           // stamp5.setText(position+"6"+"\n 있다");
+            stamp5.setImageResource(R.drawable.stamp2);
         }else{
-            stamp5.setText(position+"6"+"\n no");
+           // stamp5.setText(position+"6"+"\n no");
+            stamp5.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+7)){
-            stamp6.setText(position+"7"+"\n 사용");
+           // stamp6.setText(position+"7"+"\n 사용");
+            stamp6.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+7)) {
-            stamp6.setText(position+"7"+"\n 있다");
+           // stamp6.setText(position+"7"+"\n 있다");
+            stamp6.setImageResource(R.drawable.stamp2);
         }else{
-            stamp6.setText(position+"7"+"\n no");
+          //  stamp6.setText(position+"7"+"\n no");
+            stamp6.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+8)){
-            stamp7.setText(position+"8"+"\n 사용");
+           // stamp7.setText(position+"8"+"\n 사용");
+            stamp7.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+8)) {
-            stamp7.setText(position+"8"+"\n 있다");
+           // stamp7.setText(position+"8"+"\n 있다");
+            stamp7.setImageResource(R.drawable.stamp2);
         }else{
-            stamp7.setText(position+"8"+"\n no");
+           // stamp7.setText(position+"8"+"\n no");
+            stamp7.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+9)){
-            stamp8.setText(position+"9"+"\n 사용");
+          //  stamp8.setText(position+"9"+"\n 사용");
+            stamp8.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+9)) {
-            stamp8.setText(position+"9"+"\n 있다");
+           // stamp8.setText(position+"9"+"\n 있다");
+            stamp8.setImageResource(R.drawable.stamp2);
         }else{
-            stamp8.setText(position+"9"+"\n no");
+           // stamp8.setText(position+"9"+"\n no");
+            stamp8.setImageResource(R.drawable.stamp3);
         }
         if(home.usedStampNumber >=  ((position*10)+10)){
-            stamp9.setText((position+1)+"0"+"\n 사용");
+          //  stamp9.setText((position+1)+"0"+"\n 사용");
+            stamp9.setImageResource(R.drawable.stamp1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+10)) {
-            stamp9.setText((position+1)+"0"+"\n 있다");
+           // stamp9.setText((position+1)+"0"+"\n 있다");
+            stamp9.setImageResource(R.drawable.stamp2);
         }else{
-            stamp9.setText((position+1)+"0"+"\n no");
+          //  stamp9.setText((position+1)+"0"+"\n no");
+            stamp9.setImageResource(R.drawable.stamp3);
         }
 
         stamp0.setOnClickListener(new View.OnClickListener() {
