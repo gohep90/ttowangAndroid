@@ -47,13 +47,15 @@ public class stamp extends Fragment {
     View view;
     //Button modeChange;
 
-    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_addstamp, btn_back;
-    TextView text_telvalue, text_stampnum;
+    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_back; //번호입력버튼 and 빽버튼
+    Button btn_addstamp; //적립하기버튼
+    TextView text_telvalue; //번호입력하는부분
+    TextView text_stampnum; //스템프갯수입력하는부분
 
     String encodedString;
     String ip;
 
-    int focus = 0;
+    int focus = 1; //첫 포커스를 번호창으로 줌
 
     public static stamp createInstance(int itemsCount) {
         stamp stamp = new stamp();
@@ -99,6 +101,8 @@ public class stamp extends Fragment {
         btn_8 = (Button) view.findViewById(R.id.btn_8);
         btn_9 = (Button) view.findViewById(R.id.btn_9);
         btn_back = (Button) view.findViewById(R.id.btn_back);
+
+        text_stampnum.setText("1"); // 스템프 갯수 초기값을 1로 준다
 
         buttonClickListener();
 
@@ -152,11 +156,13 @@ public class stamp extends Fragment {
                     break;
 
                 case R.id.text_telvalue:
-                    focus = 1;
+                    focus = 1; //번호창을 누르면 포커스 이동
                     break;
 
                 case R.id.text_stampnum:
-                    focus = 0;
+                    focus = 0; ////스템프 갯수창을 누르면 포커스 이동
+                    text_stampnum.setText(""); //스템프 갯수창을 누르면 초기화됨
+
                     //edt_stampnum.setInputType(1);
 
                     // 숫자로 나오게 하기

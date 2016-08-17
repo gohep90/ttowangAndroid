@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="#FF5A5A">
+    android:background="#ff375f">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FF5A5A"
+                    android:background="#ff375f"
                     android:layout_marginBottom="1.5dp">
 
                     <TextView
@@ -48,9 +48,9 @@
                         android:gravity="center_horizontal|bottom"
                         android:paddingBottom="10dp"
                         android:hint="스탬프 갯수를 입력해주세요"
-                        android:textColorHint="@color/white"
                         android:textSize="15dp"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"/>
 
                 </LinearLayout>
 
