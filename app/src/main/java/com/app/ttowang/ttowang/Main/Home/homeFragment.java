@@ -153,6 +153,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
                     }
                 }
 */
+                home.refresh();
+                //home.PagerAdapter.notifyDataSetChanged;
                 Toast.makeText(MainActivity.mContext, "삭제합니다.", Toast.LENGTH_SHORT).show();
             }
         });

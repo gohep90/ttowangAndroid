@@ -43,9 +43,10 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
-    private ViewPager upViewPager, downViewPager;;
+    private static ViewPager upViewPager;
+    private static ViewPager downViewPager;;
 
-    private homeAdapter adapter;
+    private static homeAdapter adapter;
     private RelativeLayout viewlayout;
     private ImageView mybusinessimg;
 
@@ -62,7 +63,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     public static ArrayList<ArrayList<String>> myAllBusinessCouponName = new ArrayList<ArrayList<String>>();
     static ArrayList<String> myBusinessCouponName;
 
-
+    static String state = "first";
     /*
     static List photoName = new ArrayList();     //즐겨찾기 매장 사진
     static List businessId = new ArrayList();     //즐겨찾기 매장 Id
@@ -75,37 +76,37 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static View view;
 
-    ExtensiblePageIndicator extensiblePageIndicator;
+    static ExtensiblePageIndicator extensiblePageIndicator;
 
-    PagerAdapter pagerAdapter;
+    static PagerAdapter pagerAdapter;
 
     public static int remainStampNumber,usedStampNumber, myCouponNumber;
 
     Context context;
 
-    String encodedString="";
+    static String encodedString="";
 
     public static int nowbusiness;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
+
         /*
         businessName.clear();
         businessLocation.clear();
         remainStamp.clear();
         usedStamp.clear();
-*/
-        myAllBusiness.clear();
-        myAllBusinessCouponNum.clear();
-        myAllBusinessCouponUse.clear();
-        myAllBusinessCouponName.clear();
+        */
+
+
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
 
 
         new selectMyBusinessAsyncTask().execute();
+        pagerAdapter = new PagerAdapter(getChildFragmentManager());
         /*
         businessName.add("애들아");
         businessName.add("빡세게");
@@ -158,11 +159,12 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         return view;
     }
 
-    private void initViewPagerAndTabs() {
+    private static void initViewPagerAndTabs() {
 
         downViewPager = (ViewPager) view.findViewById(R.id.down_viewPager);
         //pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
-        pagerAdapter = new PagerAdapter(getChildFragmentManager());
+        //pagerAdapter = new PagerAdapter(getChildFragmentManager());
+
         pagerAdapter.addFragment(stamp.createInstance(0), "스탬프");
         pagerAdapter.addFragment(coupon.createInstance(1), "쿠폰");
 
@@ -274,9 +276,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 ////////////////////////////////////////////////////////////////서버 동기화 작업
 
 
-    public class selectMyBusinessAsyncTask extends AsyncTask<String,Integer,String> {
+    public static class selectMyBusinessAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
+            myAllBusiness.clear();
+            myAllBusinessCouponNum.clear();
+            myAllBusinessCouponUse.clear();
+            myAllBusinessCouponName.clear();
         }
 
         @Override
@@ -348,12 +354,16 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-            jsonFirstList(result);
+            if(state.equals("first")) {
+                jsonFirstList(result);
+            }else if(state.equals("refresh")){
+                jsonRefreshList(result);
+            }
 
         }
     }
 
-    private void jsonFirstList(String recv) {
+    private static void jsonFirstList(String recv) {
 
         Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
 
@@ -477,16 +487,161 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 }
             }
 
-
             adapter.notifyDataSetChanged();     //리스트
             //     mLockListView=false;
             extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
             extensiblePageIndicator.initViewPager(upViewPager);
+
             initViewPagerAndTabs();
         }catch(JSONException e){
             e.printStackTrace();
         }
     }
+
+
+    private static void jsonRefreshList(String recv) {
+
+        Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
+
+        try{
+            JSONObject json=new JSONObject(recv);
+            JSONArray jArr =json.getJSONArray("list");
+            JSONArray jCoupon =json.getJSONArray("coupon");
+
+            Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
+
+            int i;
+
+            //asdasdasd
+            for (i = 0; i < jArr.length(); i++ ) {
+                json = jArr.getJSONObject(i);
+                myBusiness = new ArrayList<String>();
+
+                myBusiness.add(json.getString("businessId"));
+                myBusiness.add(json.getString("businessName"));
+                myBusiness.add(json.getString("businessAddress"));
+                myBusiness.add(json.getString("photoName"));
+                myBusiness.add(json.getString("stampCount"));
+                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add("0");
+
+                myAllBusiness.add(myBusiness);
+
+
+                myBusinessCouponNum = new ArrayList<String>();
+                myBusinessCouponUse = new ArrayList<String>();
+                myBusinessCouponName = new ArrayList<String>();
+
+                myBusinessCouponNum.add("0");
+                myBusinessCouponUse.add("0");
+                myBusinessCouponName.add("0");
+
+                myAllBusinessCouponNum.add(myBusinessCouponNum);
+                myAllBusinessCouponUse.add(myBusinessCouponUse);
+                myAllBusinessCouponName.add(myBusinessCouponName);
+            }
+
+
+            String nowcouponbusinessId = "0";
+            int nowcouponbusinessnum = 0;
+            int nowcouponbusinesswhere = 0;
+
+            for (i = 0; i < jCoupon.length(); i++ ) {
+
+                json = jCoupon.getJSONObject(i);
+
+
+                Log.i("home - ","쿠폰있다");
+
+                if(nowcouponbusinessId.equals("0")){        //처음이면
+                    nowcouponbusinessId = json.getString("businessId");
+                    nowcouponbusinessnum = 1;
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0,json.getString("couponName"));
+
+                    Log.i("home - ","처음매장");
+                }else if(!nowcouponbusinessId.equals("0") & nowcouponbusinessId.equals(json.getString("businessId"))){  //처음도 아니고, 기존 매장 쿠폰이면
+                    nowcouponbusinessnum += 1;
+                    Log.i("home - ","기존매장");
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponName"));
+
+
+                }else{      //처음도 아니고, 기존 매장 쿠폰도 아니면
+
+
+                    myAllBusiness.get(nowcouponbusinesswhere).set(6, String.valueOf(nowcouponbusinessnum));
+                    Log.i("home - ","쿠폰 갯수 삽입 " + nowcouponbusinesswhere + "번째 " + nowcouponbusinessnum + "개");
+
+                    nowcouponbusinessId = json.getString("businessId");
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add(0,json.getString("couponName"));
+                    //Log.i("home - ",nowcouponbusinessId + "번째 매장 " + nowcouponbusinessnum + "개 쿠폰");
+
+                    nowcouponbusinessnum = 1;
+                    Log.i("home - ","새로운매장");
+                }
+
+                if(i == (jCoupon.length()-1) & nowcouponbusinessnum != 0){
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            myAllBusiness.get(j).set(6, String.valueOf(nowcouponbusinessnum));
+
+                            Log.i("home - ","쿠폰 갯수 삽입 " + j + "번째 " + nowcouponbusinessnum + "개");
+
+                            if(nowcouponbusinessnum == 0) {
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0, json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0, json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0, json.getString("couponName"));
+                            }else{
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponName"));
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            adapter.notifyDataSetChanged();     //리스트
+            pagerAdapter.notifyDataSetChanged();
+            //     mLockListView=false;
+
+            extensiblePageIndicator.initViewPager(upViewPager);
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    final public static void refresh(){
+        state = "refresh";
+        new selectMyBusinessAsyncTask().execute();
+        //adapter.notifyDataSetChanged();
+        Log.i("home - ","리프레쉬 한다");
+    }
+
 
 
 }
