@@ -1,8 +1,10 @@
 package com.app.ttowang.ttowang.Main.Setting;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +14,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Enumeration;
+import java.util.Properties;
 
 
 public class myInfoEdit extends AppCompatActivity {
@@ -29,6 +43,9 @@ public class myInfoEdit extends AppCompatActivity {
     int intGender = 0;//남0, 여1
 
     String ip = "";
+    String encodedString="";
+
+    Context context = MainActivity.mContext;
 
     //다른곳에 선언되어있는 SharedPreferences 가져오기
     @Override
@@ -80,53 +97,37 @@ public class myInfoEdit extends AppCompatActivity {
             change_btn_w.setTextColor(getResources().getColorStateList(R.color.m));
         }
 
-        /*
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체얻기
-
-        //String name = sharedPreferences.getString("name", "");
-        edt_name.setText(sharedPreferences.getString("name", ""));
-        text_tel.setText(sharedPreferences.getString("phone", ""));
-        edt_email.setText(sharedPreferences.getString("email",""));
-        //폰에 들어있는 내정보를 edittext로 뿌려줘
-*/
-
-
-        change_btn_edit.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-/*
-                SharedPreferences sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);//쉐어드객체 다시 얻기
-                SharedPreferences.Editor Edit= sharedPreferences.edit();
-                Edit.putString("userName", change_edt_name.getText().toString());
-                Edit.putString("userBirth", change_edt_birth.getText().toString());
-                Edit.putString("userEmail", change_edt_email.getText().toString());
-                Edit.putString("userGender", stringGender);
-                Edit.commit();
-
-                //Toast.makeText(myInfoEdit.this, change_edt_name.getText().toString(), Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), Mainsetting.class);
-                startActivity(intent);
-*/
-                finish();
-            }
-        });
-
-
-        //저장버튼이있어서 저장버튼 누르면 버튼 메소드안에서 내용을 바꿔줘
-        //그러면 setting에서 새로고침하면 바뀌겠지
-
         buttonClickListener();
     }
 
     private void buttonClickListener() {
         change_btn_m.setOnClickListener(ClickListener);
         change_btn_w.setOnClickListener(ClickListener);
+        change_btn_edit.setOnClickListener(ClickListener);
     }
 
     View.OnClickListener ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch(v.getId()){
+                case R.id.change_btn_edit:
+
+                    MyInfoEditAsyncTaskCall();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
+                    SharedPreferences.Editor Edit= sharedPreferences.edit();
+                    Edit.putString("userName", change_edt_name.getText().toString());
+                    Edit.putString("userBirth", change_edt_birth.getText().toString());
+                    Edit.putString("userEmail", change_edt_email.getText().toString());
+                    Edit.putString("userGender", stringGender);
+                    Edit.commit();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+
+                    //finish();
+                    break;
+
                 case R.id.change_btn_m:
                     change_btn_m.setBackgroundResource(R.drawable.btn_gender);
                     change_btn_w.setBackgroundResource(R.drawable.btn_ngender);
@@ -147,5 +148,94 @@ public class myInfoEdit extends AppCompatActivity {
             }
         }
     };
+
+    public void MyInfoEditAsyncTaskCall(){
+        new MyInfoEditAsyncTask().execute();
+    }
+
+    public class MyInfoEditAsyncTask extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute(){
+        }
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+            prop.setProperty("userTel", change_text_tel.getText().toString());
+            prop.setProperty("userName", change_edt_name.getText().toString());
+            prop.setProperty("userBirth", change_edt_birth.getText().toString());
+            prop.setProperty("userGender", stringGender);
+            prop.setProperty("userEmail", change_edt_email.getText().toString());
+
+            encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/myInfoEdit.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line = null;
+                String result = "";
+
+                while((line=bufreader.readLine()) != null){
+                    result += line;
+                }
+
+                prop.setProperty("userTel", change_text_tel.getText().toString());
+                prop.setProperty("userName", change_edt_name.getText().toString());
+                prop.setProperty("userBirth", change_edt_birth.getText().toString());
+                prop.setProperty("userGender", stringGender);
+                prop.setProperty("userEmail", change_edt_email.getText().toString());
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+    }
 
 }

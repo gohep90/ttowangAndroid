@@ -42,8 +42,6 @@ public class Tel extends AppCompatActivity {
     String result="";
     String ip="";
 
-    //int check = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

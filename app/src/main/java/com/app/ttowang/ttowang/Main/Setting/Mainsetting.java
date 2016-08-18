@@ -111,6 +111,7 @@ public class Mainsetting extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), myInfoEdit.class);
                 startActivity(intent);
+
             }
         });
 

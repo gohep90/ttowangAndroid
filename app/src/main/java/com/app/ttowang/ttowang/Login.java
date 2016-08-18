@@ -173,7 +173,7 @@ public class Login extends AppCompatActivity {
             encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/insertUser.do");
+                url=new URL("http://" + ip + ":8080/ttowang/updateUser.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
