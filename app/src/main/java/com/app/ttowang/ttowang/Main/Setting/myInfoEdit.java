@@ -111,7 +111,6 @@ public class myInfoEdit extends AppCompatActivity {
         public void onClick(View v) {
             switch(v.getId()){
                 case R.id.change_btn_edit:
-
                     MyInfoEditAsyncTaskCall();
 
                     SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
