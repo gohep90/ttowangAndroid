@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang;
+package com.app.ttowang.ttowang.Main.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ public class Tel extends AppCompatActivity {
 
     String encodedString="";
     String result="";
-    String ip="";
+    String ip=MainActivity.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class Tel extends AppCompatActivity {
         sharedPreferencesEditor.putString("ip", "172.30.1.3" + "");  //ip 설정하기 저장하기
         sharedPreferencesEditor.commit();
 
-        ip = sharedPreferences.getString("ip", "");
+        //ip = sharedPreferences.getString("ip", "");
         userTel=sharedPreferences.getString("userTel", "");
         userName=sharedPreferences.getString("userName", "");
         userBirth=sharedPreferences.getString("userBirth", "");
@@ -64,6 +65,7 @@ public class Tel extends AppCompatActivity {
         if (!userTel.equals("")) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
             Toast.makeText(getApplicationContext(), "로그인되어있음", Toast.LENGTH_SHORT).show();
         }
         //로그인 안되어있으면

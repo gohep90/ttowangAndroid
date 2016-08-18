@@ -104,7 +104,10 @@
                             android:layout_height="50dp"
                             android:layout_gravity="right|top"
                             android:layout_margin="13dp"
-                            android:src="@drawable/heart" />
+                            android:src="@drawable/heart"
+                            android:id="@+id/img_bookMark"
+                            />
+
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -130,6 +133,7 @@
                                     android:layout_width="50dp"
                                     android:layout_height="45dp"
                                     android:src="@drawable/cafe"
+                                    android:id="@+id/img_group"
                                     />
                             </LinearLayout>
 

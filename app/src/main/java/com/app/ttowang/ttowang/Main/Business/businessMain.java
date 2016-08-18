@@ -93,13 +93,15 @@ public class businessMain extends Fragment {
         String title="";
         String info="";
         String businessId="";
+        String group="";
 
-        public MyItem(String image, String title, String info, String businessId){
+        public MyItem(String image, String title, String info, String businessId, String group ){
             super();
             this.image=url+image;
             this.title=title;
             this.info=info;
             this.businessId=businessId;
+            this.group=group;
         }
     }
 
@@ -142,6 +144,31 @@ public class businessMain extends Fragment {
             final ImageView imageView=(ImageView)convertView.findViewById(R.id.image);
             //imageView.setImageBitmap(myItems.get(pos).image);
             Glide.with(this.context).load(myItems.get(pos).image).into(imageView);
+
+
+            ImageView img_group = (ImageView)convertView.findViewById(R.id.img_group);
+            switch (Integer.parseInt(myItems.get(pos).group)){
+                case 1:
+                    img_group.setImageResource(R.drawable.cafe);
+                    break;
+                case 2:
+                    img_group.setImageResource(R.drawable.food);
+                    break;
+                case  3:
+                    img_group.setImageResource(R.drawable.fashion);
+                    break;
+                case 4:
+                    img_group.setImageResource(R.drawable.hair);
+                    break;
+                case 5:
+                    img_group.setImageResource(R.drawable.market);
+                    break;
+                default:
+                    img_group.setImageResource(R.drawable.etc);
+            }
+
+
+
 
             TextView title=(TextView)convertView.findViewById(R.id.txt_title);
             title.setText(myItems.get(pos).title);
@@ -279,7 +306,7 @@ public class businessMain extends Fragment {
             int i;
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
-                storeList.add(new MyItem(json.getString("photoName"),json.getString("businessName"), json.getString("businessInfo"), json.getString("businessId")));
+                storeList.add(new MyItem(json.getString("photoName"),json.getString("businessName"), json.getString("businessInfo"), json.getString("businessId"),json.getString("businessGroup")));
 
             }
 

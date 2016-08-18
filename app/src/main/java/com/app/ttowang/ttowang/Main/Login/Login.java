@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang;
+package com.app.ttowang.ttowang.Main.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -37,7 +38,7 @@ public class Login extends AppCompatActivity {
     String userGender;
 
     String encodedString="";
-    String ip="";
+    String ip=MainActivity.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
-        ip = sharedPreferences.getString("ip", "" );
 
         Intent i = getIntent();
         tel = i.getExtras().getString("tel");

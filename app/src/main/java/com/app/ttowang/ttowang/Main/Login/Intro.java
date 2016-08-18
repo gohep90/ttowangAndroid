@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang;
+package com.app.ttowang.ttowang.Main.Login;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.app.ttowang.ttowang.R;
 
 public class Intro extends AppCompatActivity {
 
