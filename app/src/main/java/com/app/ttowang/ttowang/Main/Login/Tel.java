@@ -67,6 +67,7 @@ public class Tel extends AppCompatActivity {
         if (!userTel.equals("")) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
             Toast.makeText(getApplicationContext(), "로그인되어있음", Toast.LENGTH_SHORT).show();
         }
         //로그인 안되어있으면

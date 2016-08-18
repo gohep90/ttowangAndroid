@@ -297,10 +297,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-
-
-
-
     //즐겨찾기 등록 스레드
     public void BookMarkAsyncTaskCall(){
         new BookMarkAsyncTask().execute();
@@ -386,12 +382,5 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-
-
-
-
-
-
-
 
 }
