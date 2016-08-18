@@ -64,6 +64,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     static ArrayList<String> myBusinessCouponName;
 
     static String state = "first";
+
+    static String userId = MainActivity.user;
     /*
     static List photoName = new ArrayList();     //즐겨찾기 매장 사진
     static List businessId = new ArrayList();     //즐겨찾기 매장 Id
@@ -278,6 +280,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     public static class selectMyBusinessAsyncTask extends AsyncTask<String,Integer,String> {
 
+
+
         protected void onPreExecute(){
             myAllBusiness.clear();
             myAllBusinessCouponNum.clear();
@@ -314,7 +318,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID","2");
+            prop.setProperty("USERID",userId);
 
             encodedString = encodeString(prop);
 
@@ -628,8 +632,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             //     mLockListView=false;
 
             extensiblePageIndicator.initViewPager(upViewPager);
-
-
+            extensiblePageIndicator.refreshDrawableState();
         }catch(JSONException e){
             e.printStackTrace();
         }

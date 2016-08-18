@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,12 +50,12 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     TextView txt_title,txt_title2,txt_info,txt_phone,txt_time,txt_menu,txt_map,txt_benefit;
     ImageView img_group,img_bookMark;
     String businessId="";
-    String userId="2";  //로그인시 ID값 저장해야함
+
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
     String ip= MainActivity.ip;
-
+    static String userId = MainActivity.user;  //로그인시 ID값 저장해야함
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -378,15 +379,8 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-
+            home.refresh();
         }
     }
-
-
-
-
-
-
-
 
 }
