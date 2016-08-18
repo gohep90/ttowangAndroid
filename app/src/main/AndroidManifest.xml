@@ -26,7 +26,6 @@
         <activity
             android:name=".Main.MainActivity"
             android:screenOrientation="portrait">
-
         </activity>
 
         <activity android:name=".Intro">

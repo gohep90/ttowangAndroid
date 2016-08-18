@@ -10,34 +10,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.5"
+        android:layout_weight="4.0"
         android:background="#ff375f"
         >
-<android.support.design.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent">
 
-        <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
-            android:id="@+id/flexibleIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:indicatorRadius="5dp"
-            app:indicatorPadding="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="bottom" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
-</android.support.design.widget.CoordinatorLayout>
+                <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
+                    android:id="@+id/flexibleIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:indicatorRadius="5dp"
+                    app:indicatorPadding="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="bottom" />
+
+        </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5.5"
+        android:layout_weight="6"
         android:orientation="vertical"
         android:background="#ffffff">
 

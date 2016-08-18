@@ -36,8 +36,8 @@ public class businessMap extends AppCompatActivity implements OnMapReadyCallback
         }
         googleMap.setMyLocationEnabled(true);
         Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL).title("Seoul"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 10));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
 
     }
