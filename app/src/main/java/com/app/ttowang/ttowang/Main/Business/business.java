@@ -8,7 +8,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
@@ -44,7 +47,9 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap googleMap;
 
     TextView txt_title,txt_title2,txt_info,txt_phone,txt_time,txt_menu,txt_map,txt_benefit;
+    ImageView img_group,img_bookMark;
     String businessId="";
+    String userId="2";  //로그인시 ID값 저장해야함
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
@@ -76,42 +81,24 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         txt_map     =   (TextView)findViewById(R.id.txt_map);
         txt_benefit =   (TextView)findViewById(R.id.txt_benefit);
 
+        img_group   =   (ImageView)findViewById(R.id.img_group);
+        img_bookMark =  (ImageView)findViewById(R.id.img_bookMark);
+
+
+        //즐겨찾기 등록버튼
+        img_bookMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookMarkAsyncTaskCall();
+                Toast.makeText(business.this, "즐겨찾기가 등록되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //초기값 불러오기
         BusinessAsyncTaskCall();
 
 
     }
-
-
-
-    //onClick속성이 지정된 View를 클릭했을때 자동으로 호출되는 메소드
-/*
-    public void mOnClick(View v){
-
-        int position;
-
-        switch( v.getId() ){
-            case R.id.btn_previous://이전버튼 클릭
-                position=pager.getCurrentItem();//현재 보여지는 아이템의 위치를 리턴
-                //현재 위치(position)에서 -1 을 해서 이전 position으로 변경
-                //이전 Item으로 현재의 아이템 변경 설정(가장 처음이면 더이상 이동하지 않음)
-                //첫번째 파라미터: 설정할 현재 위치
-                //두번째 파라미터: 변경할 때 부드럽게 이동하는가? false면 팍팍 바뀜
-                pager.setCurrentItem(position-1,true);
-                break;
-
-            case R.id.btn_next://다음버튼 클릭
-                position=pager.getCurrentItem();//현재 보여지는 아이템의 위치를 리턴
-                //현재 위치(position)에서 +1 을 해서 다음 position으로 변경
-                //다음 Item으로 현재의 아이템 변경 설정(가장 마지막이면 더이상 이동하지 않음)
-                //첫번째 파라미터: 설정할 현재 위치
-                //두번째 파라미터: 변경할 때 부드럽게 이동하는가? false면 팍팍 바뀜
-                pager.setCurrentItem(position+1,true);
-                break;
-        }
-
-    }
-*/
 
 
     @Override
@@ -150,7 +137,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-
+    //비지니스 초기 상세정보 가져오기
     public void BusinessAsyncTaskCall(){
         new BusinessAsyncTask().execute();
     }
@@ -253,7 +240,27 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
                 txt_menu.setText(json.getString("businessMenu"));
                 txt_map.setText(json.getString("businessAddress"));
                 txt_benefit.setText(json.getString("businessBenefit"));
-                // image.setImageBitmap(imageAsyncTaskCall(json.getString("photo"),json.getString("exif")));
+
+                switch (Integer.parseInt(json.getString("businessGroup"))){
+                    case 1:
+                        img_group.setImageResource(R.drawable.cafe);
+                        break;
+                    case 2:
+                        img_group.setImageResource(R.drawable.food);
+                        break;
+                    case  3:
+                        img_group.setImageResource(R.drawable.fashion);
+                        break;
+                    case 4:
+                        img_group.setImageResource(R.drawable.hair);
+                        break;
+                    case 5:
+                        img_group.setImageResource(R.drawable.market);
+                        break;
+                    default:
+                        img_group.setImageResource(R.drawable.etc);
+                }
+
             }
 
             count=jArr2.length();
@@ -286,4 +293,100 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+    //즐겨찾기 등록 스레드
+    public void BookMarkAsyncTaskCall(){
+        new BookMarkAsyncTask().execute();
+    }
+
+    public class BookMarkAsyncTask extends AsyncTask<String,Integer,String> {
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+            prop.setProperty("BUSINESSID", businessId);
+            prop.setProperty("USERID", userId);
+
+            String encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/insertMyBusiness.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line=null;
+                String result="";
+
+                while((line=bufreader.readLine())!=null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+
+        }
+    }
+
+
+
+
+
+
+
+
 }
