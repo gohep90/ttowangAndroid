@@ -55,6 +55,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
     String ip= MainActivity.ip;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
