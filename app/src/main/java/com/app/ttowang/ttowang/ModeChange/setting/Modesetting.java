@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.Main.Setting.myInfoEdit;
 import com.app.ttowang.ttowang.R;
-import com.app.ttowang.ttowang.Tel;
+import com.app.ttowang.ttowang.Main.Login.Tel;
 
 
 public class Modesetting extends Fragment {
