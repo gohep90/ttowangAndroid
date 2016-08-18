@@ -52,7 +52,8 @@
                     android:id="@+id/text_tel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="번호를 달라"
+                    android:hint="Tel"
+                    android:textColorHint="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -199,85 +200,25 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="@color/white"
-            android:weightSum="10"
-            android:orientation="horizontal">
+            android:background="@color/white">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="3.4">
+                android:layout_marginBottom="1.5dp">
 
                 <EditText
-                    android:id="@+id/edt_year"
+                    android:id="@+id/edt_birth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="년(4자)"
+                    android:hint="생년월일 ( 예시 : 19921131 )"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:background="@null"
                     android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/loginbg"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="2.8">
-
-                <EditText
-                    android:id="@+id/edt_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="월"
-                    android:textColorHint="@color/white"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/loginbg"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="2.9">
-
-                <EditText
-                    android:id="@+id/edt_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="일"
-                    android:textColorHint="@color/white"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
+                    android:paddingLeft="5dp"/>
 
             </LinearLayout>
 
@@ -316,7 +257,7 @@
                     android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="이메일(선택)"
+                    android:hint="이메일 ( 선택 )"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
                     android:textSize="15dp"
