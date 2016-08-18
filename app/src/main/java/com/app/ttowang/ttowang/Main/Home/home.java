@@ -157,7 +157,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
         //pagerAdapter.notifyDataSetChanged();
         //stamp.setAddAdapter(((Integer.parseInt((String) home.usedStamp.get(0))/ 10) + 1));    //처음 초기화
-
+        Log.i("home - ","onCreate");
         return view;
     }
 
@@ -380,7 +380,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             int i;
 
-            //asdasdasd
+
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
                 myBusiness = new ArrayList<String>();
@@ -516,7 +516,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             int i;
 
-            //asdasdasd
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
                 myBusiness = new ArrayList<String>();

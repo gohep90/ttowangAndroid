@@ -26,13 +26,15 @@ public class stamp extends android.support.v4.app.ListFragment {
     public static stampItemAdapter adapter;
     ListView list;
     Button coupon_change_button;
-
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         Log.i("stamp - ", "초기화");
+
         view = in.inflate(R.layout.stampview, ctn, false);
         number = getArguments() != null ? getArguments().getInt("number") : 1;
         list = (ListView) view.findViewById(android.R.id.list);
+
+        Log.i("stamp - ", "number : " + number);
 
         // Adapter 생성
         adapter = new stampItemAdapter() ;
@@ -79,11 +81,15 @@ public class stamp extends android.support.v4.app.ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         Log.d("stamp - ", "onCreate");
-        Log.i("stamp - ","초기화 스템프 리스트 갯수 " +((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4)))/10));
-        //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
-        setAddAdapter(((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4)))/10) +1);    //처음 초기화
-        list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5))+home.myAllBusiness.get(number).get(4))/ 10));      // 처음은 코드로 하단으로 넘어준다
 
+        try {
+            Log.i("stamp - ", "초기화 스템프 리스트 갯수 " + ((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10));
+            //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
+            setAddAdapter(((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10) + 1);    //처음 초기화
+            list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5)) + home.myAllBusiness.get(number).get(4)) / 10));      // 처음은 코드로 하단으로 넘어준다
+        }catch (Exception e){
+            Log.i("stamp - ", "매장 없음");
+        }
 
         //Log.i("stamp - ","초기화 스템프 리스트 갯수 " +(Integer.parseInt(((String) home.usedStamp.get(0))+(String) home.remainStamp.get(0))/ 10));
     }
