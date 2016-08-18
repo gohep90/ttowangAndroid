@@ -49,12 +49,13 @@
                 android:layout_marginBottom="1.5dp">
 
                 <TextView
-                    android:id="@+id/text_tel"
+                    android:id="@+id/change_text_tel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="번호를 달라"
+                    android:hint="Tel"
                     android:textSize="15dp"
                     android:textStyle="bold"
+                    android:textColorHint="@color/white"
                     android:textColor="@color/white"
                     android:gravity="bottom"
                     android:paddingLeft="5dp"/>
@@ -95,7 +96,7 @@
                 android:layout_marginBottom="1.5dp">
 
                 <EditText
-                    android:id="@+id/edt_name"
+                    android:id="@+id/change_edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="이름"
@@ -145,7 +146,7 @@
                     android:layout_weight="5">
 
                     <Button
-                        android:id="@+id/btn_m"
+                        android:id="@+id/change_btn_m"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="남자"
@@ -163,7 +164,7 @@
                     android:layout_weight="5">
 
                     <Button
-                        android:id="@+id/btn_w"
+                        android:id="@+id/change_btn_w"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="여자"
@@ -204,80 +205,22 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="3.4">
+                android:layout_marginBottom="1.5dp">
 
                 <EditText
-                    android:id="@+id/edt_year"
+                    android:id="@+id/change_edt_birth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="년(4자)"
+                    android:hint="생년월일(19921231)"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:background="@null"
                     android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/loginbg"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="2.8">
-
-                <EditText
-                    android:id="@+id/edt_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="월"
-                    android:textColorHint="@color/white"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/loginbg"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/loginbg"
-                android:layout_marginBottom="1.5dp"
-                android:layout_weight="2.9">
-
-                <EditText
-                    android:id="@+id/edt_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="일"
-                    android:textColorHint="@color/white"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="5dp"
-                    android:inputType="number"/>
+                    android:paddingLeft="5dp"/>
 
             </LinearLayout>
 
@@ -313,7 +256,7 @@
                 android:layout_marginBottom="1.5dp">
 
                 <EditText
-                    android:id="@+id/edt_email"
+                    android:id="@+id/change_edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="이메일(선택)"
@@ -354,7 +297,7 @@
             android:layout_weight="6.6">
 
             <Button
-                android:id="@+id/btn_edit"
+                android:id="@+id/change_btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="수정하기"

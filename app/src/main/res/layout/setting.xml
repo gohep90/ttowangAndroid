@@ -203,16 +203,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="이영애"
+                        android:hint="Name"
                         android:textSize="15dp"
                         android:gravity="left|center"
                         />
                     <TextView
                         android:layout_width="match_parent"
-                        android:id="@+id/myPhone"
+                        android:id="@+id/myTel"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="010-1234-1234"
+                        android:hint="Tel"
                         android:textSize="15dp"
                         android:gravity="left|center"
                         />
@@ -221,7 +221,7 @@
                         android:id="@+id/myEmail"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="youngae@gmail.com"
+                        android:hint="Email 안쓰냐?"
                         android:textSize="15dp"
                         android:gravity="left|center"
                         />

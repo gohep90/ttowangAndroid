@@ -25,13 +25,19 @@
 
         <activity
             android:name=".Main.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Tel"/>
+
+        <activity android:name=".Login"/>
 
         <activity
             android:name=".ModeChange.ChangeModeMain"

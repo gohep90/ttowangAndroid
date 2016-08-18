@@ -9,4 +9,5 @@
         android:gravity="center"
         android:text="Loading"
         android:textSize="70dp"/>
+
 </LinearLayout>

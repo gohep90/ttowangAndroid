@@ -1,8 +1,10 @@
 package com.app.ttowang.ttowang.Main.Home;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,13 +83,23 @@ public class homeFragment extends android.support.v4.app.Fragment{
         viewlayout.setOnClickListener(new View.OnClickListener() {    //시간 누르면
             @Override
             public void onClick(View v) {               //쿠폰을 클릭하면 토스트 뜸
-                Toast.makeText(getActivity(), (String)home.
-                        myAllBusiness.get(number).get(1), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), (String)home.myAllBusiness.get(number).get(1), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), business.class);
                 intent.putExtra("businessId", String.valueOf(home.
                         myAllBusiness.get(number).get(0)));
                 startActivity(intent);
             }
+        });
+
+        viewlayout.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+
+                Dialog(number);
+
+                return false;
+            }
+
         });
 
         return view;
@@ -125,6 +137,27 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
 
 
+    private void Dialog(final int number) {
+        AlertDialog.Builder _alert = new AlertDialog.Builder(MainActivity.mContext);
+        _alert.setTitle((String)home.myAllBusiness.get(number).get(1));
+        _alert.setMessage("삭제하면 등록된 스탬프와 쿠폰이\n삭제 됩니다.").setCancelable(true);
 
+        _alert.setPositiveButton("취소", null);
+
+        _alert.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int thisid) {
+/*
+                if(!sharedPreferences.getString(PREF_ACCOUNT_NAME, "").equals("") & setyear != 0){
+                    if(!calendarid.equals("0") & !calendarid.equals("")){
+                        new delete().execute();
+                    }
+                }
+*/
+                Toast.makeText(MainActivity.mContext, "삭제합니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        _alert.show();
+    }
 
 }
