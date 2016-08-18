@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.Login.Tel;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
@@ -111,20 +112,40 @@ public class myInfoEdit extends AppCompatActivity {
         public void onClick(View v) {
             switch(v.getId()){
                 case R.id.change_btn_edit:
-                    MyInfoEditAsyncTaskCall();
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
-                    SharedPreferences.Editor Edit= sharedPreferences.edit();
-                    Edit.putString("userName", change_edt_name.getText().toString());
-                    Edit.putString("userBirth", change_edt_birth.getText().toString());
-                    Edit.putString("userEmail", change_edt_email.getText().toString());
-                    Edit.putString("userGender", stringGender);
-                    Edit.commit();
+                    AlertDialog.Builder alert_confirm = new AlertDialog.Builder(myInfoEdit.this);
+                    alert_confirm.setMessage("회원정보를 수정하시겠습니까?").setCancelable(true).setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // 'yes'
+                                    MyInfoEditAsyncTaskCall();
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
+                                    SharedPreferences.Editor Edit= sharedPreferences.edit();
+                                    Edit.putString("userName", change_edt_name.getText().toString());
+                                    Edit.putString("userBirth", change_edt_birth.getText().toString());
+                                    Edit.putString("userEmail", change_edt_email.getText().toString());
+                                    Edit.putString("userGender", stringGender);
+                                    Edit.commit();
 
-                    //finish();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+
+                                    finish();
+                                }
+                            }).setNegativeButton("취소",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // 'No'
+                                    return;
+                                }
+                            });
+                    AlertDialog alert = alert_confirm.create();
+                    alert.show();
+
+
                     break;
 
                 case R.id.change_btn_m:
