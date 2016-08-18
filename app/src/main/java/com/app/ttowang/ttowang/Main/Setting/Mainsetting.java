@@ -72,6 +72,7 @@ public class Mainsetting extends Fragment {
         userGender=sharedPreferences.getString("userGender", "");
         userEmail=sharedPreferences.getString("userEmail", "");
 
+
         myTel.setText(userTel);
         myName.setText(userName);
         myEmail.setText(userEmail);
@@ -111,6 +112,7 @@ public class Mainsetting extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), myInfoEdit.class);
                 startActivity(intent);
+
             }
         });
 

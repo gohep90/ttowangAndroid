@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -192,5 +194,28 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+
+    public void onBackPressed(){
+        AlertDialog.Builder alert_confirm = new AlertDialog.Builder(MainActivity.this);
+        alert_confirm.setMessage("어플을 종료하겠습니까?").setCancelable(true).setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 'yes'
+                        onPause();
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                }).setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 'No'
+                        return;
+                    }
+                });
+        AlertDialog alert = alert_confirm.create();
+        alert.show();
     }
 }

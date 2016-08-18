@@ -46,7 +46,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
-        ip = sharedPreferences.getString("ip", "" );
 
         Intent i = getIntent();
         tel = i.getExtras().getString("tel");
@@ -174,7 +173,7 @@ public class Login extends AppCompatActivity {
             encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/insertUser.do");
+                url=new URL("http://" + ip + ":8080/ttowang/updateUser.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

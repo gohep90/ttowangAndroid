@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -91,7 +90,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 BookMarkAsyncTaskCall();
-
                 Toast.makeText(business.this, "즐겨찾기가 등록되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -380,10 +378,9 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-            home.refresh();
+
         }
     }
-
 
 
 
