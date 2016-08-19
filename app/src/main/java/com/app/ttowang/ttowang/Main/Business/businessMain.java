@@ -287,7 +287,7 @@ public class businessMain extends Fragment {
             JSONObject json=new JSONObject(recv);
             JSONArray jArr =json.getJSONArray("businessList");
     /*        totalListNum=jArr.length();
-            //Toast.makeText(SellBoardBook.this, String.valueOf(totalListNum), Toast.LENGTH_SHORT).show();
+            //
 
             if (totalListNum > 7) {
                 for (itemNum = 0; itemNum < 7; itemNum++ ) {
