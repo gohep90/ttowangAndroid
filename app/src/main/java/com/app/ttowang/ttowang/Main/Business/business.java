@@ -56,6 +56,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
     String ip= MainActivity.ip;
     static String userId = MainActivity.user;  //로그인시 ID값 저장해야함
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -337,8 +338,8 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("BUSINESSID", businessId);
-            prop.setProperty("USERID", userId);
+            prop.setProperty("businessId", businessId);
+            prop.setProperty("userId", userId);
 
             String encodedString = encodeString(prop);
 
@@ -371,7 +372,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
                 return result;
 
             }catch(Exception e){
-                Log.i("business - ", "즐겨찾기 error?? ");
                 e.printStackTrace();
                 return "";
             }finally{
