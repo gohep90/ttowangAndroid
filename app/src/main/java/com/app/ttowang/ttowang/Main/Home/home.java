@@ -644,6 +644,4 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         Log.i("home - ","리프레쉬 한다");
     }
 
-
-
 }

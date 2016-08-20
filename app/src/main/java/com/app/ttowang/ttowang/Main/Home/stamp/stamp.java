@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.Main.Home.stamp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.coupon.couponPopup;
 import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
@@ -59,12 +61,18 @@ public class stamp extends android.support.v4.app.ListFragment {
         coupon_change_button = (Button)view.findViewById(R.id.coupon_change_button);
         //adapter = new ArrayAdapter<String>(getActivity(), R.layout.stampitem, home.thisisstamp);
 
+        //쿠폰 바꾸기 버튼 클릭!!
         coupon_change_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.mContext, String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), couponPopup.class);
+                intent.putExtra("businessId",String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)));
+                startActivity(intent);
             }
         });
+
         return view;
     }
 
