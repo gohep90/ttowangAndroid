@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main.Home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.coupon.coupon;
 import com.app.ttowang.ttowang.Main.Home.stamp.stamp;
@@ -43,7 +45,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
-    private static ViewPager upViewPager;
+    public static ViewPager upViewPager;
     private static ViewPager downViewPager;;
 
     private static homeAdapter adapter;
@@ -78,7 +80,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static View view;
 
-    static ExtensiblePageIndicator extensiblePageIndicator;
+    static ExtensiblePageIndicator extensiblePageIndicator,extensiblePageIndicator1;
 
     static PagerAdapter pagerAdapter;
 
@@ -493,6 +495,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             adapter.notifyDataSetChanged();     //리스트
             //     mLockListView=false;
+
             extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
             extensiblePageIndicator.initViewPager(upViewPager);
 
@@ -626,16 +629,43 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 }
             }
 
-            adapter.notifyDataSetChanged();     //리스트
-            pagerAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();         //위쪽
+            //upViewPager.setAdapter(adapter);
+            pagerAdapter.notifyDataSetChanged();    //아래쪽
+
             //     mLockListView=false;
 
-            extensiblePageIndicator.initViewPager(upViewPager);
-            extensiblePageIndicator.refreshDrawableState();
+            //extensiblePageIndicator.onStartTemporaryDetach();extensiblePageIndicator.onFinishTemporaryDetach();
+            //extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+            //extensiblePageIndicator.destroyDrawingCache();
+            //extensiblePageIndicator.dispatchSystemUiVisibilityChanged(View.INVISIBLE);
+            //extensiblePageIndicator.clearFocus();
+            //extensiblePageIndicator.setWillNotDraw(true);
+            //extensiblePageIndicator.setWillNotDraw(false);
+            //extensiblePageIndicator.setEnabled(true);
+
+            //extensiblePageIndicator.initViewPager(upViewPager);
+            extensiblePageIndicator.setWillNotDraw(true);
+            //extensiblePageIndicator.onStartTemporaryDetach();
+
+            Log.i("home - ","인디케이터 update 한다.");
+
+            //initViewPagerAndTabs();
+            //extensiblePageIndicator.onPageScrolled(upViewPager.getCurrentItem(),0,0);
+            //extensiblePageIndicator.refreshDrawableState();
+            //extensiblePageIndicator.onPageScrollStateChanged(0);
+
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }
+
     }
+
+
+
+
 
     final public static void refresh(){
         state = "refresh";

@@ -59,6 +59,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
         Bundle args = new Bundle();
         args.putInt("number", number);
         f.setArguments(args);
+        Log.i("homeFragment - ","newInstance "+ number);
 
         return f;
     }
@@ -68,12 +69,13 @@ public class homeFragment extends android.support.v4.app.Fragment{
         super.onCreate(savedInstanceState);
         //Log.d("ArrayListFragment", "onCreate");
         number = getArguments() != null ? getArguments().getInt("number") : 1;
+        Log.i("homeFragment - ","onCreate "+ number);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Log.i("homeFragment - ","onCreateView ");
         View view = inflater.inflate(R.layout.home_fragment, container,false);
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
         businessName = (TextView) view.findViewById(R.id.businessName);
@@ -144,7 +146,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        Log.i("Fragment", "onActivityCreated ");
     }
 
 
