@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:id="@+id/alarm"
+        android:id="@+id/notice"
         android:background="#ffffff">
 
         <LinearLayout
@@ -67,6 +67,7 @@
             >
 
             <ImageView
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -85,34 +86,13 @@
                 android:gravity="left|center" />
 
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:text="ON"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#ff005c"
-                android:gravity="center" />
             <TextView
+                android:id="@+id/alarm_switch"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:layout_height="match_parent"
-                android:text="/"
+                android:background="@drawable/on"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:gravity="center" />
-            <Button
-                android:background="#ffffff"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:text="OFF"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#000000"
                 android:gravity="center" />
 
         </LinearLayout>
@@ -152,6 +132,7 @@
                 android:layout_weight="1">
 
                 <ImageView
+                    android:scaleType="centerInside"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -181,8 +162,8 @@
                 android:layout_weight="4">
 
                 <ImageView
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
@@ -205,7 +186,7 @@
                         android:layout_weight="1"
                         android:hint="Name"
                         android:textSize="15dp"
-                        android:gravity="left|center"
+                        android:gravity="left|bottom"
                         />
                     <TextView
                         android:layout_width="match_parent"
@@ -223,7 +204,7 @@
                         android:layout_weight="1"
                         android:hint="Email 안쓰냐?"
                         android:textSize="15dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         />
                 </LinearLayout>
 
@@ -254,6 +235,7 @@
             android:background="#ffffff"
             >
             <ImageView
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -312,6 +294,7 @@
             android:layout_marginLeft="20dp">
 
             <ImageView
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -353,6 +336,7 @@
             android:background="#ffffff"
             >
             <ImageView
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -379,54 +363,37 @@
             android:background="#ffffff"
             >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/emailclick"
-                android:layout_marginLeft="30dp"
-                android:layout_height="wrap_content">
-
-                <TextView
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/emailclick"
                     android:background="#ffffff"
                     android:textSize="20dp"
+                    android:layout_marginLeft="80dp"
                     android:textColor="#ff005c"
                     android:text="EMAIL"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
+                    />
 
-            <RelativeLayout
-                android:id="@+id/callclick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
+            <TextView
+                    android:id="@+id/callclick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:background="#ffffff"
                     android:textSize="20dp"
+                    android:layout_marginLeft="15dp"
                     android:textColor="#ff005c"
                     android:text="CALL"
-                    android:gravity="center"
-                    android:layout_gravity="center_vertical"
                     />
-            </RelativeLayout>
 
-            <RelativeLayout
+            <TextView
                 android:id="@+id/facebookclick"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="#ffffff"
                 android:textSize="20dp"
+                android:layout_marginLeft="15dp"
                 android:textColor="#ff005c"
                 android:text="FACEBOOK" />
-            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>

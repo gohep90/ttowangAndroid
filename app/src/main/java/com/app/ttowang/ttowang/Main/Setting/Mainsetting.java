@@ -1,6 +1,5 @@
 package com.app.ttowang.ttowang.Main.Setting;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -15,24 +14,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Login.Tel;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
-import com.app.ttowang.ttowang.Main.Login.Tel;
 
 public class Mainsetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     View view;
     Button modeChange;
-    Button myInfo;
-    ViewGroup myInfoclick, logoutclick, alarm, emailclick, callclick,facebookclick;
-    Context context;
+    TextView alarm_switch, emailclick, callclick, facebookclick;//재훈
+    ViewGroup myInfoclick, logoutclick, notice;
+
 
     TextView myName, myTel, myEmail;
 
     String userTel, userName, userBirth, userGender, userEmail;
     int userCode = 0;
+    int onSwitch=0;//재훈
     String ip = "";
 /*
     public static SharedPreferences sharedPreferences;//이거랑
@@ -54,10 +54,11 @@ public class Mainsetting extends Fragment {
         modeChange = (Button) view.findViewById(R.id.modeChange);
         myInfoclick=(ViewGroup) view.findViewById(R.id.myInfo);
         logoutclick=(ViewGroup) view.findViewById(R.id.logout);
-        alarm=(ViewGroup) view.findViewById(R.id.alarm);
-        emailclick=(ViewGroup) view.findViewById(R.id.emailclick);
-        callclick=(ViewGroup) view.findViewById(R.id.callclick);
-        facebookclick=(ViewGroup) view. findViewById(R.id.facebookclick);
+        notice=(ViewGroup) view.findViewById(R.id.notice);
+        emailclick=(TextView) view.findViewById(R.id.emailclick);
+        callclick=(TextView) view.findViewById(R.id.callclick);
+        facebookclick=(TextView) view. findViewById(R.id.facebookclick);
+        alarm_switch=(TextView) view.findViewById(R.id.alarm_switch);//재훈
 
         myName = (TextView)view.findViewById(R.id.myName);//xml에서 TextView id가져와
         myTel = (TextView)view.findViewById(R.id.myTel);//xml에서 TextView id가져와
@@ -71,7 +72,6 @@ public class Mainsetting extends Fragment {
         userBirth=sharedPreferences.getString("userBirth", "");
         userGender=sharedPreferences.getString("userGender", "");
         userEmail=sharedPreferences.getString("userEmail", "");
-
 
         myTel.setText(userTel);
         myName.setText(userName);
@@ -93,6 +93,24 @@ public class Mainsetting extends Fragment {
         myPhone.setText(Phone);//맨위에 선언한 textview에 String넣어
         myEmail.setText(Email);
         */
+
+//재훈
+        alarm_switch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(onSwitch==0){//on이라면
+                    alarm_switch.setBackgroundResource(R.drawable.off);
+                    onSwitch=1;
+                    Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
+                }
+                else{//off라면
+                    alarm_switch.setBackgroundResource(R.drawable.on);
+                    Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
+                    onSwitch=0;
+                }
+            }
+        }
+        );
+//재훈
 
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -137,7 +155,7 @@ public class Mainsetting extends Fragment {
             }
         });
 
-        alarm.setOnClickListener(new View.OnClickListener() {
+        notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "공지사항 클릭", Toast.LENGTH_SHORT).show();
