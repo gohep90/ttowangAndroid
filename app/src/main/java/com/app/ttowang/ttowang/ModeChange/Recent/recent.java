@@ -21,6 +21,8 @@ public class recent {
         return seq;
     }
 
+
+
     /*
     String seq,userName,stampDate,stampTime;
 

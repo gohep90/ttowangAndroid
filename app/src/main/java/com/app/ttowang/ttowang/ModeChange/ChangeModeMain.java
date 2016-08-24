@@ -15,6 +15,7 @@ import android.view.Menu;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
+import com.app.ttowang.ttowang.ModeChange.Recent.recentActivity;
 import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.ModeChange.setting.Modesetting;
 import com.app.ttowang.ttowang.R;
