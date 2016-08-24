@@ -1,53 +1,44 @@
 package com.app.ttowang.ttowang.ModeChange.Recent;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+/**
+ * Created by jangjieun on 2016. 8. 19..
+ */
 
-import com.app.ttowang.ttowang.R;
+public class recent {
+    String businessId,userId,seq;
 
-
-public class recent extends Fragment {
-    public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
-
-    View view;
-    Button modeChange;
-
-    public static recent createInstance(int itemsCount) {
-        recent recent = new recent();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ITEMS_COUNT_KEY, itemsCount);
-        recent.setArguments(bundle);
-        return recent;
+    recent(String seq, String businessId, String userId) {
+        this.seq = seq;
+        this.businessId = businessId;
+        this.userId = userId;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public String getBusinessId() {return businessId;}
 
-        view = inflater.inflate(R.layout.recent,container, false);
+    public String getUserId() {return userId;}
 
-        /*
-        modeChange = (Button) view.findViewById(R.id.modeChange);
-
-
-        modeChange.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "체인지모드.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
-            }
-        });
-        */
-        
-        return view;
+    public String getSeq() {
+        return seq;
     }
 
+    /*
+    String seq,userName,stampDate,stampTime;
 
+    public String getSeq() {
+        return seq;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getStampDate() {
+        return stampDate;
+    }
+
+    public String getStampTime() {
+        return stampTime;
+    }
+    */
 
 }
