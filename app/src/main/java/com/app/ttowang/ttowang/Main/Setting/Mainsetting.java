@@ -23,6 +23,7 @@ public class Mainsetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     View view;
+
     Button modeChange;
     TextView alarm_switch, emailclick, callclick, facebookclick;//재훈
     ViewGroup myInfoclick, logoutclick, notice;
@@ -98,12 +99,12 @@ public class Mainsetting extends Fragment {
         alarm_switch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(onSwitch==0){//on이라면
-                    alarm_switch.setBackgroundResource(R.drawable.off);
+                    alarm_switch.setBackgroundResource(R.drawable.offf);
                     onSwitch=1;
                     Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
                 }
                 else{//off라면
-                    alarm_switch.setBackgroundResource(R.drawable.on);
+                    alarm_switch.setBackgroundResource(R.drawable.onn);
                     Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
                     onSwitch=0;
                 }

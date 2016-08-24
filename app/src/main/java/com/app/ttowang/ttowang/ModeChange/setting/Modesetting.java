@@ -43,6 +43,7 @@ public class Modesetting extends Fragment {
         return Setting;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,12 +78,12 @@ public class Modesetting extends Fragment {
         alarm_switch.setOnClickListener(new View.OnClickListener(){
                                             public void onClick(View v){
                                                 if(onSwitch==0){//on이라면
-                                                    alarm_switch.setBackgroundResource(R.drawable.off);
+                                                    alarm_switch.setBackgroundResource(R.drawable.offf);
                                                     onSwitch=1;
                                                     Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
                                                 }
                                                 else{//off라면
-                                                    alarm_switch.setBackgroundResource(R.drawable.on);
+                                                    alarm_switch.setBackgroundResource(R.drawable.onn);
                                                     Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
                                                     onSwitch=0;
                                                 }
