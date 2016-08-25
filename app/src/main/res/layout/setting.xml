@@ -63,7 +63,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:weightSum="10"
             >
 
@@ -71,10 +71,9 @@
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_height="10dp"
                 android:src="@drawable/seto"
-                android:foregroundGravity="left|center" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -90,8 +89,9 @@
             <TextView
                 android:id="@+id/alarm_switch"
                 android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/onn"
                 android:textSize="20dp"
                 android:gravity="center" />
@@ -120,7 +120,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:weightSum="5"
             >
 
@@ -136,10 +136,9 @@
                     android:scaleType="centerInside"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
+                    android:layout_height="10dp"
                     android:src="@drawable/seto"
-                    android:foregroundGravity="left|center" />
+                    android:layout_gravity="center" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -223,7 +222,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:weightSum="2"
         android:background="#ffffff">
 
@@ -232,17 +231,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:weightSum="10"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:background="#ffffff"
             >
             <ImageView
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_height="10dp"
                 android:src="@drawable/seto"
-                android:foregroundGravity="left|center" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -265,7 +263,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="50dp"
                 android:background="#ffffff"
                 android:textSize="20dp"
                 android:textColor="#000000"
@@ -292,16 +290,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="10"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="8dp">
 
             <ImageView
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_height="10dp"
                 android:src="@drawable/seto"
-                android:foregroundGravity="left|center" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -332,7 +329,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="8dp"
             android:weightSum="10"
             android:background="#ffffff"
             >
@@ -340,10 +337,10 @@
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:layout_height="10dp"
                 android:layout_marginRight="15dp"
                 android:src="@drawable/seto"
-                android:foregroundGravity="left|center" />
+                android:layout_gravity="center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -370,7 +367,7 @@
                     android:id="@+id/emailclick"
                     android:background="#ffffff"
                     android:textSize="20dp"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="70dp"
                     android:textColor="#ff005c"
                     android:text="EMAIL"
                     />
@@ -405,7 +402,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:orientation="vertical"
         android:background="#ffffff">
 
