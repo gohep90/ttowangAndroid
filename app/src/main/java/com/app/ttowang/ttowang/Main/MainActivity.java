@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainActivity - ", "첫 로딩 초기화");
             Log.i("MainActivity - ", "가맹점 모드 : off");
             Edit.commit();
+
         }else{    //처음 연게 아니면
             String nowMode = sharedPreferences.getString("nowMode","");
             Log.i("MainActivity - ", "가맹점 모드 : " + nowMode);
@@ -77,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initViewPagerAndTabs();
-
-
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {        //현재 뷰페이저 번호 가져오기
             @Override

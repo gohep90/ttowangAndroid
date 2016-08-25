@@ -93,12 +93,12 @@ public class Modesetting extends Fragment {
                     alarm_switch_on.setTextColor(Color.parseColor("#000000"));
                     alarm_switch_off.setTextColor(Color.parseColor("#ff005c"));
                     onSwitch=1;
-                    Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
                 }
                 else{//off라면 on으로
                     alarm_switch_on.setTextColor(Color.parseColor("#ff005c"));
                     alarm_switch_off.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
                     onSwitch=0;
                 }
             }
