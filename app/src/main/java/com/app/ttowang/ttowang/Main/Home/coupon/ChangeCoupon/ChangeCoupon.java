@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.app.ttowang.ttowang.R;
  */
 public class ChangeCoupon extends Activity {
     String businessId="";
+    RelativeLayout ChangeCouponRelative;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class ChangeCoupon extends Activity {
         //setTheme(R.style.AppDialogTheme);
         ListView listview ;
         ChangeCouponAdapter adapter;
-
+        ChangeCouponRelative = (RelativeLayout)findViewById(R.id.ChangeCouponRelative);
         // Adapter 생성
         adapter = new ChangeCouponAdapter() ;
 
@@ -46,6 +48,7 @@ public class ChangeCoupon extends Activity {
         adapter.addItem("새우치느님", "20개") ;
         adapter.addItem("순살치느님", "20개") ;
         adapter.addItem("동네치느님", "20개") ;
+
 
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
