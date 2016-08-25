@@ -68,16 +68,11 @@ public class stamp extends android.support.v4.app.ListFragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
-                try{
-                    if(home.myBusiness.size()!=0){
-                        Toast.makeText(MainActivity.mContext, String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), ChangeCoupon.class);
-                        intent.putExtra("businessId",String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)));
-                        startActivity(intent);
-                    }
-                }catch (Exception e){
-
-                }
+                Toast.makeText(MainActivity.mContext, String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)), Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(getContext(), couponPopup.class);
+                Intent intent = new Intent(getContext(), ChangeCoupon.class);
+                intent.putExtra("businessId",String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)));
+                startActivity(intent);
             }
         });
 

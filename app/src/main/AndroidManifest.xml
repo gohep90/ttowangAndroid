@@ -57,10 +57,6 @@
             android:value="@string/map_key" />
 
         <activity
-            android:name=".Main.Home.coupon.couponPopup"
-            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
-
-        <activity
             android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCoupon"/>
         <activity
             android:name=".ModeChange.MyShop.myBusinessShop.myBusinessShop"/>
