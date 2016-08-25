@@ -54,7 +54,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
 
     public static ArrayList<ArrayList<String>> myAllBusiness = new ArrayList<ArrayList<String>>();
-    static ArrayList<String> myBusiness;
+    public static ArrayList<String> myBusiness;
 
     public static ArrayList<ArrayList<String>> myAllBusinessCouponNum = new ArrayList<ArrayList<String>>();
     static ArrayList<String> myBusinessCouponNum;
@@ -103,11 +103,9 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         usedStamp.clear();
         */
 
-
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
-
 
         new selectMyBusinessAsyncTask().execute();
         pagerAdapter = new PagerAdapter(getChildFragmentManager());
@@ -360,6 +358,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            Log.i("home - ","state : "+ state);
             if(state.equals("first")) {
                 jsonFirstList(result);
             }else if(state.equals("refresh")){
@@ -494,6 +493,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
 
             adapter.notifyDataSetChanged();     //리스트
+            //pagerAdapter.notifyDataSetChanged();
+            //downViewPager.setAdapter(pagerAdapter);
             //     mLockListView=false;
 
             extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
@@ -629,9 +630,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 }
             }
 
-            adapter.notifyDataSetChanged();         //위쪽
+            adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
+            downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침
+            //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.
+
             //upViewPager.setAdapter(adapter);
-            pagerAdapter.notifyDataSetChanged();    //아래쪽
+
+
 
             //     mLockListView=false;
 
@@ -654,7 +659,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             //extensiblePageIndicator.onPageScrolled(upViewPager.getCurrentItem(),0,0);
             //extensiblePageIndicator.refreshDrawableState();
             //extensiblePageIndicator.onPageScrollStateChanged(0);
-
+            //MainActivity.viewPager.setAdapter(MainActivity.pagerAdapter);
 
 
         }catch(JSONException e){
@@ -672,6 +677,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         new selectMyBusinessAsyncTask().execute();
         //adapter.notifyDataSetChanged();
         Log.i("home - ","리프레쉬 한다");
+        //MainActivity.tabLayout.newInstance(0);
+
     }
 
 }
