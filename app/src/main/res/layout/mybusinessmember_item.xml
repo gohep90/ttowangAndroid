@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="60dp"
+    >
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="10dp"
-        android:id="@+id/view">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#ff617d"
+        >
+        <ImageView
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="직원 이름"
-                android:textSize="30dp"
-                android:id="@+id/mybusineecouponbenefit"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="전번"
-                android:textSize="30dp"
-                android:id="@+id/mybusineecouponnumber"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+            android:layout_weight="2"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="가나다"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:id="@+id/mybusineecouponbenefit"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="01000001111"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:id="@+id/mybusineecouponnumber"
+            android:gravity="center"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

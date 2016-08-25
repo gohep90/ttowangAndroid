@@ -31,11 +31,11 @@ public class myBusinessMember extends AppCompatActivity {
         listview.setAdapter(adapter);
 
 
-        adapter.addItem("박씨", "010") ;
-        adapter.addItem("박씨", "010") ;
-        adapter.addItem("구씨", "010") ;
-        adapter.addItem("장씨", "010") ;
-        adapter.addItem("이씨", "010") ;
+        adapter.addItem("박가나", "010-1234-5678") ;
+        adapter.addItem("박다라", "010-1234-5678") ;
+        adapter.addItem("구가나", "010-1234-5678") ;
+        adapter.addItem("장가나", "010-1234-5678") ;
+        adapter.addItem("이가나", "010-1234-5678") ;
         adapter.addItem("11", "010") ;
         adapter.addItem("22", "010") ;
         adapter.addItem("33", "010") ;

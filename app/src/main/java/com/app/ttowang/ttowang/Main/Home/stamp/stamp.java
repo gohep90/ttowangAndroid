@@ -14,6 +14,7 @@ import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCoupon;
 
 
 import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.Home.stamp.GiftStamp.GiftStamp;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
@@ -29,7 +30,7 @@ public class stamp extends android.support.v4.app.ListFragment {
     View view;
     public static stampItemAdapter adapter;
     ListView list;
-    Button coupon_change_button;
+    Button coupon_change_button,stamp_gift_button;
     public View onCreateView(LayoutInflater in, ViewGroup ctn, Bundle savedState)
     {
         Log.i("stamp - ", "초기화");
@@ -61,6 +62,7 @@ public class stamp extends android.support.v4.app.ListFragment {
         }
         */
         coupon_change_button = (Button)view.findViewById(R.id.coupon_change_button);
+        stamp_gift_button = (Button)view.findViewById(R.id.stamp_gift_button);
         //adapter = new ArrayAdapter<String>(getActivity(), R.layout.stampitem, home.thisisstamp);
 
         //쿠폰 바꾸기 버튼 클릭!!
@@ -80,6 +82,21 @@ public class stamp extends android.support.v4.app.ListFragment {
             }
         });
 
+        stamp_gift_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.mContext, String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)), Toast.LENGTH_SHORT).show();
+                    //Intent intent = new Intent(getContext(), couponPopup.class);
+                    Intent intent = new Intent(getContext(), GiftStamp.class);
+                    intent.putExtra("businessId", String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)));
+                    startActivity(intent);
+                }catch (Exception e){
+
+                }
+            }
+        });
         return view;
     }
 

@@ -25,7 +25,7 @@
         <activity
             android:name=".Main.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".Main.Login.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,6 +69,10 @@
         <activity
             android:name=".Main.Home.stamp.ChangeCoupon.ChangeCoupon"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity
+            android:name=".Main.Home.stamp.GiftStamp.GiftStamp"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:windowSoftInputMode="adjustNothing|stateVisible"/>
     </application>
 
 </manifest>

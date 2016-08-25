@@ -54,7 +54,7 @@ public class ChangeCoupon extends Activity {
         //Toast.makeText(MainActivity.mContext, "businessId = "+businessId, Toast.LENGTH_SHORT).show();
 
 
-        ChangeCouponRelative = (RelativeLayout)findViewById(R.id.ChangeCouponRelative);
+        //ChangeCouponRelative = (RelativeLayout)findViewById(R.id.ChangeCouponRelative);
         // Adapter 생성
         adapter = new ChangeCouponAdapter() ;
 
