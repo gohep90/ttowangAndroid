@@ -24,7 +24,7 @@ public class Modesetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     View view;
-    Button modeChange;
+    TextView modeChange;
     TextView alarm_switch, emailclick, callclick,facebookclick;//재훈
     ViewGroup myInfoclick, logoutclick, notice;
 
@@ -49,7 +49,7 @@ public class Modesetting extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.setting,container, false);
-        modeChange = (Button) view.findViewById(R.id.modeChange);
+        modeChange = (TextView) view.findViewById(R.id.modeChange);
         myInfoclick=(ViewGroup) view.findViewById(R.id.myInfo);
         logoutclick=(ViewGroup) view.findViewById(R.id.logout);
         notice=(ViewGroup) view.findViewById(R.id.notice);
