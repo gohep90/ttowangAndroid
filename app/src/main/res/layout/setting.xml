@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:text="업데이트 알림"
-                android:textSize="17dp"
+                android:textSize="20dp"
                 android:background="#ffffff"
                  />
 
@@ -63,7 +63,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:weightSum="10"
             >
 
@@ -71,9 +71,10 @@
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/seto"
-                android:layout_gravity="center" />
+                android:foregroundGravity="left|center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -89,11 +90,10 @@
             <TextView
                 android:id="@+id/alarm_switch"
                 android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
                 android:background="@drawable/onn"
-                android:textSize="17dp"
+                android:textSize="20dp"
                 android:gravity="center" />
 
         </LinearLayout>
@@ -120,7 +120,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:weightSum="5"
             >
 
@@ -136,9 +136,10 @@
                     android:scaleType="centerInside"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
                     android:src="@drawable/seto"
-                    android:layout_gravity="center" />
+                    android:foregroundGravity="left|center" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -222,7 +223,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="2"
         android:weightSum="2"
         android:background="#ffffff">
 
@@ -231,16 +232,17 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:weightSum="10"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:background="#ffffff"
             >
             <ImageView
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/seto"
-                android:layout_gravity="center" />
+                android:foregroundGravity="left|center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -263,9 +265,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="60dp"
                 android:background="#ffffff"
-                android:textSize="17dp"
+                android:textSize="20dp"
                 android:textColor="#000000"
                 android:text="Ver 1.8.3.1"
                 />
@@ -290,15 +292,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="10"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="20dp">
 
             <ImageView
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/seto"
-                android:layout_gravity="center" />
+                android:foregroundGravity="left|center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -329,7 +332,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:weightSum="10"
             android:background="#ffffff"
             >
@@ -337,9 +340,10 @@
                 android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/seto"
-                android:layout_gravity="center" />
+                android:foregroundGravity="left|center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -365,8 +369,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/emailclick"
                     android:background="#ffffff"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="70dp"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="80dp"
                     android:textColor="#ff005c"
                     android:text="EMAIL"
                     />
@@ -376,7 +380,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:textSize="17dp"
+                    android:textSize="20dp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#ff005c"
                     android:text="CALL"
@@ -387,7 +391,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
-                android:textSize="17dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#ff005c"
                 android:text="FACEBOOK" />
@@ -401,7 +405,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:background="#ffffff">
 

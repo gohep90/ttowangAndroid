@@ -45,9 +45,9 @@
                 android:layout_above="@+id/tabLayout"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </android.support.v4.view.ViewPager>
+            </android.support.v4.view.ViewPager>
 
-</LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

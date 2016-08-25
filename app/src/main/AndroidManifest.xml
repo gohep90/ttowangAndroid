@@ -59,6 +59,16 @@
         <activity
             android:name=".Main.Home.coupon.couponPopup"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCoupon"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessShop"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessMember.myBusinessMember"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessEvent.myBusinessEvent"/>
     </application>
 
 </manifest>

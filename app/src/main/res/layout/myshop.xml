@@ -36,7 +36,8 @@
                     android:text="쿠폰관리"
                     android:textSize="30dp"
                     android:textColor="#000000"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:id="@+id/mybusinesscoupon"/>
 
             </android.support.v7.widget.CardView>
 
@@ -60,7 +61,8 @@
                     android:text="상점관리"
                     android:textSize="30dp"
                     android:textColor="#000000"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:id="@+id/mybusinessshop"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>
         <LinearLayout
@@ -87,7 +89,8 @@
                     android:text="직원관리"
                     android:textSize="30dp"
                     android:textColor="#000000"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:id="@+id/mybusinessmember"/>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -109,7 +112,8 @@
                     android:text="이벤트관리"
                     android:textSize="30dp"
                     android:textColor="#000000"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:id="@+id/mybusinessevent"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>
 
