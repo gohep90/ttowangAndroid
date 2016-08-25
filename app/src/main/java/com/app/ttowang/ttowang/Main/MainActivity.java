@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor Edit;
 
-    public static String ip = "14.63.213.208";   //클라우드서버 아이피
+    //public static String ip = "14.63.213.208";   //클라우드서버 아이피
     //public static String ip = "192.168.0.2";  // 박주용 아이피
 
-    //public static String ip = "117.17.142.99";   //박민수 아이피
+    public static String ip = "117.17.142.99";   //박민수 아이피
 
     //public static String ip = "192.168.21.208"; //장지은 아이피
 

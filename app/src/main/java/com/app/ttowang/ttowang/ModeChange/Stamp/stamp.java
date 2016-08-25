@@ -1,33 +1,17 @@
 package com.app.ttowang.ttowang.ModeChange.Stamp;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
-import android.text.method.DigitsKeyListener;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
 
 import java.io.BufferedInputStream;
@@ -53,7 +37,8 @@ public class stamp extends Fragment {
     TextView text_stampnum; //스템프갯수입력하는부분
 
     String encodedString;
-    String ip;
+    String ip= MainActivity.ip;
+    String businessId = "2"; //스피너?? 등 선택으로 받아와야함
 
     int focus = 1; //첫 포커스를 번호창으로 줌
 
@@ -83,8 +68,6 @@ public class stamp extends Fragment {
         });
         */
 
-        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
-        //ip = sharedPreferences.getString("ip", "" );
 
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
         btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
@@ -149,8 +132,8 @@ public class stamp extends Fragment {
                         Toast.makeText(getActivity(), text_stampnum.getText().toString(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), text_telvalue.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                        //입력한 스템프 갯수를 입력한 번호에 적립
-                        //AddStampAsyncTaskCall();
+                        //입력한 스템프 갯수를 입력한 번호에 적립 쓰레드
+                        AddStampAsyncTaskCall();
                         //startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
                     }
                     break;
@@ -256,14 +239,13 @@ public class stamp extends Fragment {
         }
     };
 
+
+    //스탬프 적립 스레드
     public void AddStampAsyncTaskCall(){
         new AddStampAsyncTask().execute();
     }
 
     public class AddStampAsyncTask extends AsyncTask<String,Integer,String> {
-
-        protected void onPreExecute(){
-        }
 
         @Override
         protected String doInBackground(String... params) {  // 통신을 위한 Thread
@@ -295,11 +277,13 @@ public class stamp extends Fragment {
 
             Properties prop = new Properties();
             prop.setProperty("stampNum", text_stampnum.getText().toString());
-            prop.setProperty("stampTel", text_telvalue.getText().toString());
-            encodedString = encodeString(prop);
+            prop.setProperty("userTel", text_telvalue.getText().toString());
+            prop.setProperty("businessId", businessId);
+
+            String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/-----.do");
+                url=new URL("http://" + ip + ":8080/ttowang/addStamp.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -317,10 +301,10 @@ public class stamp extends Fragment {
                 buf = new BufferedInputStream(urlConnection.getInputStream());
                 bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
 
-                String line = null;
-                String result = "";
+                String line=null;
+                String result="";
 
-                while((line=bufreader.readLine()) != null){
+                while((line=bufreader.readLine())!=null){
                     result += line;
                 }
 
@@ -333,5 +317,8 @@ public class stamp extends Fragment {
                 urlConnection.disconnect();  //URL 연결해제
             }
         }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+        }
     }
+
 }
