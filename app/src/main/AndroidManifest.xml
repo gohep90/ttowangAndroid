@@ -67,7 +67,7 @@
             android:name=".ModeChange.MyShop.myBusinessEvent.myBusinessEvent"/>
 
         <activity
-            android:name=".Main.Home.coupon.ChangeCoupon.ChangeCoupon"
+            android:name=".Main.Home.stamp.ChangeCoupon.ChangeCoupon"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
     </application>
 

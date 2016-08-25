@@ -35,16 +35,17 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor Edit;
 
-    //public static String ip = "14.63.213.208";   //클라우드서버 아이피
+    public static String ip = "14.63.213.208";   //클라우드서버 아이피
     //public static String ip = "192.168.0.2";  // 박주용 아이피
 
-    public static String ip = "117.17.142.99";   //박민수 아이피
+    //public static String ip = "117.17.142.99";   //박민수 아이피
 
     //public static String ip = "192.168.21.208"; //장지은 아이피
 
-    public static String user ="2";
+    public static String user ="5";
 
-    ViewPager viewPager;
+    public static ViewPager viewPager;
+    public static PagerAdapter pagerAdapter;
     TabLayout tabLayout;
 
     @Override
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViewPagerAndTabs() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragment(home.createInstance(0), "홈");
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");

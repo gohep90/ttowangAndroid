@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Main.Home.coupon.ChangeCoupon;
+package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 import android.app.Activity;
 import android.content.Intent;

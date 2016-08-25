@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Main.Home.coupon.ChangeCoupon;
+package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 import android.content.Context;
 import android.view.LayoutInflater;

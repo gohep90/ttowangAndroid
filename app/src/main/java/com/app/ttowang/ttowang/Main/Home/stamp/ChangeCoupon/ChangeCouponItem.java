@@ -1,4 +1,4 @@
-package com.app.ttowang.ttowang.Main.Home.coupon.ChangeCoupon;
+package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 /**
  * Created by srpgs2 on 2016-08-25.
