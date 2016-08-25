@@ -27,13 +27,24 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
                     >
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:text="#"
+                        android:textSize="20dp"
+                        android:textColor="#ff005c"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
                         android:layout_height="50dp"
-                        android:text="# NOTICE"
+                        android:text="NOTICE"
                         android:gravity="left|center"
                         android:textSize="20dp"
                         android:textColor="#ff005c"
@@ -42,7 +53,7 @@
                         android:layout_marginRight="15dp"/>
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="6"
                         android:layout_height="50dp"
                         android:gravity="left|center"
                         android:text="알림 부분"
@@ -68,7 +79,6 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
                     >
                     <ImageView
                         android:layout_width="0dp"
@@ -123,7 +133,6 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
                     >
 
@@ -242,7 +251,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
 
-                    android:layout_marginLeft="10dp"
                     android:background="#ffffff"
                     >
                     <ImageView
@@ -276,7 +284,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"/>
                     <TextView
                         android:layout_width="0dp"
@@ -307,7 +314,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
 
-                    android:layout_marginLeft="10dp">
+                    >
 
                     <ImageView
                         android:layout_width="0dp"
@@ -345,7 +352,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
+
 
                     android:background="#ffffff"
                     >
@@ -379,7 +386,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
+
                         android:layout_marginRight="10dp"
                         />
                     <LinearLayout
@@ -442,14 +449,25 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:layout_marginLeft="15dp"
                     >
-
-                    <Button
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:text="#"
+                        android:textSize="20dp"
+                        android:textColor="#ff005c"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="9"
                         android:layout_height="match_parent"
                         android:id="@+id/modeChange"
-                        android:text="# MODE CHANGE"
+                        android:text="MODE CHANGE"
                         android:gravity="left|center"
                         android:background="#ffffff"
                         android:textSize="20dp"
