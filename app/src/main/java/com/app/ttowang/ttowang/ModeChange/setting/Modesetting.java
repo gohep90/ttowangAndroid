@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.setting;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,8 +26,9 @@ public class Modesetting extends Fragment {
 
     View view;
     TextView modeChange;
-    TextView alarm_switch, emailclick, callclick,facebookclick;//재훈
-    ViewGroup myInfoclick, logoutclick, notice;
+    TextView emailclick, callclick,facebookclick;//재훈
+    ViewGroup myInfoclick, logoutclick, notice,alarm_switch;
+    TextView alarm_switch_on, alarm_switch_off;
 
     TextView myName, myTel, myEmail;
 
@@ -56,7 +58,9 @@ public class Modesetting extends Fragment {
         emailclick=(TextView) view.findViewById(R.id.emailclick);
         callclick=(TextView) view.findViewById(R.id.callclick);
         facebookclick=(TextView) view. findViewById(R.id.facebookclick);
-        alarm_switch=(TextView) view.findViewById(R.id.alarm_switch);//재훈
+        alarm_switch=(ViewGroup) view.findViewById(R.id.alarm_switch);//재훈
+        alarm_switch_on = (TextView)view.findViewById(R.id.alarm_switch_on);
+        alarm_switch_off = (TextView)view.findViewById(R.id.alarm_switch_off);
 
         myName = (TextView)view.findViewById(R.id.myName);//xml에서 TextView id가져와
         myTel = (TextView)view.findViewById(R.id.myTel);//xml에서 TextView id가져와
@@ -74,23 +78,31 @@ public class Modesetting extends Fragment {
         myTel.setText(userTel);
         myName.setText(userName);
         myEmail.setText(userEmail);
+
+        if(onSwitch == 0) {//off라면 on으로
+            alarm_switch_on.setTextColor(Color.parseColor("#ff005c"));
+            alarm_switch_off.setTextColor(Color.parseColor("#000000"));
+        }else{
+            alarm_switch_on.setTextColor(Color.parseColor("#000000"));
+            alarm_switch_off.setTextColor(Color.parseColor("#ff005c"));
+        }
 //재훈
         alarm_switch.setOnClickListener(new View.OnClickListener(){
-                                            public void onClick(View v){
-                                                if(onSwitch==0){//on이라면
-                                                    alarm_switch.setBackgroundResource(R.drawable.offf);
-                                                    onSwitch=1;
-                                                    Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
-                                                }
-                                                else{//off라면
-                                                    alarm_switch.setBackgroundResource(R.drawable.onn);
-                                                    Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
-                                                    onSwitch=0;
-                                                }
-                                            }
-                                        }
-        );
-//재훈
+            public void onClick(View v){
+                if(onSwitch==0){//on이라면 off로
+                    alarm_switch_on.setTextColor(Color.parseColor("#000000"));
+                    alarm_switch_off.setTextColor(Color.parseColor("#ff005c"));
+                    onSwitch=1;
+                    Toast.makeText(getActivity(), "off로 전환합니다", Toast.LENGTH_SHORT).show();
+                }
+                else{//off라면 on으로
+                    alarm_switch_on.setTextColor(Color.parseColor("#ff005c"));
+                    alarm_switch_off.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getActivity(), "on으로 전환합니다", Toast.LENGTH_SHORT).show();
+                    onSwitch=0;
+                }
+            }
+        });
 
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
