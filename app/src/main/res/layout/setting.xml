@@ -4,14 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="11"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/notice"
         android:background="#ffffff">
@@ -19,30 +17,29 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:weightSum="10"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
             >
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="# NOTICE"
                 android:gravity="left|center"
                 android:textSize="20dp"
                 android:textColor="#ff005c"
                 android:background="#ffffff"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginRight="15dp"/>
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="left|center"
                 android:text="업데이트 알림"
                 android:textSize="20dp"
                 android:background="#ffffff"
-                 />
+                />
 
         </LinearLayout>
 
@@ -55,24 +52,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:layout_weight="1">
-
+        >
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:weightSum="10"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             >
-
             <ImageView
-                android:scaleType="centerInside"
+                android:scaleType="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
@@ -86,18 +80,14 @@
                 android:textColor="#000000"
                 android:gravity="left|center" />
 
-
             <TextView
                 android:id="@+id/alarm_switch"
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:layout_height="match_parent"
                 android:background="@drawable/onn"
-                android:textSize="20dp"
                 android:gravity="center" />
-
         </LinearLayout>
-
 
     </LinearLayout>
 
@@ -105,8 +95,6 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#FFA7A7"/>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,25 +107,22 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:weightSum="5"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             >
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:weightSum="10"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
+                android:layout_height="50dp"
+                >
 
                 <ImageView
-                    android:scaleType="centerInside"
+                    android:scaleType="center"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/seto"
                     android:foregroundGravity="left|center" />
 
@@ -158,57 +143,68 @@
                 android:background="#ffffff"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:weightSum="10"
-                android:layout_weight="4">
+                android:layout_height="wrap_content"
 
-                <ImageView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/ya"
-                    android:foregroundGravity="left|center" />
+                    android:layout_marginRight="10dp"/>
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
-                    android:background="#ffffff"
-                    android:weightSum="3"
-                    >
-                    <TextView
-                        android:id="@+id/myName"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:hint="Name"
-                        android:textSize="15dp"
-                        android:gravity="left|bottom"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:id="@+id/myTel"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:hint="Tel"
-                        android:textSize="15dp"
-                        android:gravity="left|center"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:id="@+id/myEmail"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:hint="Email 안쓰냐?"
-                        android:textSize="15dp"
-                        android:gravity="left|top"
-                        />
-                </LinearLayout>
+                    android:layout_weight="9"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:scaleType="fitStart"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ya"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="left" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:background="#ffffff"
+                        android:layout_marginLeft="10dp"
+                        >
+                        <TextView
+                            android:id="@+id/myName"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:hint="Name"
+                            android:textSize="15dp"
+                            android:gravity="left|center"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/myTel"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:hint="Tel"
+                            android:textSize="15dp"
+                            android:gravity="left|center"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/myEmail"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:hint="Email"
+                            android:textSize="15dp"
+                            android:gravity="left|center"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -222,25 +218,23 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:weightSum="2"
+        android:layout_height="wrap_content"
+
         android:background="#ffffff">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="10"
-            android:layout_marginLeft="20dp"
+            android:layout_height="50dp"
+
+            android:layout_marginLeft="10dp"
             android:background="#ffffff"
             >
             <ImageView
-                android:scaleType="centerInside"
+                android:scaleType="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
@@ -283,23 +277,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:id="@+id/logout"
         android:background="#ffffff"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10"
-            android:layout_marginLeft="20dp">
+            android:layout_height="50dp"
+
+            android:layout_marginLeft="10dp">
 
             <ImageView
-                android:scaleType="centerInside"
+                android:scaleType="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
@@ -323,25 +316,23 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:weightSum="2"
+        android:layout_height="wrap_content"
+
         android:background="#ffffff">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:weightSum="10"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+
             android:background="#ffffff"
             >
             <ImageView
-                android:scaleType="centerInside"
+                android:scaleType="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/seto"
                 android:foregroundGravity="left|center" />
 
@@ -365,26 +356,26 @@
             >
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/emailclick"
-                    android:background="#ffffff"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="80dp"
-                    android:textColor="#ff005c"
-                    android:text="EMAIL"
-                    />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailclick"
+                android:background="#ffffff"
+                android:textSize="20dp"
+                android:layout_marginLeft="80dp"
+                android:textColor="#ff005c"
+                android:text="EMAIL"
+                />
 
             <TextView
-                    android:id="@+id/callclick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="#ff005c"
-                    android:text="CALL"
-                    />
+                android:id="@+id/callclick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:textSize="20dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ff005c"
+                android:text="CALL"
+                />
 
             <TextView
                 android:id="@+id/facebookclick"
@@ -398,21 +389,21 @@
 
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#FFA7A7"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#ffffff">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             >
 
