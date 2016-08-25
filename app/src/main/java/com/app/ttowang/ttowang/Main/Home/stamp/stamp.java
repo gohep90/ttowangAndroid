@@ -8,13 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.coupon.ChangeCoupon.ChangeCoupon;
-
-import com.app.ttowang.ttowang.Main.Home.coupon.couponPopup;
 import com.app.ttowang.ttowang.Main.Home.home;
-import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 /**
@@ -67,9 +63,6 @@ public class stamp extends android.support.v4.app.ListFragment {
         coupon_change_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.mContext, "터치터치", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.mContext, String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)), Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(getContext(), couponPopup.class);
                 Intent intent = new Intent(getContext(), ChangeCoupon.class);
                 intent.putExtra("businessId",String.valueOf(home.myAllBusiness.get(home.nowbusiness).get(0)));
                 startActivity(intent);
