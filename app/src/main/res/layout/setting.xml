@@ -56,8 +56,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,13 +71,13 @@
                     android:layout_marginLeft="10dp"
                     >
                     <ImageView
-                        android:scaleType="center"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
                         android:src="@drawable/seto"
-                        android:foregroundGravity="left|center" />
+                         />
 
                     <TextView
                         android:layout_width="0dp"
@@ -96,7 +96,7 @@
                         android:id="@+id/alarm_switch"
                         android:layout_width="0dp"
                         android:layout_weight="4"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/onn"
                         android:gravity="center" />
                     <LinearLayout
@@ -109,8 +109,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,11 +134,11 @@
                         >
 
                         <ImageView
-                            android:scaleType="center"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
+                            android:layout_height="10dp"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center"
                             android:src="@drawable/seto"
                             android:foregroundGravity="left|center" />
 
@@ -187,22 +187,25 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="7"
                                 android:background="#ffffff"
+                                android:weightSum="10"
+                                android:gravity="center|left"
                                 android:layout_marginLeft="10dp"
                                 >
                                 <TextView
                                     android:id="@+id/myName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:hint="Name"
                                     android:textSize="15dp"
+                                    android:textStyle="bold"
                                     android:gravity="left|center"
                                     />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:id="@+id/myTel"
                                     android:layout_height="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:hint="Tel"
                                     android:textSize="15dp"
                                     android:gravity="left|center"
@@ -211,7 +214,7 @@
                                     android:layout_width="wrap_content"
                                     android:id="@+id/myEmail"
                                     android:layout_height="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_weight="2"
                                     android:hint="Email"
                                     android:textSize="15dp"
                                     android:gravity="left|center"
@@ -225,8 +228,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -243,11 +246,11 @@
                     android:background="#ffffff"
                     >
                     <ImageView
-                        android:scaleType="center"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
                         android:src="@drawable/seto"
                         android:foregroundGravity="left|center" />
 
@@ -291,8 +294,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -307,11 +310,11 @@
                     android:layout_marginLeft="10dp">
 
                     <ImageView
-                        android:scaleType="center"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
                         android:src="@drawable/seto"
                         android:foregroundGravity="left|center" />
 
@@ -330,8 +333,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -347,11 +350,11 @@
                     android:background="#ffffff"
                     >
                     <ImageView
-                        android:scaleType="center"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
                         android:src="@drawable/seto"
                         android:foregroundGravity="left|center" />
 
@@ -426,8 +429,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFA7A7"/>
+                android:layout_height="1dp"
+                android:background="#ff375f"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -438,7 +441,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="15dp"
                     >
 
