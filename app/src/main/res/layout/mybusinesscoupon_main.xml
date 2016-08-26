@@ -22,7 +22,27 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:src="@drawable/logo"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#ff375f"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        >
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff375f"
+            card_view:cardCornerRadius="10dp">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
     <LinearLayout
@@ -36,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/listView"
+                android:divider="#00000000"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -45,7 +66,9 @@
                 android:layout_gravity="end|bottom"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
-                app:borderWidth="0dp"/>
+                app:borderWidth="0dp"
+                android:src="@drawable/pen"
+                android:scaleType="centerCrop"/>
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
 </LinearLayout>
