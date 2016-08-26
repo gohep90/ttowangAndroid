@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponAdapter;
 import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponItem;
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -38,12 +40,14 @@ import java.util.Properties;
  */
 public class myBusinessCouponAdd extends Activity {
 
-    String businessId="";
+    String businessId= ChangeModeMain.businessId;
     String ip= MainActivity.ip;
     RelativeLayout ChangeCouponRelative;
 
     Button CouponAdd;
     ChangeCouponAdapter adapter;
+
+    EditText couponName, stampNeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +59,13 @@ public class myBusinessCouponAdd extends Activity {
         //businessId = i.getExtras().getString("businessId");
 
         //CouponAsyncTaskCall();//쿠폰 리스트 불러오기
-
+        couponName = (EditText)findViewById(R.id.couponName);
+        stampNeed = (EditText)findViewById(R.id.stampNeed);
 
         CouponAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //new CouponAddAsyncTask().execute();
                 //Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
                 //intent.putExtra("currentViewPager", currentViewPager);
                 //startActivity(intent);
@@ -74,11 +79,7 @@ public class myBusinessCouponAdd extends Activity {
 
 
 
-    public void CouponAsyncTaskCall(){
-        new CouponAsyncTask().execute();
-    }
-
-    public class CouponAsyncTask extends AsyncTask<String,Integer,String> {
+    public class CouponAddAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
         }
@@ -113,12 +114,17 @@ public class myBusinessCouponAdd extends Activity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("businessId",businessId);
 
+
+            prop.setProperty("businessId",businessId);
+            prop.setProperty("couponCode",businessId + "1234");
+            prop.setProperty("couponName", String.valueOf(couponName.getText()));
+            prop.setProperty("stampNeed", String.valueOf(stampNeed.getText()));
+            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/couponList.do");
+                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponAdd.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -153,34 +159,10 @@ public class myBusinessCouponAdd extends Activity {
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-            jsonFirstList(result);
+            Log.i("서버에서 받은 전체 내용 : ", result);
 
-        }
-    }
 
-    private void jsonFirstList(String recv) {
 
-        Log.i("서버에서 받은 전체 내용 : ", recv);
-
-        try{
-            JSONObject json=new JSONObject(recv);
-            JSONArray jArr =json.getJSONArray("couponList");
-            if(jArr.length()==0){
-
-                finish();
-                Toast.makeText(MainActivity.mContext, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            for (int i = 0; i < jArr.length(); i++ ) {
-                json = jArr.getJSONObject(i);
-                adapter.addItem( json.getString("couponName"), json.getString("stampNeed")+"개") ;
-
-            }
-
-            adapter.notifyDataSetChanged();     //리스트
-
-        }catch(JSONException e){
-            e.printStackTrace();
         }
     }
 }

@@ -21,6 +21,7 @@
 
 
         <EditText
+            android:id="@+id/couponName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="혜택을 입력하세요."
@@ -37,6 +38,7 @@
             android:imeOptions="actionNext"
             />
         <EditText
+            android:id="@+id/stampNeed"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="스탬프 개수를 입력하세요."

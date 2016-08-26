@@ -28,7 +28,7 @@ public class ChangeModeMain extends AppCompatActivity {
 
     public static Context mContext;
     public static int first = 0;
-
+    public static String businessId = "2";
 
 
     @Override

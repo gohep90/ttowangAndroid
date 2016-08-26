@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
 
 import java.io.BufferedInputStream;
@@ -38,7 +39,7 @@ public class stamp extends Fragment {
 
     String encodedString;
     String ip= MainActivity.ip;
-    String businessId = "2"; //스피너?? 등 선택으로 받아와야함
+    String businessId = ChangeModeMain.businessId; //스피너?? 등 선택으로 받아와야함
 
     int focus = 1; //첫 포커스를 번호창으로 줌
 
