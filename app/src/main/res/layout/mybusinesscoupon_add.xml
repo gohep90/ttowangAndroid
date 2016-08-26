@@ -24,9 +24,9 @@
             android:id="@+id/couponName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="혜택을 입력하세요."
+            android:hint="쿠폰 이름"
 
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:textColor="#666666"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -41,9 +41,9 @@
             android:id="@+id/stampNeed"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="스탬프 개수를 입력하세요."
+            android:hint="스탬프 개수"
 
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:textColor="#666666"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

@@ -27,13 +27,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".Main.Login.Intro">
+
+        </activity>
+        <activity android:name=".Main.Login.Tel" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.Login.Tel" />
         <activity android:name=".Main.Login.Login" />
         <activity
             android:name=".ModeChange.ChangeModeMain"
@@ -76,6 +77,10 @@
 
         <activity
             android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCouponAdd"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:windowSoftInputMode="adjustNothing|stateVisible"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCouponEdit"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:windowSoftInputMode="adjustNothing|stateVisible"/>
     </application>

@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,12 @@ import com.app.ttowang.ttowang.R;
  * Created by srpgs2 on 2016-08-25.
  */
 public class myBusinessMember extends AppCompatActivity {
-
+    public static Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessmember_main);
-
+        mContext = this;
         ListView listview ;
         myBusinessMemberAdapter adapter;
 

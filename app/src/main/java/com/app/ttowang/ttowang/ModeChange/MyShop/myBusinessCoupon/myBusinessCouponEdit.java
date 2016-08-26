@@ -1,24 +1,20 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
+import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponAdapter;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -30,57 +26,60 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Properties;
 
+
 /**
  * Created by srpgs2 on 2016-08-25.
  */
-public class myBusinessCoupon extends AppCompatActivity {
+public class myBusinessCouponEdit extends Activity {
 
-    String businessId = ChangeModeMain.businessId;
-    static myBusinessCouponAdapter adapter;
+    String businessId= ChangeModeMain.businessId;
+    String ip= MainActivity.ip;
+    RelativeLayout ChangeCouponRelative;
 
-    public static Context mContext;
+    Button CouponAdd;
+    ChangeCouponAdapter adapter;
+
+    EditText couponName, stampNeed;
+    Intent i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mybusinesscoupon_main);
-        mContext = this;
-        ListView listview ;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.mybusinesscoupon_add);
+        CouponAdd = (Button)findViewById(R.id.CouponAdd);
+        i = getIntent();
 
 
-        // Adapter 생성
-        adapter = new myBusinessCouponAdapter() ;
+        //CouponAsyncTaskCall();//쿠폰 리스트 불러오기
+        couponName = (EditText)findViewById(R.id.couponName);
+        stampNeed = (EditText)findViewById(R.id.stampNeed);
 
-        // 리스트뷰 참조 및 Adapter달기
-        listview = (ListView) findViewById(R.id.listView);
-        listview.setAdapter(adapter);
-
-        new CouponDownAsyncTask().execute();
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // get item
-                myBusinessCouponItem item = (myBusinessCouponItem) parent.getItemAtPosition(position) ;
+        couponName.setText(i.getExtras().getString("CouponName"));
+        stampNeed.setText(i.getExtras().getString("StampNeed"));
 
 
-            }
-        }) ;
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabButton);
-        fab.setOnClickListener(new View.OnClickListener() {
+        couponName.setSelection(couponName.getText().length()); //커서 맨뒤로 보내기요
+
+        CouponAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("현재 시간",System.currentTimeMillis() + "");
-                Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
+                new CouponEditAsyncTask().execute();
+                //Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
                 //intent.putExtra("currentViewPager", currentViewPager);
-                startActivity(intent);
+                //startActivity(intent);
                 //Toast.makeText(myBusinessCoupon.this,"추가 버튼", Toast.LENGTH_SHORT).show();
-
+                myBusinessCoupon.adapter.notifyDataSetChanged();
+                finish();
             }
         });
+
     }
 
-    public class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
+
+
+
+    public class CouponEditAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
         }
@@ -115,12 +114,15 @@ public class myBusinessCoupon extends AppCompatActivity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("businessId",businessId);
-
+            prop.setProperty("businessId",i.getExtras().getString("BusinessId"));
+            prop.setProperty("couponCode",i.getExtras().getString("CouponCode"));
+            prop.setProperty("couponName", String.valueOf(couponName.getText()));
+            prop.setProperty("stampNeed", String.valueOf(stampNeed.getText()));
+            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponList.do");
+                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponUpdate.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -157,26 +159,6 @@ public class myBusinessCoupon extends AppCompatActivity {
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             Log.i("서버에서 받은 전체 내용 : ", result);
 
-            try{
-                JSONObject json=new JSONObject(result);
-                JSONArray jArr =json.getJSONArray("couponList");
-                if(jArr.length()==0){
-
-                    finish();
-                    Toast.makeText(myBusinessCoupon.this, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                for (int i = 0; i < jArr.length(); i++ ) {
-                    json = jArr.getJSONObject(i);
-                    adapter.addItem( json.getString("couponName"), json.getString("stampNeed"),json.getString("businessId"),json.getString("couponCode")) ;
-
-                }
-
-                adapter.notifyDataSetChanged();     //리스트
-
-            }catch(JSONException e){
-                e.printStackTrace();
-            }
         }
     }
 }

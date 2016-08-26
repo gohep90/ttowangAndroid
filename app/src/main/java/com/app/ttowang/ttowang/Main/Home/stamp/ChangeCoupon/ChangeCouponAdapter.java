@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.R;
 
@@ -42,15 +43,32 @@ public class ChangeCouponAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.mybusineecouponbenefit) ;
-        TextView descTextView = (TextView) convertView.findViewById(R.id.mybusineecouponnumber) ;
+        TextView mybusineecouponname = (TextView) convertView.findViewById(R.id.mybusineecouponname) ;
+        TextView mybusineecouponstampneed = (TextView) convertView.findViewById(R.id.mybusineecouponstampneed) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ChangeCouponItem listViewItem = listViewItemList.get(position);
+        final ChangeCouponItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        titleTextView.setText(listViewItem.getBenefit());
-        descTextView.setText(listViewItem.getNumber());
+        mybusineecouponname.setText(listViewItem.getCouponName());
+        mybusineecouponstampneed.setText(listViewItem.getStampNeed()+"개");
+
+
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ChangeCoupon.mContext,listViewItem.getCouponName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+/*
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(myBusinessCoupon.mContext,"롱클릭", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        */
 
         return convertView;
     }
@@ -68,11 +86,13 @@ public class ChangeCouponAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String benefit, String number) {
+    public void addItem(String CouponName, String StampNeed,String BusinessId,String CouponCode) {
         ChangeCouponItem item = new ChangeCouponItem();
 
-        item.setBenefit(benefit);
-        item.setNumber(number);
+        item.setCouponName(CouponName);
+        item.setStampNeed(StampNeed);
+        item.setBusinessId(BusinessId);
+        item.setCouponCode(CouponCode);
 
         listViewItemList.add(item);
     }

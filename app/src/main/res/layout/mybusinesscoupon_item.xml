@@ -36,7 +36,7 @@
                             android:textStyle="bold"
                             android:gravity="center"
                             android:textColor="#ff0049"
-                            android:id="@+id/mybusineecouponbenefit"
+                            android:id="@+id/mybusineecouponname"
                             android:background="#00000000"/>
                     </LinearLayout>
 
@@ -53,7 +53,7 @@
                             android:textStyle="bold"
                             android:gravity="center"
                             android:textColor="#c10037"
-                            android:id="@+id/mybusineecouponnumber"
+                            android:id="@+id/mybusineecouponstampneed"
                             android:background="#00000000"/>
                     </LinearLayout>
                 </LinearLayout>

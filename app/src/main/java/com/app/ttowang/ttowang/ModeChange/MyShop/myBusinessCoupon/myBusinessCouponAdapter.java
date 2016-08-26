@@ -1,15 +1,31 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * Created by Park on 2016-08-05.
@@ -17,6 +33,8 @@ import java.util.ArrayList;
 public class myBusinessCouponAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<myBusinessCouponItem> listViewItemList = new ArrayList<myBusinessCouponItem>() ;
+
+    String couponCode, couponName, businessId, stampNeed;
 
     // ListViewAdapter의 생성자
     public myBusinessCouponAdapter() {
@@ -42,15 +60,44 @@ public class myBusinessCouponAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.mybusineecouponbenefit) ;
-        TextView descTextView = (TextView) convertView.findViewById(R.id.mybusineecouponnumber) ;
+        TextView mybusineecouponname = (TextView) convertView.findViewById(R.id.mybusineecouponname) ;
+        TextView mybusineecouponstampneed = (TextView) convertView.findViewById(R.id.mybusineecouponstampneed) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        myBusinessCouponItem listViewItem = listViewItemList.get(position);
+        final myBusinessCouponItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        titleTextView.setText(listViewItem.getBenefit());
-        descTextView.setText(listViewItem.getNumber());
+        mybusineecouponname.setText(listViewItem.getCouponName());
+        mybusineecouponstampneed.setText(listViewItem.getStampNeed()+"개");
+
+        convertView.setOnClickListener(new View.OnClickListener(){  //수정
+           @Override
+           public void onClick(View v) {
+
+               //Toast.makeText(myBusinessCoupon.mContext,"원클릭", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(myBusinessCoupon.mContext, myBusinessCouponEdit.class);   //인텐트로 넘겨줄건데요~
+
+               intent.putExtra("CouponCode", listViewItem.getCouponCode());
+               intent.putExtra("CouponName", listViewItem.getCouponName());
+               intent.putExtra("BusinessId", listViewItem.getBusinessId());
+               intent.putExtra("StampNeed", listViewItem.getStampNeed());
+
+               myBusinessCoupon.mContext.startActivity(intent);
+           }
+        });
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() { //삭제
+            @Override
+            public boolean onLongClick(View v) {
+                //Toast.makeText(myBusinessCoupon.mContext,"롱클릭", Toast.LENGTH_SHORT).show();
+                couponCode = listViewItem.getCouponCode();
+                couponName = listViewItem.getCouponName();
+                businessId = listViewItem.getBusinessId();
+                stampNeed = listViewItem.getStampNeed();
+                Dialog();
+                return true;
+            }
+        });
 
         return convertView;
     }
@@ -68,12 +115,127 @@ public class myBusinessCouponAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String benefit, String number) {
+    public void addItem(String CouponName, String StampNeed,String BusinessId,String CouponCode) {
         myBusinessCouponItem item = new myBusinessCouponItem();
 
-        item.setBenefit(benefit);
-        item.setNumber(number);
-
+        item.setCouponName(CouponName);
+        item.setStampNeed(StampNeed);
+        item.setBusinessId(BusinessId);
+        item.setCouponCode(CouponCode);
         listViewItemList.add(item);
     }
+
+    private void Dialog() {
+
+        AlertDialog.Builder _alert = new AlertDialog.Builder(myBusinessCoupon.mContext);
+        _alert.setTitle(couponName);
+        _alert.setMessage("삭제하겠습니까?").setCancelable(true);
+
+        _alert.setPositiveButton("취소", null);
+
+        _alert.setNegativeButton("삭제", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int thisid) {
+/*
+                if(!sharedPreferences.getString(PREF_ACCOUNT_NAME, "").equals("") & setyear != 0){
+                    if(!calendarid.equals("0") & !calendarid.equals("")){
+                        new delete().execute();
+                    }
+                }
+*/
+                new CouponDelAsyncTask().execute();
+                //deleteAsyncTaskCall();  //즐겨찾기 삭제
+                //home.PagerAdapter.notifyDataSetChanged;
+            }
+        });
+        _alert.show();
+    }
+
+
+    public class CouponDelAsyncTask extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute(){
+        }
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+
+
+
+            prop.setProperty("businessId",businessId);
+            prop.setProperty("couponCode",couponCode);
+            prop.setProperty("couponName", couponName);
+            prop.setProperty("stampNeed", stampNeed);
+            //Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
+            String encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponDelete.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line=null;
+                String result="";
+
+                while((line=bufreader.readLine())!=null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            Log.i("서버에서 받은 전체 내용 : ", result);
+
+
+
+        }
+    }
+
 }

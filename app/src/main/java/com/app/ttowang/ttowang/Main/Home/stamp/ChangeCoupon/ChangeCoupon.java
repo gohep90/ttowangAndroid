@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,13 +43,14 @@ public class ChangeCoupon extends Activity {
     ListView listview ;
     ChangeCouponAdapter adapter;
 
+    public static Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.changecoupon_main);
         //setTheme(R.style.AppDialogTheme);
-
+        mContext = this;
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
 
@@ -75,8 +77,7 @@ public class ChangeCoupon extends Activity {
                 // get item
                 ChangeCouponItem item = (ChangeCouponItem) parent.getItemAtPosition(position) ;
 
-                String titleStr = item.getBenefit() ;
-                String descStr = item.getNumber() ;
+
 
             }
         }) ;
@@ -184,7 +185,7 @@ public class ChangeCoupon extends Activity {
             }
             for (int i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
-                adapter.addItem( json.getString("couponName"), json.getString("stampNeed")+"개") ;
+                adapter.addItem( json.getString("couponName"), json.getString("stampNeed"),json.getString("businessId"),json.getString("couponCode")) ;
 
             }
 

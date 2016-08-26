@@ -112,7 +112,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
                 Dialog(number);
 
-                return false;
+                return true;
             }
 
         });

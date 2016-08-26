@@ -65,7 +65,7 @@ public class myBusinessCouponAdd extends Activity {
         CouponAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new CouponAddAsyncTask().execute();
+                new CouponAddAsyncTask().execute();
                 //Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
                 //intent.putExtra("currentViewPager", currentViewPager);
                 //startActivity(intent);
@@ -117,7 +117,7 @@ public class myBusinessCouponAdd extends Activity {
 
 
             prop.setProperty("businessId",businessId);
-            prop.setProperty("couponCode",businessId + "1234");
+            prop.setProperty("couponCode",businessId + (System.currentTimeMillis()%10000));
             prop.setProperty("couponName", String.valueOf(couponName.getText()));
             prop.setProperty("stampNeed", String.valueOf(stampNeed.getText()));
             Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));

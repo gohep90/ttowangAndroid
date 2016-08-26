@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.R;
 
@@ -42,15 +43,32 @@ public class myBusinessMemberAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.mybusineecouponbenefit) ;
-        TextView descTextView = (TextView) convertView.findViewById(R.id.mybusineecouponnumber) ;
+        TextView mybusineecouponbenefit = (TextView) convertView.findViewById(R.id.mybusineecouponbenefit) ;
+        TextView mybusineecouponnumber = (TextView) convertView.findViewById(R.id.mybusineecouponnumber) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         myBusinessMemberItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        titleTextView.setText(listViewItem.getBenefit());
-        descTextView.setText(listViewItem.getNumber());
+        mybusineecouponbenefit.setText(listViewItem.getBenefit());
+        mybusineecouponnumber.setText(listViewItem.getNumber());
+
+
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(myBusinessMember.mContext,"원클릭", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(myBusinessMember.mContext,"롱클릭", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
 
         return convertView;
     }
