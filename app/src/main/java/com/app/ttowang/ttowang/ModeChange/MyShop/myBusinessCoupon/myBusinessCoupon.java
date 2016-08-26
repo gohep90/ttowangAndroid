@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -59,10 +60,10 @@ public class myBusinessCoupon extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Intent intent = new Intent(getApplicationContext(), Add.class);   //인텐트로 넘겨줄건데요~
+                Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
                 //intent.putExtra("currentViewPager", currentViewPager);
-                //startActivity(intent);
-                Toast.makeText(myBusinessCoupon.this,"추가 버튼", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                //Toast.makeText(myBusinessCoupon.this,"추가 버튼", Toast.LENGTH_SHORT).show();
 
             }
         });

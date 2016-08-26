@@ -73,6 +73,11 @@
             android:name=".Main.Home.stamp.GiftStamp.GiftStamp"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:windowSoftInputMode="adjustNothing|stateVisible"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCouponAdd"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:windowSoftInputMode="adjustNothing|stateVisible"/>
     </application>
 
 </manifest>
