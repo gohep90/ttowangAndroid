@@ -49,7 +49,7 @@ public class Tel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tel);
 
-        startActivity(new Intent(this,Loading.class));
+        //startActivity(new Intent(this,Loading.class));
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();

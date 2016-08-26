@@ -27,13 +27,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".Main.Login.Intro">
-
-        </activity>
-        <activity android:name=".Main.Login.Tel" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Main.Login.Tel" >
+
         </activity>
         <activity android:name=".Main.Login.Login" />
         <activity
