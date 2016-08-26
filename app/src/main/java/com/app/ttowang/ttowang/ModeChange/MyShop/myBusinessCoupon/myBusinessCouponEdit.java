@@ -32,38 +32,41 @@ import java.util.Properties;
  */
 public class myBusinessCouponEdit extends Activity {
 
-    String businessId= ChangeModeMain.businessId;
+
     String ip= MainActivity.ip;
     RelativeLayout ChangeCouponRelative;
 
-    Button CouponAdd;
+    Button CouponEdit;
     ChangeCouponAdapter adapter;
 
-    EditText couponName, stampNeed;
+    EditText couponNameEditText, stampNeedEditText;
     Intent i;
+    int nowposition;
+    String businessId,couponCode, couponName, stampNeed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mybusinesscoupon_add);
-        CouponAdd = (Button)findViewById(R.id.CouponAdd);
+        CouponEdit = (Button)findViewById(R.id.CouponAdd);
+        CouponEdit.setText("쿠폰 수정");
+
         i = getIntent();
+        couponNameEditText = (EditText)findViewById(R.id.couponNameEditText);
+        stampNeedEditText = (EditText)findViewById(R.id.stampNeedEditText);
+
+        couponNameEditText.setText(i.getExtras().getString("CouponName"));
+        stampNeedEditText.setText(i.getExtras().getString("StampNeed"));
+        nowposition = i.getExtras().getInt("position");
 
 
-        //CouponAsyncTaskCall();//쿠폰 리스트 불러오기
-        couponName = (EditText)findViewById(R.id.couponName);
-        stampNeed = (EditText)findViewById(R.id.stampNeed);
+        couponNameEditText.setSelection(couponNameEditText.getText().length()); //커서 맨뒤로 보내기요
 
-        couponName.setText(i.getExtras().getString("CouponName"));
-        stampNeed.setText(i.getExtras().getString("StampNeed"));
-
-
-
-        couponName.setSelection(couponName.getText().length()); //커서 맨뒤로 보내기요
-
-        CouponAdd.setOnClickListener(new View.OnClickListener() {
+        CouponEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 new CouponEditAsyncTask().execute();
                 //Intent intent = new Intent(getApplicationContext(), myBusinessCouponAdd.class);   //인텐트로 넘겨줄건데요~
                 //intent.putExtra("currentViewPager", currentViewPager);
@@ -114,11 +117,16 @@ public class myBusinessCouponEdit extends Activity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("businessId",i.getExtras().getString("BusinessId"));
-            prop.setProperty("couponCode",i.getExtras().getString("CouponCode"));
-            prop.setProperty("couponName", String.valueOf(couponName.getText()));
-            prop.setProperty("stampNeed", String.valueOf(stampNeed.getText()));
-            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
+            businessId = i.getExtras().getString("BusinessId");
+            couponCode = i.getExtras().getString("CouponCode");
+            couponName = String.valueOf(couponNameEditText.getText());
+            stampNeed = String.valueOf(stampNeedEditText.getText());
+
+            prop.setProperty("businessId",businessId);
+            prop.setProperty("couponCode",couponCode);
+            prop.setProperty("couponName", couponName);
+            prop.setProperty("stampNeed", stampNeed);
+            //Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponNameEditText.getText()) + " " + String.valueOf(couponNameEditText.getText()) + " " +String.valueOf(stampNeedEditText.getText()));
             String encodedString = encodeString(prop);
 
             try{
@@ -158,7 +166,19 @@ public class myBusinessCouponEdit extends Activity {
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             Log.i("서버에서 받은 전체 내용 : ", result);
+            if(!result.equals("")){
 
+                myBusinessCouponItem item = new myBusinessCouponItem();
+
+                item.setCouponName(couponName);
+                item.setStampNeed(stampNeed);
+                item.setBusinessId(businessId);
+                item.setCouponCode(couponCode);
+
+                myBusinessCouponAdapter.listViewItemList.set(nowposition, item);
+                myBusinessCoupon.adapter.notifyDataSetChanged();
+                Log.i("coupon 어댑터 ","새로 고친다");
+            }
         }
     }
 }

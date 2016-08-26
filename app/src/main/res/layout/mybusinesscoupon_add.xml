@@ -21,7 +21,7 @@
 
 
         <EditText
-            android:id="@+id/couponName"
+            android:id="@+id/couponNameEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="쿠폰 이름"
@@ -38,7 +38,7 @@
             android:imeOptions="actionNext"
             />
         <EditText
-            android:id="@+id/stampNeed"
+            android:id="@+id/stampNeedEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="스탬프 개수"

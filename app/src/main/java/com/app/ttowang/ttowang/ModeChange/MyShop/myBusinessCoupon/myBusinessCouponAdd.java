@@ -47,7 +47,9 @@ public class myBusinessCouponAdd extends Activity {
     Button CouponAdd;
     ChangeCouponAdapter adapter;
 
-    EditText couponName, stampNeed;
+    EditText couponNameEditText, stampNeedEditText;
+
+    String couponCode, couponName, stampNeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,8 @@ public class myBusinessCouponAdd extends Activity {
         //businessId = i.getExtras().getString("businessId");
 
         //CouponAsyncTaskCall();//쿠폰 리스트 불러오기
-        couponName = (EditText)findViewById(R.id.couponName);
-        stampNeed = (EditText)findViewById(R.id.stampNeed);
+        couponNameEditText = (EditText)findViewById(R.id.couponNameEditText);
+        stampNeedEditText = (EditText)findViewById(R.id.stampNeedEditText);
 
         CouponAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,12 +117,14 @@ public class myBusinessCouponAdd extends Activity {
             Properties prop = new Properties();
 
 
-
+            couponCode = businessId + (System.currentTimeMillis()%10000);
+            couponName = String.valueOf(couponNameEditText.getText());
+            stampNeed = String.valueOf(stampNeedEditText.getText());
             prop.setProperty("businessId",businessId);
-            prop.setProperty("couponCode",businessId + (System.currentTimeMillis()%10000));
-            prop.setProperty("couponName", String.valueOf(couponName.getText()));
-            prop.setProperty("stampNeed", String.valueOf(stampNeed.getText()));
-            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
+            prop.setProperty("couponCode",couponCode);
+            prop.setProperty("couponName", couponName);
+            prop.setProperty("stampNeed", stampNeed);
+            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponNameEditText.getText()) + " " + String.valueOf(couponNameEditText.getText()) + " " +String.valueOf(stampNeedEditText.getText()));
             String encodedString = encodeString(prop);
 
             try{
@@ -162,6 +166,11 @@ public class myBusinessCouponAdd extends Activity {
             Log.i("서버에서 받은 전체 내용 : ", result);
 
 
+            if(!result.equals("")){
+                myBusinessCoupon.adapter.addItem( couponName, stampNeed,businessId,couponCode) ;
+                myBusinessCoupon.adapter.notifyDataSetChanged();
+                Log.i("coupon 어댑터 ","새로 고친다");
+            }
 
         }
     }

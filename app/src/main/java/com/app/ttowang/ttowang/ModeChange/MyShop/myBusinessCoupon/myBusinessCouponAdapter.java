@@ -32,10 +32,10 @@ import java.util.Properties;
  */
 public class myBusinessCouponAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<myBusinessCouponItem> listViewItemList = new ArrayList<myBusinessCouponItem>() ;
+    public static ArrayList<myBusinessCouponItem> listViewItemList = new ArrayList<myBusinessCouponItem>() ;
 
     String couponCode, couponName, businessId, stampNeed;
-
+    int nowposition;
     // ListViewAdapter의 생성자
     public myBusinessCouponAdapter() {
 
@@ -49,7 +49,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
 
@@ -76,7 +76,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
                //Toast.makeText(myBusinessCoupon.mContext,"원클릭", Toast.LENGTH_SHORT).show();
                Intent intent = new Intent(myBusinessCoupon.mContext, myBusinessCouponEdit.class);   //인텐트로 넘겨줄건데요~
-
+               intent.putExtra("position",position);
                intent.putExtra("CouponCode", listViewItem.getCouponCode());
                intent.putExtra("CouponName", listViewItem.getCouponName());
                intent.putExtra("BusinessId", listViewItem.getBusinessId());
@@ -94,6 +94,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
                 couponName = listViewItem.getCouponName();
                 businessId = listViewItem.getBusinessId();
                 stampNeed = listViewItem.getStampNeed();
+                nowposition = position;
                 Dialog();
                 return true;
             }
@@ -123,6 +124,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
         item.setBusinessId(BusinessId);
         item.setCouponCode(CouponCode);
         listViewItemList.add(item);
+
     }
 
     private void Dialog() {
@@ -221,6 +223,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
                     result += line;
                 }
 
+
                 return result;
 
             }catch(Exception e){
@@ -233,7 +236,11 @@ public class myBusinessCouponAdapter extends BaseAdapter {
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             Log.i("서버에서 받은 전체 내용 : ", result);
 
-
+            if(!result.equals("")){
+                listViewItemList.remove(nowposition);
+                myBusinessCoupon.adapter.notifyDataSetChanged();
+                Log.i("coupon 어댑터 ","새로 고친다");
+            }
 
         }
     }
