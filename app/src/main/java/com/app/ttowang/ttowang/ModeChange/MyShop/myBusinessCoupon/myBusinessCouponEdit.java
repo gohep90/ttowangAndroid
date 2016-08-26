@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponAdapter;
 import com.app.ttowang.ttowang.Main.MainActivity;
@@ -178,6 +179,8 @@ public class myBusinessCouponEdit extends Activity {
                 myBusinessCouponAdapter.listViewItemList.set(nowposition, item);
                 myBusinessCoupon.adapter.notifyDataSetChanged();
                 Log.i("coupon 어댑터 ","새로 고친다");
+            }else{
+                Toast.makeText(myBusinessCoupon.mContext,"수정 실패", Toast.LENGTH_SHORT).show();
             }
         }
     }

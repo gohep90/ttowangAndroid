@@ -53,7 +53,7 @@ public class myBusinessCoupon extends AppCompatActivity {
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.listView);
         listview.setAdapter(adapter);
-
+        myBusinessCouponAdapter.listViewItemList.clear();
         new CouponDownAsyncTask().execute();
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

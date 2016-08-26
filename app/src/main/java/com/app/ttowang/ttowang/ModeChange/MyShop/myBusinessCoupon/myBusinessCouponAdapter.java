@@ -194,7 +194,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
             prop.setProperty("couponCode",couponCode);
             prop.setProperty("couponName", couponName);
             prop.setProperty("stampNeed", stampNeed);
-            //Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponName.getText()) + " " + String.valueOf(couponName.getText()) + " " +String.valueOf(stampNeed.getText()));
+            Log.i("couponDel - ",businessId + " " + couponCode + " " + couponName + " " +stampNeed);
             String encodedString = encodeString(prop);
 
             try{
@@ -240,6 +240,8 @@ public class myBusinessCouponAdapter extends BaseAdapter {
                 listViewItemList.remove(nowposition);
                 myBusinessCoupon.adapter.notifyDataSetChanged();
                 Log.i("coupon 어댑터 ","새로 고친다");
+            }else{
+                Toast.makeText(myBusinessCoupon.mContext,"삭제 실패", Toast.LENGTH_SHORT).show();
             }
 
         }
