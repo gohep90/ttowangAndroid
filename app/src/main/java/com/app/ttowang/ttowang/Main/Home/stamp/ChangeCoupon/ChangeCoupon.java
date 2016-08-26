@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
@@ -175,7 +176,12 @@ public class ChangeCoupon extends Activity {
         try{
             JSONObject json=new JSONObject(recv);
             JSONArray jArr =json.getJSONArray("couponList");
+            if(jArr.length()==0){
 
+                finish();
+                Toast.makeText(MainActivity.mContext, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             for (int i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
                 adapter.addItem( json.getString("couponName"), json.getString("stampNeed")+"개") ;
