@@ -9,11 +9,13 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:background="#ff617d"
+
         >
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="1.5"
+            android:src="@drawable/man"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -22,16 +24,18 @@
             android:textSize="20dp"
             android:textColor="#ffffff"
             android:id="@+id/mybusineecouponbenefit"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="4.5"
             android:text="01000001111"
             android:textSize="20dp"
             android:textColor="#ffffff"
             android:id="@+id/mybusineecouponnumber"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 

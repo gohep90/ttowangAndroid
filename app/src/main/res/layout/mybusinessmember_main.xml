@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/tools"
-
     android:background="#ff375f"
     android:orientation="vertical">
 
@@ -71,6 +70,9 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="60dp"
                 app:borderWidth="0dp"
+                app:backgroundTint="@color/FAB"
+                android:src="@drawable/pen"
+                android:scaleType="centerCrop"
                 />
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
