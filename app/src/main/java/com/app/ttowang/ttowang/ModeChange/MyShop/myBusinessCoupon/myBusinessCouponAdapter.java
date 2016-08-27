@@ -192,9 +192,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
             prop.setProperty("businessId",businessId);
             prop.setProperty("couponCode",couponCode);
-            prop.setProperty("couponName", couponName);
-            prop.setProperty("stampNeed", stampNeed);
-            Log.i("couponDel - ",businessId + " " + couponCode + " " + couponName + " " +stampNeed);
+            Log.i("couponDel - ",businessId + " " + couponCode);
             String encodedString = encodeString(prop);
 
             try{

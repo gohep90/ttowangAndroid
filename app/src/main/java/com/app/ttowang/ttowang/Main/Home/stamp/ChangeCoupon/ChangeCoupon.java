@@ -77,8 +77,6 @@ public class ChangeCoupon extends Activity {
                 // get item
                 ChangeCouponItem item = (ChangeCouponItem) parent.getItemAtPosition(position) ;
 
-
-
             }
         }) ;
     }

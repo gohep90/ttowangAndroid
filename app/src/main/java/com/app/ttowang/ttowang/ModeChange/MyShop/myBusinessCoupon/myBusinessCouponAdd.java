@@ -7,22 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponAdapter;
-import com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon.ChangeCouponItem;
 import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -40,7 +32,7 @@ import java.util.Properties;
  */
 public class myBusinessCouponAdd extends Activity {
 
-    String businessId= ChangeModeMain.businessId;
+    String businessId="";
     String ip= MainActivity.ip;
     RelativeLayout ChangeCouponRelative;
 
@@ -57,8 +49,9 @@ public class myBusinessCouponAdd extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mybusinesscoupon_add);
         CouponAdd = (Button)findViewById(R.id.CouponAdd);
-        //Intent i = getIntent();
-        //businessId = i.getExtras().getString("businessId");
+
+        Intent i = getIntent();
+        businessId = i.getExtras().getString("businessId");
 
         //CouponAsyncTaskCall();//쿠폰 리스트 불러오기
         couponNameEditText = (EditText)findViewById(R.id.couponNameEditText);
@@ -75,7 +68,6 @@ public class myBusinessCouponAdd extends Activity {
                 finish();
             }
         });
-
     }
 
 
@@ -117,18 +109,17 @@ public class myBusinessCouponAdd extends Activity {
             Properties prop = new Properties();
 
 
-            couponCode = businessId + (System.currentTimeMillis()%10000);
+           // couponCode = businessId + (System.currentTimeMillis()%10000);
             couponName = String.valueOf(couponNameEditText.getText());
             stampNeed = String.valueOf(stampNeedEditText.getText());
             prop.setProperty("businessId",businessId);
-            prop.setProperty("couponCode",couponCode);
             prop.setProperty("couponName", couponName);
             prop.setProperty("stampNeed", stampNeed);
-            Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponNameEditText.getText()) + " " + String.valueOf(couponNameEditText.getText()) + " " +String.valueOf(stampNeedEditText.getText()));
+            //Log.i("couponAdd - ",businessId + " " + businessId + String.valueOf(couponNameEditText.getText()) + " " + String.valueOf(couponNameEditText.getText()) + " " +String.valueOf(stampNeedEditText.getText()));
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponAdd.do");
+                url=new URL("http://" + ip + ":8080/ttowang/couponAdd.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

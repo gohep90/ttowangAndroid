@@ -1,6 +1,9 @@
 package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +11,33 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * Created by Park on 2016-08-05.
  */
 public class ChangeCouponAdapter extends BaseAdapter {
+
+    String couponName, businessId, couponCode,stampNeed;
+    String ip= MainActivity.ip;
+    static String userId = MainActivity.user;
+
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ChangeCouponItem> listViewItemList = new ArrayList<ChangeCouponItem>() ;
 
@@ -57,7 +79,16 @@ public class ChangeCouponAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangeCoupon.mContext,listViewItem.getCouponName(), Toast.LENGTH_SHORT).show();
+                couponName =listViewItem.getCouponName();
+                businessId =listViewItem.getBusinessId();
+                couponCode =listViewItem.getCouponCode();
+                stampNeed  =listViewItem.getStampNeed();
+
+                changeAsyncTaskCall();  //스탬프 쿠폰 전환
+                //전환 확인 물어보기
+                //Dialog();  //쓰고 싶은데 방법이.....
+
+                //Toast.makeText(MainActivity.mContext, "businessId = "+businessId, Toast.LENGTH_SHORT).show();
             }
         });
 /*
@@ -71,6 +102,24 @@ public class ChangeCouponAdapter extends BaseAdapter {
         */
 
         return convertView;
+    }
+
+    private void Dialog() {
+
+        AlertDialog.Builder _alert = new AlertDialog.Builder(MainActivity.mContext);
+        _alert.setTitle(couponName);
+        _alert.setMessage("전환하겠습니까?").setCancelable(true);
+
+        _alert.setPositiveButton("취소", null);
+
+        _alert.setNegativeButton("전환", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int thisid) {
+/*
+*/
+
+            }
+        });
+        _alert.show();
     }
 
     // 지정한 위치(position)에 있는 데이터와 관계된 아이템(row)의 ID를 리턴. : 필수 구현
@@ -96,4 +145,100 @@ public class ChangeCouponAdapter extends BaseAdapter {
 
         listViewItemList.add(item);
     }
+
+
+    //스탬프 쿠폰전환
+    public void changeAsyncTaskCall(){
+        new changeAsyncTask().execute();
+    }
+
+    public class changeAsyncTask extends AsyncTask<String,Integer,String> {
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+            prop.setProperty("userId", userId);
+            prop.setProperty("businessId", businessId);
+            prop.setProperty("couponName", couponName);
+            prop.setProperty("couponCode", couponCode);
+            prop.setProperty("stampNeed", stampNeed);
+
+            String encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/stampToCoupon.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line=null;
+                String result="";
+
+                while((line=bufreader.readLine())!=null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            try{
+                JSONObject json=new JSONObject(result);
+                Toast.makeText(MainActivity.mContext, json.getString("result"), Toast.LENGTH_SHORT).show();
+                home.refresh();
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+
 }

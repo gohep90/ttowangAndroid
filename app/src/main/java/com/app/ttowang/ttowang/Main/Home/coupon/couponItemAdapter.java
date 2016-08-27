@@ -59,6 +59,7 @@ public class couponItemAdapter extends BaseAdapter {
 
         couponName.setText(home.myAllBusinessCouponName.get(home.nowbusiness).get(position));
         couponNumber.setText(home.myAllBusinessCouponNum.get(home.nowbusiness).get(position));
+
         if(home.myAllBusinessCouponUse.get(home.nowbusiness).get(position).equals("0")){    //사용했으면
             thisCoupon.setBackgroundColor(Color.parseColor("#ededed"));
             useCoupon.setBackgroundColor(Color.parseColor("#d8d8d8"));

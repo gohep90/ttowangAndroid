@@ -39,6 +39,7 @@
             android:background="#ff375f"
             card_view:cardCornerRadius="10dp">
             <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
