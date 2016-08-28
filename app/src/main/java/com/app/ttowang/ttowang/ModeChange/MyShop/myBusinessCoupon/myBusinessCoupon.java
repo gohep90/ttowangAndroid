@@ -58,8 +58,8 @@ public class myBusinessCoupon extends AppCompatActivity {
 
         spinner = (Spinner)findViewById(R.id.spinner);
 
-        spn_adapter = new KeyValueArrayAdapter(this,android.R.layout.simple_spinner_item);
-        spn_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_adapter = new KeyValueArrayAdapter(this,R.layout.spinner_item);
+        spn_adapter.setDropDownViewResource(R.layout.spinner_item);
 
 
         businessListAsyncTaskCall(); //businessList (spinner)
