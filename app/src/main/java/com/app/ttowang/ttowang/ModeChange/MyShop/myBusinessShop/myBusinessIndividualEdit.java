@@ -53,7 +53,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mybusinessstoreedit);
+        setContentView(R.layout.mybusinessindividualedit);
         mContext = this;
         Intent i = getIntent();
         userId = i.getExtras().getString("userId");

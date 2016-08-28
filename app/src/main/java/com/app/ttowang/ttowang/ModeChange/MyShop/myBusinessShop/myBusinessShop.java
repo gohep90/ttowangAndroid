@@ -198,7 +198,7 @@ public class myBusinessShop extends AppCompatActivity {
                                 "",  //매장 주소
                                 "",     //매장 메뉴
                                 json.getString("businessBenefit"),  //매장 혜택
-                                ""     //매장 종류
+                                json.getString("businessGroup")     //매장 종류
                         ) ;
                     }
                 }

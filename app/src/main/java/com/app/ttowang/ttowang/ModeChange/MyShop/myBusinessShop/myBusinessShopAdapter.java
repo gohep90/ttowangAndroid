@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,9 @@ public class myBusinessShopAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener(){  //수정
             @Override
             public void onClick(View v) {
+
+                Log.i("내 매장 종류",listViewItem.getBusinessGroup() + "");
+
                 if(listViewItem.businessType.equals("1")) {   //정식 매장 이면
                     Intent intent = new Intent(myBusinessShop.mContext, myBusinessStoreEdit.class);   //인텐트로 넘겨줄건데요~
                     intent.putExtra("userId", MainActivity.user);
