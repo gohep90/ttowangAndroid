@@ -22,17 +22,20 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="직원 이름"
+                android:layout_weight="1"
+                android:text="매장"
                 android:textSize="30dp"
-                android:id="@+id/mybusineecouponbenefit"/>
+                android:gravity="center"
+                android:id="@+id/mybusineetype"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="전번"
+                android:layout_weight="3"
+                android:text="직원 이름"
                 android:textSize="30dp"
-                android:id="@+id/mybusineecouponnumber"/>
+                android:gravity="center"
+                android:id="@+id/mybusineename"/>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  */
 public class myBusinessShopAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<myBusinessShopItem> listViewItemList = new ArrayList<myBusinessShopItem>() ;
+    public static ArrayList<myBusinessShopItem> listViewItemList = new ArrayList<myBusinessShopItem>() ;
 
     // ListViewAdapter의 생성자
     public myBusinessShopAdapter() {
@@ -32,8 +34,8 @@ public class myBusinessShopAdapter extends BaseAdapter {
 
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
         final Context context = parent.getContext();
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
@@ -43,19 +45,48 @@ public class myBusinessShopAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView mybusineecouponbenefit = (TextView) convertView.findViewById(R.id.mybusineecouponbenefit) ;
-
+        TextView mybusineename = (TextView) convertView.findViewById(R.id.mybusineename) ;
+        TextView mybusineetype = (TextView) convertView.findViewById(R.id.mybusineetype) ;
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        myBusinessShopItem listViewItem = listViewItemList.get(position);
+        final myBusinessShopItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        mybusineecouponbenefit.setText(listViewItem.getBenefit());
-
-
-        convertView.setOnClickListener(new View.OnClickListener(){
+        mybusineename.setText(listViewItem.getBusinessName());
+        if(listViewItem.businessType.equals("1")) {
+            mybusineetype.setText("매장");
+        }else{
+            mybusineetype.setText("개인");
+        }
+        convertView.setOnClickListener(new View.OnClickListener(){  //수정
             @Override
             public void onClick(View v) {
-                Toast.makeText(myBusinessShop.mContext,"원클릭", Toast.LENGTH_SHORT).show();
+                if(listViewItem.businessType.equals("1")) {   //정식 매장 이면
+                    Intent intent = new Intent(myBusinessShop.mContext, myBusinessStoreEdit.class);   //인텐트로 넘겨줄건데요~
+                    intent.putExtra("userId", MainActivity.user);
+                    intent.putExtra("businessId", listViewItem.getBusinessId());
+                    intent.putExtra("businessLicense", listViewItem.getBusinessLicense());
+                    intent.putExtra("businessName", listViewItem.getBusinessName());
+                    intent.putExtra("businessTel", listViewItem.getBusinessTel());
+                    intent.putExtra("businessInfo", listViewItem.getBusinessInfo());
+                    intent.putExtra("businessTime", listViewItem.getBusinessTime());
+                    intent.putExtra("businessAddress", listViewItem.getBusinessAddress());
+                    intent.putExtra("businessMenu", listViewItem.getBusinessMenu());
+                    intent.putExtra("businessBenefit", listViewItem.getBusinessBenefit());
+                    intent.putExtra("businessGroup", listViewItem.getBusinessGroup());
+                    intent.putExtra("position",position);
+                    myBusinessShop.mContext.startActivity(intent);
+                }else{  //개인 사업자이면
+                    Intent intent = new Intent(myBusinessShop.mContext, myBusinessIndividualEdit.class);   //인텐트로 넘겨줄건데요~
+                    intent.putExtra("userId", MainActivity.user);
+                    intent.putExtra("businessId", listViewItem.getBusinessId());
+                    intent.putExtra("businessName", listViewItem.getBusinessName());
+                    intent.putExtra("businessTel", listViewItem.getBusinessTel());
+                    intent.putExtra("businessInfo", listViewItem.getBusinessInfo());
+                    intent.putExtra("businessBenefit", listViewItem.getBusinessBenefit());
+                    intent.putExtra("businessGroup", listViewItem.getBusinessGroup());
+                    intent.putExtra("position",position);
+                    myBusinessShop.mContext.startActivity(intent);
+                }
             }
         });
 
@@ -66,6 +97,7 @@ public class myBusinessShopAdapter extends BaseAdapter {
                 return false;
             }
         });
+
 
 
         return convertView;
@@ -84,11 +116,32 @@ public class myBusinessShopAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String benefit) {
+    public void addItem(
+            String businessType,
+            String businessId,
+            String businessLicense,
+            String businessName,
+            String businessTel,
+            String businessInfo,
+            String businessTime,
+            String businessAddress,
+            String businessMenu,
+            String businessBenefit,
+            String businessGroup) {
+
         myBusinessShopItem item = new myBusinessShopItem();
 
-        item.setBenefit(benefit);
-
+        item.setBusinessType(businessType);
+        item.setBusinessId(businessId);
+        item.setBusinessLicense(businessLicense);
+        item.setBusinessName(businessName);
+        item.setBusinessTel(businessTel);
+        item.setBusinessInfo(businessInfo);
+        item.setBusinessTime(businessTime);
+        item.setBusinessAddress(businessAddress);
+        item.setBusinessMenu(businessMenu);
+        item.setBusinessBenefit(businessBenefit);
+        item.setBusinessGroup(businessGroup);
         listViewItemList.add(item);
     }
 }

@@ -83,6 +83,20 @@
             android:name=".ModeChange.MyShop.myBusinessCoupon.myBusinessCouponEdit"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
             android:windowSoftInputMode="adjustNothing|stateVisible"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessShopSelectType"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessStoreAdd"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessStoreEdit"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessIndividualAdd"/>
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessShop.myBusinessIndividualEdit"/>
     </application>
 
 </manifest>
