@@ -116,7 +116,7 @@ public class stamp extends android.support.v4.app.ListFragment {
         Log.d("stamp - ", "onCreate");
 
         try {
-            Log.i("stamp - ", "초기화 스템프 리스트 갯수 " + ((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10));
+            Log.i("stamp - ", number + "번째 초기화 스템프 리스트 갯수 " + ((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10));
             //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
             setAddAdapter(((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10) + 1);    //처음 초기화
             list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5)) + home.myAllBusiness.get(number).get(4)) / 10));      // 처음은 코드로 하단으로 넘어준다
@@ -138,7 +138,8 @@ public class stamp extends android.support.v4.app.ListFragment {
 
     public static void setAddAdapter(int a){
 
-        adapter.clearItem();                 //클리어 해주고
+        //adapter.clearItem();                 //클리어 해주고
+        stampItemAdapter.listViewItemList.clear();
         for(int i = 1; i <= a; i++){        //하나씩 추가
             adapter.addItem();
             Log.i("stamp - ","스템프 리스트 추가" + i);

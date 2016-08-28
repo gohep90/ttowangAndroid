@@ -34,6 +34,7 @@
             android:layout_height="match_parent"
             android:id="@+id/listView"
             android:background="#ff375f"
+            android:divider="#00000000"
             />
         
     </LinearLayout>

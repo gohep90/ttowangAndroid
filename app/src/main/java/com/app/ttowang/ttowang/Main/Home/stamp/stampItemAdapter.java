@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class stampItemAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<stampItemClass> listViewItemList = new ArrayList<stampItemClass>() ;
+    public static ArrayList<stampItemClass> listViewItemList = new ArrayList<stampItemClass>() ;
     private ImageView stamp0,stamp1,stamp2,stamp3,stamp4,stamp5,stamp6,stamp7,stamp8,stamp9;
 
     // ListViewAdapter의 생성자
@@ -60,7 +60,7 @@ public class stampItemAdapter extends BaseAdapter {
         stampItemClass stampItemClass = listViewItemList.get(position);
         if(home.usedStampNumber >=  ((position*10)+1)){
             //stamp0.setText(position+"1"+"\n 사용");
-            stamp0.setImageResource(R.drawable.stamp1);
+            stamp0.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+1)) {
             //stamp0.setText(position+"1"+"\n 있다");
             stamp0.setImageResource(R.drawable.stamp2);
@@ -70,7 +70,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+2)){
             //stamp1.setText(position+"2"+"\n 사용");
-            stamp1.setImageResource(R.drawable.stamp1);
+            stamp1.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+2)) {
             //stamp1.setText(position+"2"+"\n 있다");
             stamp1.setImageResource(R.drawable.stamp2);
@@ -80,7 +80,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+3)){
             //stamp2.setText(position+"3"+"\n 사용");
-            stamp2.setImageResource(R.drawable.stamp1);
+            stamp2.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+3)) {
             //stamp2.setText(position+"3"+"\n 있다");
             stamp2.setImageResource(R.drawable.stamp2);
@@ -90,7 +90,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+4)){
           //  stamp3.setText(position+"4"+"\n 사용");
-            stamp3.setImageResource(R.drawable.stamp1);
+            stamp3.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+4)) {
           //  stamp3.setText(position+"4"+"\n 있다");
             stamp3.setImageResource(R.drawable.stamp2);
@@ -100,7 +100,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+5)){
            // stamp4.setText(position+"5"+"\n 사용");
-            stamp4.setImageResource(R.drawable.stamp1);
+            stamp4.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+5)) {
            // stamp4.setText(position+"5"+"\n 있다");
             stamp4.setImageResource(R.drawable.stamp2);
@@ -110,7 +110,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+6)){
            // stamp5.setText(position+"6"+"\n 사용");
-            stamp5.setImageResource(R.drawable.stamp1);
+            stamp5.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+6)) {
            // stamp5.setText(position+"6"+"\n 있다");
             stamp5.setImageResource(R.drawable.stamp2);
@@ -120,7 +120,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+7)){
            // stamp6.setText(position+"7"+"\n 사용");
-            stamp6.setImageResource(R.drawable.stamp1);
+            stamp6.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+7)) {
            // stamp6.setText(position+"7"+"\n 있다");
             stamp6.setImageResource(R.drawable.stamp2);
@@ -130,7 +130,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+8)){
            // stamp7.setText(position+"8"+"\n 사용");
-            stamp7.setImageResource(R.drawable.stamp1);
+            stamp7.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+8)) {
            // stamp7.setText(position+"8"+"\n 있다");
             stamp7.setImageResource(R.drawable.stamp2);
@@ -140,7 +140,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+9)){
           //  stamp8.setText(position+"9"+"\n 사용");
-            stamp8.setImageResource(R.drawable.stamp1);
+            stamp8.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+9)) {
            // stamp8.setText(position+"9"+"\n 있다");
             stamp8.setImageResource(R.drawable.stamp2);
@@ -150,7 +150,7 @@ public class stampItemAdapter extends BaseAdapter {
         }
         if(home.usedStampNumber >=  ((position*10)+10)){
           //  stamp9.setText((position+1)+"0"+"\n 사용");
-            stamp9.setImageResource(R.drawable.stamp1);
+            stamp9.setImageResource(R.drawable.stamp1_1);
         }else if((home.usedStampNumber + home.remainStampNumber) >=  ((position*10)+10)) {
            // stamp9.setText((position+1)+"0"+"\n 있다");
             stamp9.setImageResource(R.drawable.stamp2);

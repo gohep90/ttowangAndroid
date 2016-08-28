@@ -229,8 +229,13 @@ public class ChangeCouponAdapter extends BaseAdapter {
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             try{
                 JSONObject json=new JSONObject(result);
-                Toast.makeText(MainActivity.mContext, json.getString("result"), Toast.LENGTH_SHORT).show();
-                home.refresh();
+                if(json.getString("result").equals("필요한 스탬프가 부족합니다.")){
+                    Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
+                    home.refresh();
+                }
+
             }catch(JSONException e){
                 e.printStackTrace();
             }
