@@ -532,6 +532,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
                 myBusiness.add("0");
 
+                Log.i("home - ","스탬프 받아오기 " + json.getString("businessName") + " " + json.getString("stampCount") + " " + (json.getInt("totalStampCount") - json.getInt("stampCount")));
+
                 myAllBusiness.add(myBusiness);
 
 
@@ -631,8 +633,10 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
 
             adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
-            downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침
-            //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.
+
+            //downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
+
+            //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.(새로고침 안됨)
 
             //upViewPager.setAdapter(adapter);
 

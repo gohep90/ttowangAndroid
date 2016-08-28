@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="#ff375f">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,14 +19,12 @@
         android:layout_height="0dp"
         android:layout_weight="2">
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="인트로야"
-            android:textSize="70dp"
-            android:textStyle="bold"
-            android:textColor="#D92E5B"
+            android:src="@drawable/logo"
             android:gravity="center"/>
+
 
     </LinearLayout>
 
