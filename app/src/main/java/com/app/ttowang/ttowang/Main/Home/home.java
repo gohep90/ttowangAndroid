@@ -519,8 +519,9 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
 
             int i;
-
+            myAllBusiness.clear();
             for (i = 0; i < jArr.length(); i++ ) {
+                Log.i("home - ", i + "번째 매장 추가");
                 json = jArr.getJSONObject(i);
                 myBusiness = new ArrayList<String>();
 
@@ -634,8 +635,9 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
             adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
 
-            //downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
-
+            downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
+            //stamp.setAddAdapter2();
+            //initViewPagerAndTabs();
             //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.(새로고침 안됨)
 
             //upViewPager.setAdapter(adapter);

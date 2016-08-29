@@ -122,6 +122,7 @@ public class stamp extends android.support.v4.app.ListFragment {
             list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5)) + home.myAllBusiness.get(number).get(4)) / 10));      // 처음은 코드로 하단으로 넘어준다
         }catch (Exception e){
             Log.i("stamp - ", "매장 없음");
+            setAddAdapter2();
         }
 
         //Log.i("stamp - ","초기화 스템프 리스트 갯수 " +(Integer.parseInt(((String) home.usedStamp.get(0))+(String) home.remainStamp.get(0))/ 10));
@@ -144,6 +145,15 @@ public class stamp extends android.support.v4.app.ListFragment {
             adapter.addItem();
             Log.i("stamp - ","스템프 리스트 추가" + i);
         }
+        adapter.notifyDataSetChanged();      //수정됐다고 알림
+    }
+
+
+    public static void setAddAdapter2(){
+
+        //adapter.clearItem();                 //클리어 해주고
+        stampItemAdapter.listViewItemList.clear();
+
         adapter.notifyDataSetChanged();      //수정됐다고 알림
     }
 }
