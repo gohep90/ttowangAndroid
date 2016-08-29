@@ -48,7 +48,7 @@ public class stamp extends Fragment {
 
     String encodedString;
     String ip= MainActivity.ip;
-    String businessId = ChangeModeMain.businessId; //스피너?? 등 선택으로 받아와야함
+    String businessId ="";
     String userId = MainActivity.user;
     int focus = 1; //첫 포커스를 번호창으로 줌
 
