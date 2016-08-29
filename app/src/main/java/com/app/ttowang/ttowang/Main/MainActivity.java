@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     //public static String ip = "192.168.21.208"; //장지은 아이피
 
-    public static String user ="2";
+    public static String user ="5";
 
     public static ViewPager viewPager;
     public static PagerAdapter pagerAdapter;

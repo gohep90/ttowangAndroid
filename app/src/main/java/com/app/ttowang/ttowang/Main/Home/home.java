@@ -278,6 +278,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 ////////////////////////////////////////////////////////////////서버 동기화 작업
 
 
+    //매장 로딩 및 추가, 삭제에 의한 매장 리프레쉬
     public static class selectMyBusinessAsyncTask extends AsyncTask<String,Integer,String> {
 
 
@@ -676,6 +677,259 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
 
 
+    //쿠폰 전환으로 인한 스탬프 리프레쉬
+    public static class selectMyBusinessStampRefreshAsyncTask extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute(){
+            myAllBusiness.clear();
+            myAllBusinessCouponNum.clear();
+            myAllBusinessCouponUse.clear();
+            myAllBusinessCouponName.clear();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+            prop.setProperty("USERID",userId);
+
+            encodedString = encodeString(prop);
+
+            try{
+
+                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/selectMyBusinesses.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line=null;
+                String result="";
+
+                while((line=bufreader.readLine())!=null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            Log.i("home - ","state : "+ state);
+
+            jsonStampRefreshList(result);
+
+
+        }
+    }
+
+    private static void jsonStampRefreshList(String recv) {
+
+        Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
+
+        try{
+            JSONObject json=new JSONObject(recv);
+            JSONArray jArr =json.getJSONArray("list");
+            JSONArray jCoupon =json.getJSONArray("coupon");
+
+            Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
+
+            int i;
+            myAllBusiness.clear();
+            for (i = 0; i < jArr.length(); i++ ) {
+                Log.i("home - ", i + "번째 매장 추가");
+                json = jArr.getJSONObject(i);
+                myBusiness = new ArrayList<String>();
+
+                myBusiness.add(json.getString("businessId"));
+                myBusiness.add(json.getString("businessName"));
+                myBusiness.add(json.getString("businessAddress"));
+                myBusiness.add(json.getString("photoName"));
+                myBusiness.add(json.getString("stampCount"));
+                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add("0");
+
+                Log.i("home - ","스탬프 받아오기 " + json.getString("businessName") + " " + json.getString("stampCount") + " " + (json.getInt("totalStampCount") - json.getInt("stampCount")));
+
+                myAllBusiness.add(myBusiness);
+
+
+                myBusinessCouponNum = new ArrayList<String>();
+                myBusinessCouponUse = new ArrayList<String>();
+                myBusinessCouponName = new ArrayList<String>();
+
+                myBusinessCouponNum.add("0");
+                myBusinessCouponUse.add("0");
+                myBusinessCouponName.add("0");
+
+                myAllBusinessCouponNum.add(myBusinessCouponNum);
+                myAllBusinessCouponUse.add(myBusinessCouponUse);
+                myAllBusinessCouponName.add(myBusinessCouponName);
+            }
+
+
+            String nowcouponbusinessId = "0";
+            int nowcouponbusinessnum = 0;
+            int nowcouponbusinesswhere = 0;
+
+            for (i = 0; i < jCoupon.length(); i++ ) {
+
+                json = jCoupon.getJSONObject(i);
+
+
+                Log.i("home - ","쿠폰있다");
+
+                if(nowcouponbusinessId.equals("0")){        //처음이면
+                    nowcouponbusinessId = json.getString("businessId");
+                    nowcouponbusinessnum = 1;
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0,json.getString("couponName"));
+
+                    Log.i("home - ","처음매장");
+                }else if(!nowcouponbusinessId.equals("0") & nowcouponbusinessId.equals(json.getString("businessId"))){  //처음도 아니고, 기존 매장 쿠폰이면
+                    nowcouponbusinessnum += 1;
+                    Log.i("home - ","기존매장");
+
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1),json.getString("couponName"));
+
+
+                }else{      //처음도 아니고, 기존 매장 쿠폰도 아니면
+
+
+                    myAllBusiness.get(nowcouponbusinesswhere).set(6, String.valueOf(nowcouponbusinessnum));
+                    Log.i("home - ","쿠폰 갯수 삽입 " + nowcouponbusinesswhere + "번째 " + nowcouponbusinessnum + "개");
+
+                    nowcouponbusinessId = json.getString("businessId");
+
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            nowcouponbusinesswhere = j;
+                            break;
+                        }
+                    }
+                    myAllBusinessCouponNum.get(nowcouponbusinesswhere).add(0,json.getString("couponNum"));
+                    myAllBusinessCouponUse.get(nowcouponbusinesswhere).add(0,json.getString("couponUse"));
+                    myAllBusinessCouponName.get(nowcouponbusinesswhere).add(0,json.getString("couponName"));
+                    //Log.i("home - ",nowcouponbusinessId + "번째 매장 " + nowcouponbusinessnum + "개 쿠폰");
+
+                    nowcouponbusinessnum = 1;
+                    Log.i("home - ","새로운매장");
+                }
+
+                if(i == (jCoupon.length()-1) & nowcouponbusinessnum != 0){
+                    for(int j=0 ; j<jArr.length(); j++){
+                        if(myAllBusiness.get(j).get(0).equals(nowcouponbusinessId)){
+                            myAllBusiness.get(j).set(6, String.valueOf(nowcouponbusinessnum));
+
+                            Log.i("home - ","쿠폰 갯수 삽입 " + j + "번째 " + nowcouponbusinessnum + "개");
+
+                            if(nowcouponbusinessnum == 0) {
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).set(0, json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).set(0, json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).set(0, json.getString("couponName"));
+                            }else{
+                                myAllBusinessCouponNum.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponNum"));
+                                myAllBusinessCouponUse.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponUse"));
+                                myAllBusinessCouponName.get(nowcouponbusinesswhere).add((nowcouponbusinessnum-1), json.getString("couponName"));
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
+
+            //downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
+            //stamp.setAddAdapter2();
+            //initViewPagerAndTabs();
+            //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.(새로고침 안됨)
+
+            //upViewPager.setAdapter(adapter);
+
+
+
+            //     mLockListView=false;
+
+            //extensiblePageIndicator.onStartTemporaryDetach();extensiblePageIndicator.onFinishTemporaryDetach();
+            //extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+            //extensiblePageIndicator.destroyDrawingCache();
+            //extensiblePageIndicator.dispatchSystemUiVisibilityChanged(View.INVISIBLE);
+            //extensiblePageIndicator.clearFocus();
+            //extensiblePageIndicator.setWillNotDraw(true);
+            //extensiblePageIndicator.setWillNotDraw(false);
+            //extensiblePageIndicator.setEnabled(true);
+
+            //extensiblePageIndicator.initViewPager(upViewPager);
+            extensiblePageIndicator.setWillNotDraw(true);
+            //extensiblePageIndicator.onStartTemporaryDetach();
+
+            Log.i("home - ","인디케이터 update 한다.");
+
+            //initViewPagerAndTabs();
+            //extensiblePageIndicator.onPageScrolled(upViewPager.getCurrentItem(),0,0);
+            //extensiblePageIndicator.refreshDrawableState();
+            //extensiblePageIndicator.onPageScrollStateChanged(0);
+            //MainActivity.viewPager.setAdapter(MainActivity.pagerAdapter);
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+    }
 
 
     final public static void refresh(){
@@ -686,5 +940,16 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         //MainActivity.tabLayout.newInstance(0);
 
     }
+
+    final public static void stampRefresh(){
+        state = "refresh";
+        new selectMyBusinessStampRefreshAsyncTask().execute();
+        //adapter.notifyDataSetChanged();
+        Log.i("home - ","스템프 리프레쉬 한다");
+        //MainActivity.tabLayout.newInstance(0);
+
+    }
+
+
 
 }

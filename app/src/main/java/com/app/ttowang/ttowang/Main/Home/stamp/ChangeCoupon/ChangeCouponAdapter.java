@@ -233,7 +233,7 @@ public class ChangeCouponAdapter extends BaseAdapter {
                     Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
-                    home.refresh();
+                    home.stampRefresh();
                 }
 
             }catch(JSONException e){
