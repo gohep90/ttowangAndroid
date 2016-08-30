@@ -106,6 +106,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         view = inflater.inflate(R.layout.home,container, false);
         upViewPager = (ViewPager)view.findViewById(R.id.viewpager);
         //text_home = (TextView) view.findViewById(R.id.text_home);
+        extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
 
         new selectMyBusinessAsyncTask().execute();
         pagerAdapter = new PagerAdapter(getChildFragmentManager());
@@ -498,7 +499,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             //downViewPager.setAdapter(pagerAdapter);
             //     mLockListView=false;
 
-            extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
+
             extensiblePageIndicator.initViewPager(upViewPager);
 
             initViewPagerAndTabs();
@@ -634,16 +635,20 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 }
             }
 
+
             adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
 
             downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
+            //extensiblePageIndicator.refreshDrawableState();
+
             //stamp.setAddAdapter2();
             //initViewPagerAndTabs();
             //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.(새로고침 안됨)
 
             //upViewPager.setAdapter(adapter);
-
-
+            //extensiblePageIndicator.refreshDrawableState();
+            //extensiblePageIndicator.initViewPager(upViewPager);
+            //extensiblePageIndicator.refreshDrawableState();
 
             //     mLockListView=false;
 
@@ -657,7 +662,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             //extensiblePageIndicator.setEnabled(true);
 
             //extensiblePageIndicator.initViewPager(upViewPager);
-            extensiblePageIndicator.setWillNotDraw(true);
+            //extensiblePageIndicator.setWillNotDraw(true);
             //extensiblePageIndicator.onStartTemporaryDetach();
 
             Log.i("home - ","인디케이터 update 한다.");
@@ -891,39 +896,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             }
 
             adapter.notifyDataSetChanged();         //homeadapter 에서 새로고침
-
-            //downViewPager.setAdapter(pagerAdapter);   //pageradapter 에서 새로고침 이게 문제인거 같은데??
-            //stamp.setAddAdapter2();
-            //initViewPagerAndTabs();
-            //pagerAdapter.notifyDataSetChanged();    //아래쪽 pageradapter에서는 의미가 없다.(새로고침 안됨)
-
-            //upViewPager.setAdapter(adapter);
-
-
-
-            //     mLockListView=false;
-
-            //extensiblePageIndicator.onStartTemporaryDetach();extensiblePageIndicator.onFinishTemporaryDetach();
-            //extensiblePageIndicator = (ExtensiblePageIndicator) view. findViewById(R.id.flexibleIndicator);
-            //extensiblePageIndicator.destroyDrawingCache();
-            //extensiblePageIndicator.dispatchSystemUiVisibilityChanged(View.INVISIBLE);
-            //extensiblePageIndicator.clearFocus();
-            //extensiblePageIndicator.setWillNotDraw(true);
-            //extensiblePageIndicator.setWillNotDraw(false);
-            //extensiblePageIndicator.setEnabled(true);
-
-            //extensiblePageIndicator.initViewPager(upViewPager);
-            extensiblePageIndicator.setWillNotDraw(true);
-            //extensiblePageIndicator.onStartTemporaryDetach();
-
-            Log.i("home - ","인디케이터 update 한다.");
-
-            //initViewPagerAndTabs();
-            //extensiblePageIndicator.onPageScrolled(upViewPager.getCurrentItem(),0,0);
-            //extensiblePageIndicator.refreshDrawableState();
-            //extensiblePageIndicator.onPageScrollStateChanged(0);
-            //MainActivity.viewPager.setAdapter(MainActivity.pagerAdapter);
-
 
         }catch(JSONException e){
             e.printStackTrace();

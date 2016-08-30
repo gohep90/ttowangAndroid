@@ -21,16 +21,31 @@
 
 
         <EditText
-            android:id="@+id/edt_tel"
+            android:id="@+id/stampnumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="스탬프 개수"
+            android:textSize="20dp"
+            android:textColor="#666666"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:inputType="number"
+            android:focusable="true"
+            />
+
+        <EditText
+            android:id="@+id/telnumber"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="상대 전화번호"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textColor="#666666"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:background="@null"
             android:inputType="number"

@@ -1,14 +1,20 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
@@ -55,9 +61,17 @@ public class myBusinessStoreAdd extends AppCompatActivity {
             businessAddress,
             businessMenu,
             businessBenefit,
-            businessGroup;
+            businessGroup,
+            photo1Uri="",
+            photo2Uri="",
+            photo3Uri="",
+            photo4Uri="";
 
     String userId;
+
+    Button businessphoto1;
+    ImageView photo1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +89,26 @@ public class myBusinessStoreAdd extends AppCompatActivity {
         businessMenuEdittext = (EditText)findViewById(R.id.businessMenu);
         businessBenefitEdittext = (EditText)findViewById(R.id.businessBenefit);
         businessGroupEdittext = (EditText)findViewById(R.id.businessGroup);
+
+        businessphoto1 = (Button)findViewById(R.id.businessphoto1);
+        photo1 = (ImageView) findViewById(R.id.photo1);
+
         upload  =   (Button)findViewById(R.id.upload);
         cancel = (Button)findViewById(R.id.cancel);
         //new businessDownAsyncTask().execute();
 
+
+
+
+        businessphoto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 0);
+            }
+        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,9 +154,40 @@ public class myBusinessStoreAdd extends AppCompatActivity {
         });
 
 
+
+
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {    //설정한 시간 가져오기 부분
+        switch (requestCode) {
+            case 0:
+                if(resultCode== Activity.RESULT_OK) {
+                    try {
+                        photo1Uri = String.valueOf(data.getData());
+                        businessphoto1.setText(photo1Uri);
 
+                        Log.i("매장 추가 - ", "가져온 이미지 " + photo1Uri);
+
+                        Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(photo1Uri));
+                        //photo1.setImageBitmap(bm);
+                        Bitmap reSized = Bitmap.createScaledBitmap(bm, 2000,2000, true);
+                        photo1.setImageBitmap(reSized); //이미지 뷰에 리사이즈 된 비트맵을 넣는다.
+
+
+                        //이미지 파일의 절대 경로 받아오기
+
+                        Cursor c = getContentResolver().query(Uri.parse(photo1Uri), null,null,null,null);
+                        c.moveToNext();
+                        String absolutePath = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
+                        Log.i("매장 추가 - ", "가져온 이미지 절대경로" + absolutePath);
+
+
+                    } catch (Exception e) {
+
+                    }
+                }
+        }
+    }
 
 
     public class businessAddStoreAsyncTask extends AsyncTask<String,Integer,String> {
