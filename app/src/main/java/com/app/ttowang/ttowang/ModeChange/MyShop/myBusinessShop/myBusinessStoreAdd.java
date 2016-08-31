@@ -200,63 +200,10 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         Log.i("매장 추가 - ", "가져온 이미지 절대경로" + photo1Path);
 
                         businessphoto1.setText(photo1Path);
-                        /*
-                        String[] proj = { MediaStore.Images.Media.DATA };
 
-                        CursorLoader cursorLoader = new CursorLoader(this, photouri1, proj, null, null, null);
-                        Cursor cursor = cursorLoader.loadInBackground();
 
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        cursor.moveToFirst();
-
-                        Log.i("매장 추가 - ", "가져온 이미지 절대경로" + cursor.getString(column_index));
-                        */
-/*
-                        String[] proj = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = getContentResolver().query(photouri1.getPath(), proj, null, null, null);
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-                        cursor.moveToFirst();
-
-                        String imgPath = cursor.getString(column_index);
-                        String photoName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
-                        Log.i("매장 추가 - ", "가져온 이미지 절대경로" + imgPath);
-*/
- /*                       String imagePath = uri.getPath();
-                        Log.i("매장 추가 - ", "가져온 이미지 절대경로" + imagePath);
-*/
-                        //이미지 파일의 절대 경로 받아오기.
-                        /*
-                        String[] projection = { MediaStore.Images.Media.DATA };
-                        Cursor cursor = managedQuery(uri, projection, null, null, null);
-                        int column_index = cursor
-                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        cursor.moveToFirst();
-*/
-                        //String absolutePath = cursor.getString(column_index);
-                        //String absolutePath = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
-                        //Log.i("매장 추가 - ", "가져온 이미지 절대경로" + absolutePath);
-                        /*
-                        String[] projection = { MediaStore.Images.Media.DATA };
-                        Cursor c = getContentResolver().query(uri, projection,null,null,null);
-                        c.moveToFirst();
-                        String absolutePath = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
-                        Log.i("매장 추가 - ", "가져온 이미지 절대경로" + absolutePath);
-*/
-
-/*
-                        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-                        Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
-                        cursor.moveToFirst();
-
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        String picturePath = cursor.getString(columnIndex);
-                        cursor.close();
-*/
-                        /*
                         //Exif에서 회전 정보 가져오기
-                        ExifInterface exif = new ExifInterface(imagePath);
+                        ExifInterface exif = new ExifInterface(photo1Path);
                         int exifOrientation = exif.getAttributeInt(
                                 ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
@@ -302,7 +249,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         {
                             // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
                         }
-*/
+
                         //photo1.setImageBitmap(bm);
                         int height = bm.getHeight();
                         int width = bm.getWidth();
