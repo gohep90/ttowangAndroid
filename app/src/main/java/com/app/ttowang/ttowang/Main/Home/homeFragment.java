@@ -34,7 +34,7 @@ import java.util.Properties;
 public class homeFragment extends android.support.v4.app.Fragment{
 
     private View rootView;
-    private TextView businessName,myRemainCoupon,myUsedCoupon,businessLocation;
+    private TextView businessName,myRemainStamp,myTotalStamp,businessLocation;
     private ImageView mybusinessimg;
     private int number = -1;
     private RelativeLayout viewlayout;
@@ -80,8 +80,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
         viewlayout = (RelativeLayout) view.findViewById(R.id.viewlayout);
         businessName = (TextView) view.findViewById(R.id.businessName);
         businessLocation = (TextView) view.findViewById(R.id.businessLocation);
-        myRemainCoupon = (TextView) view.findViewById(R.id.myRemainCoupon);
-        myUsedCoupon = (TextView) view.findViewById(R.id.myUsedCoupon);
+        myRemainStamp = (TextView) view.findViewById(R.id.myRemainStamp);
+        myTotalStamp = (TextView) view.findViewById(R.id.myTotalStamp);
 
 
         mybusinessimg = (ImageView) view.findViewById(R.id.mybusinessimg); //매장 사진 교체
@@ -90,8 +90,8 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
         businessName.setText(String.valueOf(home.myAllBusiness.get(number).get(1)));      //매장 이름
         businessLocation.setText(String.valueOf(home.myAllBusiness.get(number).get(2)));//매장 주소
-        myRemainCoupon.setText(String.valueOf(home.myAllBusiness.get(number).get(4))); //남은 쿠폰 갯수
-        myUsedCoupon.setText(String.valueOf(home.myAllBusiness.get(number).get(5)));     //사용한 쿠폰 갯수
+        myRemainStamp.setText(String.valueOf(home.myAllBusiness.get(number).get(4))); //남은 쿠폰 갯수
+        myTotalStamp.setText(String.valueOf(home.myAllBusiness.get(number).get(5)));     //토탈 스탬프 수
 
         String as = String.valueOf(home.myAllBusiness.get(number).get(5));
 

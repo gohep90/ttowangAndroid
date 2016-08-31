@@ -84,7 +84,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static PagerAdapter pagerAdapter;
 
-    public static int remainStampNumber,usedStampNumber, myCouponNumber;
+    public static int remainStampNumber,totalStampNumber, myCouponNumber;
 
     Context context;
 
@@ -151,8 +151,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 ////////////////////////////////////////////////////////////////////////////////////
 
 /*
-        usedStampNumber = Integer.parseInt((String) usedStamp.get(0));
-        stamp.setAddAdapter((usedStampNumber / 10) + 1);
+        totalStampNumber = Integer.parseInt((String) usedStamp.get(0));
+        stamp.setAddAdapter((totalStampNumber / 10) + 1);
 */
         //initViewPagerAndTabs();
 
@@ -242,7 +242,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
         remainStampNumber =  Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(4)));
 
-        usedStampNumber = Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(5)));
+        totalStampNumber = Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(5)));
 
         myCouponNumber = Integer.parseInt(String.valueOf(myAllBusiness.get(number).get(6)));
 
@@ -250,8 +250,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
         }else{
             try {
-                stamp.setAddAdapter(((usedStampNumber+remainStampNumber) / 10) + 1);
-                Log.i("home - ", "스템프 리스트 갯수 : " + (((usedStampNumber+remainStampNumber) / 10) + 1));
+                stamp.setAddAdapter(((totalStampNumber) / 10) + 1);
+                Log.i("home - ", "스템프 리스트 갯수 : " + (((totalStampNumber) / 10) + 1));
             } catch (Exception e) {
 
             }
@@ -393,7 +393,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 myBusiness.add(json.getString("businessAddress"));
                 myBusiness.add(json.getString("photoName"));
                 myBusiness.add(json.getString("stampCount"));
-                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add(json.getString("totalStampCount"));
                 myBusiness.add("0");
 
                 myAllBusiness.add(myBusiness);
@@ -532,7 +532,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 myBusiness.add(json.getString("businessAddress"));
                 myBusiness.add(json.getString("photoName"));
                 myBusiness.add(json.getString("stampCount"));
-                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add(json.getString("totalStampCount"));
                 myBusiness.add("0");
 
                 Log.i("home - ","스탬프 받아오기 " + json.getString("businessName") + " " + json.getString("stampCount") + " " + (json.getInt("totalStampCount") - json.getInt("stampCount")));
@@ -791,11 +791,11 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
                 myBusiness.add(json.getString("businessName"));
                 myBusiness.add(json.getString("businessAddress"));
                 myBusiness.add(json.getString("photoName"));
-                myBusiness.add(json.getString("stampCount"));
-                myBusiness.add(String.valueOf(json.getInt("totalStampCount") - json.getInt("stampCount")));
+                myBusiness.add(json.getString("stampCount"));       //남은 스탬프 개수
+                myBusiness.add(json.getString("totalStampCount"));  //총 스탬프 개수
                 myBusiness.add("0");
 
-                Log.i("home - ","스탬프 받아오기 " + json.getString("businessName") + " " + json.getString("stampCount") + " " + (json.getInt("totalStampCount") - json.getInt("stampCount")));
+                Log.i("home - ","스탬프 받아오기 " + json.getString("businessName") + " " + json.getString("stampCount") + " " + (json.getInt("totalStampCount")));
 
                 myAllBusiness.add(myBusiness);
 
