@@ -116,10 +116,10 @@ public class stamp extends android.support.v4.app.ListFragment {
         Log.d("stamp - ", "onCreate");
 
         try {
-            Log.i("stamp - ", number + "번째 초기화 스템프 리스트 갯수 " + ((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10));
+            Log.i("stamp - ", number + "번째 초기화 스템프 리스트 갯수 " + ((Integer.parseInt(home.myAllBusiness.get(number).get(5))) / 10));
             //adapter = new ArrayAdapter<String>(getActivity(), R.layout.coupon_item, home.thisisstamp);
-            setAddAdapter(((Integer.parseInt(home.myAllBusiness.get(number).get(5)) + Integer.parseInt(home.myAllBusiness.get(number).get(4))) / 10) + 1);    //처음 초기화
-            list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5)) + home.myAllBusiness.get(number).get(4)) / 10));      // 처음은 코드로 하단으로 넘어준다
+            setAddAdapter(((Integer.parseInt(home.myAllBusiness.get(number).get(5))) / 10) + 1);    //처음 초기화
+            list.setSelection((Integer.parseInt((home.myAllBusiness.get(number).get(5))) / 10));      // 처음은 코드로 하단으로 넘어준다
         }catch (Exception e){
             Log.i("stamp - ", "매장 없음");
             setAddAdapter2();
