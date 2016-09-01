@@ -98,6 +98,9 @@
             android:name=".ModeChange.MyShop.myBusinessShop.myBusinessIndividualAdd"/>
         <activity
             android:name=".ModeChange.MyShop.myBusinessShop.myBusinessIndividualEdit"/>
+
+        <activity
+            android:name=".ModeChange.MyShop.myBusinessMember.myBusinessStaffAdd"/>
     </application>
 
 </manifest>

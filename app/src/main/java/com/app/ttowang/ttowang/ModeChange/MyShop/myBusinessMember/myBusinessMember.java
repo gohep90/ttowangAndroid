@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 /**
@@ -60,10 +62,10 @@ public class myBusinessMember extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Intent intent = new Intent(getApplicationContext(), Add.class);   //인텐트로 넘겨줄건데요~
-                //intent.putExtra("currentViewPager", currentViewPager);
-                //startActivity(intent);
-                Toast.makeText(myBusinessMember.this,"추가 버튼", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), myBusinessStaffAdd.class);   //인텐트로 넘겨줄건데요~
+                intent.putExtra("userId", MainActivity.user);
+                startActivity(intent);
+                //Toast.makeText(myBusinessMember.this,"추가 버튼", Toast.LENGTH_SHORT).show();
 
             }
         });
