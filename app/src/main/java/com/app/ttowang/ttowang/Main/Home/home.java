@@ -908,7 +908,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
         state = "refresh";
         new selectMyBusinessAsyncTask().execute();
         //adapter.notifyDataSetChanged();
-        Log.i("home - ","리프레쉬 한다");
+        Log.i("home - ","매장 리프레쉬 한다");
         //MainActivity.tabLayout.newInstance(0);
 
     }

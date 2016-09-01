@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -36,7 +37,7 @@ public class GiftStamp extends Activity {
     String businessId ="";
     static String userId = MainActivity.user;
 
-    EditText edt_tel;
+    EditText stampnumber,telnumber;
     Button btn_send;
 
     @Override
@@ -48,13 +49,15 @@ public class GiftStamp extends Activity {
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
 
-        edt_tel = (EditText)findViewById(R.id.edt_tel);
+        stampnumber = (EditText)findViewById(R.id.stampnumber);
+        telnumber = (EditText)findViewById(R.id.telnumber);
         btn_send = (Button)findViewById(R.id.btn_send);
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //giftStampAsyncTaskCall(); 선물하기  개수는 어케????
+
+                giftStampAsyncTaskCall(); //선물하기  개수는 어케????
             }
         });
 
@@ -98,7 +101,8 @@ public class GiftStamp extends Activity {
             Properties prop = new Properties();
             prop.setProperty("userId", userId);
             prop.setProperty("businessId", businessId);
-            prop.setProperty("userTel", edt_tel.getText().toString().trim());
+            prop.setProperty("userTel", String.valueOf(telnumber.getText()));
+            prop.setProperty("stampNumber", String.valueOf(stampnumber.getText()));
 
             String encodedString = encodeString(prop);
 
@@ -140,13 +144,19 @@ public class GiftStamp extends Activity {
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             try{
                 JSONObject json=new JSONObject(result);
-                if(json.getString("result").equals("필요한 스탬프가 부족합니다.")){
-                    Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MainActivity.mContext,json.getString("result") , Toast.LENGTH_SHORT).show();
-                    home.refresh();
+                result = json.getString("result");
+                if(result.equals("선물 성공")){
+                    finish();
+                    Toast.makeText(MainActivity.mContext, "스탬프 선물 했습니다.", Toast.LENGTH_SHORT).show();
+                    home.stampRefresh();
+                }else if(result.equals("스탬프 부족")){
+                    Toast.makeText(MainActivity.mContext, "선물 할 스탬프가 부족합니다." , Toast.LENGTH_SHORT).show();
+                }else if(result.equals("전화번호 없음")){
+                    Toast.makeText(MainActivity.mContext, "입력한 전화번호의 사용자가 없습니다." , Toast.LENGTH_SHORT).show();
+                }else if(result.equals("선물 실패")){
+                    Toast.makeText(MainActivity.mContext, "스탬프 선물 실패 했습니다." , Toast.LENGTH_SHORT).show();
                 }
-
+                Log.i("스탬프 선물 - ",result);
             }catch(JSONException e){
                 e.printStackTrace();
             }

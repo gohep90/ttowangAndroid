@@ -258,9 +258,6 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         photo1.setImageBitmap(reSized); //이미지 뷰에 리사이즈 된 비트맵을 넣는다.
 
 
-
-
-
                     } catch (IOException e){
                         Log.i("매장 추가 - " , String.valueOf(e));
                     }
