@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -54,7 +55,7 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mybusinessstoreadd);
+        setContentView(R.layout.mybusinessindividualdd);
         mContext = this;
         Intent i = getIntent();
         userId = i.getExtras().getString("userId");
@@ -224,7 +225,7 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
                 JSONArray jArr =json.getJSONArray("List");
                 json = jArr.getJSONObject(0);
                 Log.i("서버에서 받은 비즈니스 아이디 : ", json.getString("businessId"));
-
+/*
                 myBusinessShop.adapter.addItem(
                         "2",
                         json.getString("businessId"),
@@ -239,7 +240,9 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
                         businessGroup
                 );
                 myBusinessShop.adapter.notifyDataSetChanged();
-
+                */
+                myBusinessShop.myBusinessRefresh();
+                //stamp.spinnerRefresh();
             }catch(JSONException e){
                 e.printStackTrace();
             }

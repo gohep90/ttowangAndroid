@@ -31,6 +31,7 @@
             android:orientation="vertical">
 
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -38,27 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:text="사업자 번호"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:gravity="center"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/businessLicense"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:inputType="text"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="매장 이름"
+                    android:text="사업 이름"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:gravity="center"/>
@@ -98,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:text="매장 설명"
+                    android:text="사업 설명"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:gravity="center"/>
@@ -111,66 +92,9 @@
                     android:gravity="center"
                     android:inputType="text"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="영업 시간"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:gravity="center"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/businessTime"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:inputType="text"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="매장 주소"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:gravity="center"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/businessAddress"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:inputType="text"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="메뉴"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:gravity="center"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/businessMenu"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:inputType="text"/>
-            </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -198,7 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:text="매장 종류"
+                    android:text="사업 종류"
                     android:textSize="20dp"
                     android:textColor="#ffffff"
                     android:gravity="center"/>

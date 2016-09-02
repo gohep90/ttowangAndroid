@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -540,7 +541,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                     JSONArray jArr = json.getJSONArray("List");
                     json = jArr.getJSONObject(0);
                     Log.i("서버에서 받은 비즈니스 아이디 : ", json.getString("businessId"));
-
+/*
                     myBusinessShop.adapter.addItem(
                             "1",
                             json.getString("businessId"),
@@ -555,7 +556,9 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                             businessGroup
                     );
                     myBusinessShop.adapter.notifyDataSetChanged();
-
+                    */
+                    myBusinessShop.myBusinessRefresh();
+                    //stamp.spinnerRefresh();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

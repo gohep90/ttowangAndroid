@@ -49,13 +49,13 @@ public class stamp extends Fragment {
     String encodedString;
     String ip= MainActivity.ip;
     String businessId ="";
-    String userId = MainActivity.user;
+    static String userId = MainActivity.user;
     int focus = 1; //첫 포커스를 번호창으로 줌
 
-    Spinner spinner;
-    KeyValueArrayAdapter spn_adapter;
-    ArrayList<String> spinnerKeys = new ArrayList<String>();
-    ArrayList<String> spinnerValues = new ArrayList<String>();
+    static Spinner spinner;
+    static KeyValueArrayAdapter spn_adapter;
+    static ArrayList<String> spinnerKeys = new ArrayList<String>();
+    static ArrayList<String> spinnerValues = new ArrayList<String>();
 
     public static stamp createInstance(int itemsCount) {
         stamp stamp = new stamp();
@@ -366,7 +366,7 @@ public class stamp extends Fragment {
         new businessListAsyncTask().execute();
     }
 
-    public class businessListAsyncTask extends AsyncTask<String,Integer,String> {
+    public static class businessListAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
             spn_adapter.clear();
@@ -446,7 +446,8 @@ public class stamp extends Fragment {
             try{
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("spinnerList");
-
+                spinnerValues.clear();
+                spinnerKeys.clear();
                 for (int i = 0; i < jArr.length(); i++ ) {
                     json = jArr.getJSONObject(i);
 
@@ -465,5 +466,13 @@ public class stamp extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    final public static void spinnerRefresh(){
+
+        //new businessListAsyncTask().execute();
+
+        Log.i("스탬프 스피너 - ","스피너 리프레쉬 한다");
+
     }
 }

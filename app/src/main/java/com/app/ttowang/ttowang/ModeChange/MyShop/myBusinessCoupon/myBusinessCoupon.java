@@ -37,7 +37,7 @@ import java.util.Properties;
  */
 public class myBusinessCoupon extends AppCompatActivity {
 
-    String businessId="" ;
+    static String businessId="" ;
     static myBusinessCouponAdapter adapter;
 
     static String userId = MainActivity.user;
@@ -227,7 +227,7 @@ public class myBusinessCoupon extends AppCompatActivity {
 
 
 
-    public class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
+    public static class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
             myBusinessCouponAdapter.listViewItemList.clear();
@@ -309,7 +309,7 @@ public class myBusinessCoupon extends AppCompatActivity {
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("couponList");
                 if(jArr.length()==0){
-                    Toast.makeText(myBusinessCoupon.this, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(myBusinessCoupon.mContext, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();     //리스트
                     return;
                 }
@@ -325,5 +325,13 @@ public class myBusinessCoupon extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    final public static void CouponRefresh(){
+
+        new CouponDownAsyncTask().execute();
+
+        Log.i("쿠폰 목록 - ","목록 리프레쉬 한다");
+
     }
 }
