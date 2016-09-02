@@ -177,12 +177,82 @@ public class myBusinessStoreAdd extends AppCompatActivity {
             case 0:
                 if(resultCode== Activity.RESULT_OK) {
                     try {
-                        photouri1 = data.getData();
 
+                        String[] proj = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(Uri.parse(data.getData().toString()), null, null, null, null);
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+                        cursor.moveToFirst();
+
+                        String imgPath = cursor.getString(column_index);
+
+                        String photoName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+
+                        String photoUri = imgPath;
+
+                        // Toast.makeText(ChoiceSell.this, photoUri, Toast.LENGTH_SHORT).show();
+                        //Log.i("이미지 :", absolutePath);
+
+                        //   Bitmap image_bitmap = BitmapFactory.decodeFile(photoUri);
+                        //  image_bitmap = Bitmap.createScaledBitmap(image_bitmap, 550, 600, true);
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        //options.inSampleSize = calculateInSampleSize(options,550,600);     //포토 리사이즈
+                        options.inSampleSize = 4;
+                        Bitmap image_bitmap = BitmapFactory.decodeFile(photoUri, options);
+
+
+                        ExifInterface exif = new ExifInterface(photoUri);     //이미지 자동회전 방지!!
+                        int exifOrientation = exif.getAttributeInt(
+                                ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                        int exifDegree;
+
+                        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                            exifDegree = 90;
+                        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+                            exifDegree = 180;
+                        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                            exifDegree = 270;
+                        }else{
+                            exifDegree = 0;
+                        }
+
+                        if (exifDegree != 0 && image_bitmap != null) {
+                            Matrix m = new Matrix();
+                            m.setRotate(exifDegree, (float) image_bitmap.getWidth() / 2,
+                                    (float) image_bitmap.getHeight() / 2);
+
+                            try {
+                                Bitmap converted = Bitmap.createBitmap(image_bitmap, 0, 0,
+                                        image_bitmap.getWidth(), image_bitmap.getHeight(), m, true);
+                                if (image_bitmap != converted) {
+                                    image_bitmap.recycle();
+                                    image_bitmap = converted;
+                                }
+                            } catch (OutOfMemoryError ex) {
+                                // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
+                            }
+                        }
+
+                        int height = image_bitmap.getHeight();
+                        int width = image_bitmap.getWidth();
+
+                        Bitmap reSized = Bitmap.createScaledBitmap(image_bitmap, (width * 1000) / height,1000, true);
+                        photo1.setImageBitmap(reSized); //이미지 뷰에 리사이즈 된 비트맵을 넣는다.
+
+
+                    } catch (Exception e) {
+
+                        photouri1 = data.getData();
 
                         Log.i("매장 추가 - ", "가져온 이미지 " + photouri1);
 
-                        Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), photouri1);
+                        Bitmap bm = null;
+                        try {
+                            bm = MediaStore.Images.Media.getBitmap(getContentResolver(), photouri1);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
 
                         //절대 경로 가져오기
                         String wholeID = DocumentsContract.getDocumentId(photouri1);
@@ -204,7 +274,12 @@ public class myBusinessStoreAdd extends AppCompatActivity {
 
 
                         //Exif에서 회전 정보 가져오기
-                        ExifInterface exif = new ExifInterface(photo1Path);
+                        ExifInterface exif = null;
+                        try {
+                            exif = new ExifInterface(photo1Path);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                         int exifOrientation = exif.getAttributeInt(
                                 ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
@@ -259,8 +334,6 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         photo1.setImageBitmap(reSized); //이미지 뷰에 리사이즈 된 비트맵을 넣는다.
 
 
-                    } catch (IOException e){
-                        Log.i("매장 추가 - " , String.valueOf(e));
                     }
                 }
         }
