@@ -5,21 +5,39 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
  */
 public class myBusinessMemberItem {
 
-    private String Benefit;
-    private String Number ;
+    private String BusinessId, UserGender, UserTel ,UserName , UserId;
 
-    public void setBenefit(String benefit) {
-        Benefit = benefit ;
+    public void setBusinessId(String businessId) {
+        BusinessId = businessId ;
     }
-    public void setNumber(String number) {
-        Number = number;
+    public void setUserGender(String userGender) {
+        UserGender = userGender;
+    }
+    public void setUserTel(String userTel) {
+        UserTel = userTel ;
+    }
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
+    public void setUserId(String userId) {
+        UserId = userId ;
     }
 
-    public String getBenefit() {
-        return this.Benefit;
+
+    public String getBusinessId() {
+        return this.BusinessId;
     }
-    public String getNumber() {
-        return this.Number ;
+    public String getUserGender() {
+        return this.UserGender ;
+    }
+    public String getUserTel() {
+        return this.UserTel;
+    }
+    public String getUserName() {
+        return this.UserName ;
+    }
+    public String getUserId() {
+        return this.UserId;
     }
 
 }

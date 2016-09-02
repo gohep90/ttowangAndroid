@@ -73,6 +73,7 @@ public class myBusinessStaffAdd extends AppCompatActivity {
         mContext = this;
         Intent i = getIntent();
         userId = i.getExtras().getString("userId");
+
         Toast.makeText(myBusinessStaffAdd.this, "유저아이디 : " + userId, Toast.LENGTH_SHORT).show();
 
 
@@ -82,9 +83,14 @@ public class myBusinessStaffAdd extends AppCompatActivity {
         spn_adapter = new KeyValueArrayAdapter(myBusinessStaffAdd.this,R.layout.spinner_item);
         spn_adapter.setDropDownViewResource(R.layout.spinner_item);
 
-        businessListAsyncTaskCall();
+        spinnerKeys = myBusinessMember.spinnerKeys;
+        spinnerValues = myBusinessMember.spinnerValues;
 
+        spn_adapter.setEntries(spinnerKeys.toArray(new String[spinnerKeys.size()]));
+        spn_adapter.setEntryValues(spinnerValues.toArray(new String[spinnerValues.size()]));
 
+        spinner.setAdapter(spn_adapter);
+        spinner.setSelection(i.getExtras().getInt("position"));
         //스피너 선택 리스너
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -259,111 +265,6 @@ public class myBusinessStaffAdd extends AppCompatActivity {
     };
 
 
-    //비지니스 List (스피너)
-    public void businessListAsyncTaskCall(){
-        new businessListAsyncTask().execute();
-    }
-
-    public class businessListAsyncTask extends AsyncTask<String,Integer,String> {
-
-        protected void onPreExecute(){
-            spn_adapter.clear();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {  // 통신을 위한 Thread
-            String result =recvList();
-            return result;
-        }
-
-        public String encodeString(Properties params) {  //한글 encoding??
-            StringBuffer sb = new StringBuffer(256);
-            Enumeration names = params.propertyNames();
-
-            while (names.hasMoreElements()) {
-                String name = (String) names.nextElement();
-                String value = params.getProperty(name);
-                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
-
-                if (names.hasMoreElements()) sb.append("&");
-            }
-            return sb.toString();
-        }
-
-        private String recvList() { //데이터 보내고 받아오기!!
-
-            HttpURLConnection urlConnection=null;
-            URL url =null;
-            DataOutputStream out=null;
-            BufferedInputStream buf=null;
-            BufferedReader bufreader=null;
-
-            Properties prop = new Properties();
-
-            prop.setProperty("userId",userId);
-
-            String encodedString = encodeString(prop);
-
-            try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setUseCaches(false);
-
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                out = new DataOutputStream(urlConnection.getOutputStream());
-
-                out.writeBytes(encodedString);
-
-                out.flush();    //서버로 버퍼의 내용 전송
-
-                buf = new BufferedInputStream(urlConnection.getInputStream());
-                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
-
-                String line=null;
-                String result="";
-
-                while((line=bufreader.readLine())!=null){
-                    result += line;
-                }
-
-                return result;
-
-            }catch(Exception e){
-                e.printStackTrace();
-                return "";
-            }finally{
-                urlConnection.disconnect();  //URL 연결해제
-            }
-        }
-        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-            Log.i("서버에서 받은 전체 내용 : ", result);
-            try{
-                JSONObject json=new JSONObject(result);
-                JSONArray jArr =json.getJSONArray("spinnerList");
-
-                for (int i = 0; i < jArr.length(); i++ ) {
-                    json = jArr.getJSONObject(i);
-
-                    spinnerValues.add(json.getString("businessName"));
-                    spinnerKeys.add(json.getString("businessId"));
-
-                }
-                //spn_adapter.notifyDataSetChanged();     //리스트
-
-                spn_adapter.setEntries(spinnerKeys.toArray(new String[spinnerKeys.size()]));
-                spn_adapter.setEntryValues(spinnerValues.toArray(new String[spinnerValues.size()]));
-
-                spinner.setAdapter(spn_adapter);
-
-            }catch(JSONException e){
-                e.printStackTrace();
-            }
-        }
-    }
 
 
     public class staffAddAsyncTask extends AsyncTask<String,Integer,String> {
@@ -451,6 +352,7 @@ public class myBusinessStaffAdd extends AppCompatActivity {
                 result = json.getString("result");
                 if(result.equals("staffAdd 성공")){
                     Toast.makeText(MainActivity.mContext, "직원 추가 했습니다.", Toast.LENGTH_SHORT).show();
+                    myBusinessMember.staffRefresh();
                 }else if(result.equals("이미 직원")){
                     Toast.makeText(MainActivity.mContext, "이미 직원 입니다." , Toast.LENGTH_SHORT).show();
                 }else if(result.equals("전화번호 없음")){
