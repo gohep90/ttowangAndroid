@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,10 +38,16 @@ public class myBusinessShop extends AppCompatActivity {
 
     static myBusinessShopAdapter adapter;
 
+    String ip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessshop_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+
         mContext = this;
         ListView listview ;
 
@@ -123,7 +130,7 @@ public class myBusinessShop extends AppCompatActivity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAll.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessAll.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

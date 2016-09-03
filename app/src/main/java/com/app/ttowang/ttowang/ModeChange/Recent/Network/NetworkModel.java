@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.ModeChange.Recent.Network;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.app.ttowang.ttowang.Main.MainActivity;

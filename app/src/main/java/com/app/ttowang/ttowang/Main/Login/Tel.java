@@ -35,6 +35,7 @@ import java.util.Properties;
 public class Tel extends AppCompatActivity {
 
     String userTel, userName, userBirth, userGender, userEmail;
+    int userId;
     int userCode = 0;
 
     EditText edt_tel, edt_confirm;
@@ -42,7 +43,7 @@ public class Tel extends AppCompatActivity {
 
     String encodedString="";
     String result="";
-    String ip=MainActivity.ip;
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +54,19 @@ public class Tel extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-        sharedPreferencesEditor.putString("ip", "172.30.1.3" + "");  //ip 설정하기 저장하기
+        sharedPreferencesEditor.putString("ip", "14.63.213.208" + "");  //ip 설정하기 저장하기
         sharedPreferencesEditor.commit();
 
-        //ip = sharedPreferences.getString("ip", "");
-        userTel=sharedPreferences.getString("userTel", "");
-        userName=sharedPreferences.getString("userName", "");
-        userBirth=sharedPreferences.getString("userBirth", "");
-        userGender=sharedPreferences.getString("userGender", "");
-        userCode=sharedPreferences.getInt("userCode", 0);
-        userEmail=sharedPreferences.getString("userEmail", "");
+        ip = sharedPreferences.getString("ip", "");
+        userTel = sharedPreferences.getString("userTel", "");
+
+        /*
+        userName = sharedPreferences.getString("userName", "");
+        userBirth = sharedPreferences.getString("userBirth", "");
+        userGender = sharedPreferences.getString("userGender", "");
+        userCode = sharedPreferences.getInt("userCode", 0);
+        userEmail = sharedPreferences.getString("userEmail", "");
+        */
 
         //로그인 되어있으면
         if (!userTel.equals("")) {
@@ -71,6 +75,7 @@ public class Tel extends AppCompatActivity {
             finish();
             Toast.makeText(getApplicationContext(), "로그인되어있음", Toast.LENGTH_SHORT).show();
         }
+
         //로그인 안되어있으면
         else {
             Toast.makeText(getApplicationContext(), "로그인안되어있음", Toast.LENGTH_SHORT).show();
@@ -218,6 +223,7 @@ public class Tel extends AppCompatActivity {
             if(jArr != null && jArr.length() > 0) {
 
                 json = jArr.getJSONObject(0);
+                userId = json.getInt("userId");
                 userCode = json.getInt("userCode");
                 userTel = json.getString("userTel");
                 userName = json.getString("userName");
@@ -231,6 +237,7 @@ public class Tel extends AppCompatActivity {
                     // 자동 로그인
                     SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);   //쉐어드 객체 얻기
                     SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
+                    sharedPreferencesEditor.putInt("userId", userId);
                     sharedPreferencesEditor.putString("userTel", userTel);
                     sharedPreferencesEditor.putString("userName", userName);
                     sharedPreferencesEditor.putString("userBirth", userBirth);

@@ -121,6 +121,7 @@ public class myInfoEdit extends AppCompatActivity {
                                     // 'yes'
                                     MyInfoEditAsyncTaskCall();
 
+
                                     SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
                                     SharedPreferences.Editor Edit= sharedPreferences.edit();
                                     Edit.putString("userName", change_edt_name.getText().toString());

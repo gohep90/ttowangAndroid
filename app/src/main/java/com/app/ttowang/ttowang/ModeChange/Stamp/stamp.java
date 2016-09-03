@@ -1,15 +1,26 @@
 package com.app.ttowang.ttowang.ModeChange.Stamp;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.Selection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +33,7 @@ import com.app.ttowang.ttowang.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -43,14 +55,14 @@ public class stamp extends Fragment {
 
     Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_back; //번호입력버튼 and 빽버튼
     Button btn_addstamp; //적립하기버튼
-    TextView text_telvalue; //번호입력하는부분
     TextView text_stampnum; //스템프갯수입력하는부분
+    EditText edt_telvalue; //번호입력하는부분
 
     String encodedString;
-    String ip= MainActivity.ip;
+    String ip;
     String businessId ="";
     String userId = MainActivity.user;
-    int focus = 1; //첫 포커스를 번호창으로 줌
+    //int focus = 0; //첫 포커스를 스템프 갯수로 주기
 
     Spinner spinner;
     KeyValueArrayAdapter spn_adapter;
@@ -68,6 +80,9 @@ public class stamp extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         view = inflater.inflate(R.layout.stamp,container, false);
 
@@ -106,11 +121,17 @@ public class stamp extends Fragment {
             }
         });
         */
-
-
-        text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
-        btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
         text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
+        edt_telvalue = (EditText) view.findViewById(R.id.edt_telvalue);
+        btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
+
+        //edtitext 커서도 안보이고 키보드도 안보임
+        text_stampnum.setInputType(0);
+        //edt_telvalue.setInputType(0);
+
+        //edittext 커서는 보이고 키보드는 안올라오게
+        //edt_stampnum.setTextIsSelectable(true);
+        edt_telvalue.setTextIsSelectable(true);
 
         btn_0 = (Button) view.findViewById(R.id.btn_0);
         btn_1 = (Button) view.findViewById(R.id.btn_1);
@@ -124,11 +145,12 @@ public class stamp extends Fragment {
         btn_9 = (Button) view.findViewById(R.id.btn_9);
         btn_back = (Button) view.findViewById(R.id.btn_back);
 
-        text_stampnum.setText("1"); // 스템프 갯수 초기값을 1로 준다
+        //edt_stampnum.setText("1"); // 스템프 갯수 초기값을 1로 준다
 
         buttonClickListener();
 
         return view;
+
     }
 
     private void buttonClickListener() {
@@ -147,13 +169,63 @@ public class stamp extends Fragment {
         btn_back.setOnClickListener(ClickListener);
 
         text_stampnum.setOnClickListener(ClickListener);
-        text_telvalue.setOnClickListener(ClickListener);
+        edt_telvalue.setOnClickListener(ClickListener);
     }
 
     View.OnClickListener ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+
+                case R.id.btn_0:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "0");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length()); // 포커스 맨 뒤로 보내기
+                    break;
+                case R.id.btn_1:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "1");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_2:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "2");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_3:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "3");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_4:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "4");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_5:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "5");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_6:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "6");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_7:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "7");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_8:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "8");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_9:
+                    edt_telvalue.setText(edt_telvalue.getText().toString() + "9");
+                    Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    break;
+                case R.id.btn_back:
+
+                    if (edt_telvalue.getText().toString().length() == 0) {
+                    } else {
+                        edt_telvalue.setText(edt_telvalue.getText().toString().substring(0, edt_telvalue.getText().toString().length() - 1));
+                        Selection.setSelection(edt_telvalue.getText(), edt_telvalue.getText().length());
+                    }
+                    break;
+
 
                 case R.id.btn_addstamp:
                     //AddStampAsyncTaskCall();
@@ -162,14 +234,14 @@ public class stamp extends Fragment {
                         Toast.makeText(getActivity(), "스템프 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     else if(text_stampnum.getText().toString().equals("0"))
                         Toast.makeText(getActivity(), "스템프 갯수를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(text_telvalue.getText().toString().equals("") || text_telvalue.getText().toString().length() == 0)
+                    else if(edt_telvalue.getText().toString().equals("") || edt_telvalue.getText().toString().length() == 0)
                         Toast.makeText(getActivity(), "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(text_telvalue.getText().toString().length() != 11)
+                    else if(edt_telvalue.getText().toString().length() != 11)
                         Toast.makeText(getActivity(), "전화번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
 
                     else {
                         Toast.makeText(getActivity(), text_stampnum.getText().toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getActivity(), text_telvalue.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), edt_telvalue.getText().toString(), Toast.LENGTH_SHORT).show();
 
                         //입력한 스템프 갯수를 입력한 번호에 적립 쓰레드
                         AddStampAsyncTaskCall();
@@ -177,13 +249,52 @@ public class stamp extends Fragment {
                     }
                     break;
 
-                case R.id.text_telvalue:
-                    focus = 1; //번호창을 누르면 포커스 이동
+                case R.id.text_stampnum:
+
+                    Toast.makeText(getActivity(), "스탬프 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                    //alert.create().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+                    alert.setTitle("스템프 갯수를 입력해주세요.");
+                    alert.setMessage("몇 개?");
+
+                    // Set an EditText view to get user input
+                    final EditText input = new EditText(getContext());
+                    alert.setView(input);
+
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String value = input.getText().toString();
+                            value.toString();
+                            // Do something with value!
+                            text_stampnum.setText(input.getText().toString());
+                        }
+                    });
+
+                    alert.setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // Canceled.
+                                }
+                            });
+
+                    alert.show();
+
                     break;
 
-                case R.id.text_stampnum:
+                /*
+                case R.id.edt_telvalue:
+                    focus = 1; //번호창을 누르면 포커스 이동
+                    Toast.makeText(getActivity(), "번호입력 포커스", Toast.LENGTH_SHORT).show();
+                    break;
+                */
+
+                /*
+                case R.id.edt_stampnum:
                     focus = 0; ////스템프 갯수창을 누르면 포커스 이동
-                    text_stampnum.setText(""); //스템프 갯수창을 누르면 초기화됨
+                    Toast.makeText(getActivity(), "갯수 포커스", Toast.LENGTH_SHORT).show();
+                    edt_stampnum.setText(""); //스템프 갯수창을 누르면 초기화됨
 
                     //edt_stampnum.setInputType(1);
 
@@ -199,81 +310,85 @@ public class stamp extends Fragment {
 
 
                     break;
+                */
 
+                /*
                 case R.id.btn_0:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "0");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "0");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "0");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "0");
                     break;
                 case R.id.btn_1:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "1");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "1");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "1");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "1");
                     break;
                 case R.id.btn_2:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "2");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "2");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "2");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "2");
                     break;
                 case R.id.btn_3:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "3");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "3");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "3");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "3");
                     break;
                 case R.id.btn_4:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "4");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "4");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "4");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "4");
                     break;
                 case R.id.btn_5:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "5");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "5");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "5");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "5");
                     break;
                 case R.id.btn_6:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "6");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "6");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "6");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "6");
                     break;
                 case R.id.btn_7:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "7");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "7");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "7");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "7");
                     break;
                 case R.id.btn_8:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "8");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "8");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "8");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "8");
                     break;
                 case R.id.btn_9:
                     if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "9");
+                        edt_stampnum.setText(edt_stampnum.getText().toString() + "9");
                     else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "9");
+                        edt_telvalue.setText(edt_telvalue.getText().toString() + "9");
                     break;
                 case R.id.btn_back:
                     if(focus == 0){
-                        if (text_stampnum.getText().toString().length() == 0) {
+                        if (edt_stampnum.getText().toString().length() == 0) {
                         } else
-                            text_stampnum.setText(text_stampnum.getText().toString().substring(0, text_stampnum.getText().toString().length() - 1));
+                            edt_stampnum.setText(edt_stampnum.getText().toString().substring(0, edt_stampnum.getText().toString().length() - 1));
                         break;
                     }
 
                     else {
-                        if (text_telvalue.getText().toString().length() == 0) {
+                        if (edt_telvalue.getText().toString().length() == 0) {
                         } else
-                            text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
+                            edt_telvalue.setText(edt_telvalue.getText().toString().substring(0, edt_telvalue.getText().toString().length() - 1));
                         break;
                     }
+
+                */
             }
         }
     };
@@ -316,7 +431,7 @@ public class stamp extends Fragment {
 
             Properties prop = new Properties();
             prop.setProperty("stampNum", text_stampnum.getText().toString());
-            prop.setProperty("userTel", text_telvalue.getText().toString());
+            prop.setProperty("userTel", edt_telvalue.getText().toString());
             prop.setProperty("businessId", businessId);
 
             String encodedString = encodeString(prop);
@@ -407,7 +522,7 @@ public class stamp extends Fragment {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,11 +50,16 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
 
     String userId;
     int nowposition;
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessindividualedit);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+
         mContext = this;
         Intent i = getIntent();
         userId = i.getExtras().getString("userId");
@@ -194,7 +200,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
 
             try{
                 //url=new URL("http://192.168.0.2:8181/ttowang/businessAdd.do");
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/businessUpdate.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessUpdate.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

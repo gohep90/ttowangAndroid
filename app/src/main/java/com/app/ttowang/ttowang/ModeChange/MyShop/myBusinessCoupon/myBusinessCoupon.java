@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,8 @@ import java.util.Properties;
  */
 public class myBusinessCoupon extends AppCompatActivity {
 
+    String ip;
+
     String businessId="" ;
     static myBusinessCouponAdapter adapter;
 
@@ -55,6 +58,9 @@ public class myBusinessCoupon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinesscoupon_main);
         mContext = this;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         spinner = (Spinner)findViewById(R.id.spinner);
 
@@ -162,7 +168,7 @@ public class myBusinessCoupon extends AppCompatActivity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -268,7 +274,7 @@ public class myBusinessCoupon extends AppCompatActivity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/couponList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

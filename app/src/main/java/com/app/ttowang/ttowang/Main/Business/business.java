@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main.Business;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,7 +55,9 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
-    String ip= MainActivity.ip;
+    SharedPreferences sharedPreferences;
+    String ip;
+    //String ip= MainActivity.ip;
     static String userId = MainActivity.user;  //로그인시 ID값 저장해야함
 
     @Override
@@ -62,6 +65,9 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
 
         //////////////////////////지도///////////////////////////////////

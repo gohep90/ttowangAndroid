@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.Main.Home.stamp.GiftStamp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +33,11 @@ import java.util.Properties;
  */
 public class GiftStamp extends Activity {
 
-    String ip= MainActivity.ip;
+    //String ip= MainActivity.ip;
+
+    SharedPreferences sharedPreferences;
+    String ip;
+
     String businessId ="";
     static String userId = MainActivity.user;
 
@@ -44,6 +49,9 @@ public class GiftStamp extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.giftstamp);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");

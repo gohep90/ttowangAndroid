@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -82,11 +83,16 @@ public class myBusinessStoreAdd extends AppCompatActivity {
     Button businessphoto1;
     ImageView photo1;
     Uri photouri1;
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessstoreadd);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+
         mContext = this;
         Intent i = getIntent();
         userId = i.getExtras().getString("userId");
@@ -336,7 +342,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
 
             try{
                 //url=new URL("http://192.168.0.2:8181/ttowang/businessAdd.do");
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAdd.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessAdd.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -432,7 +438,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 Log.i("이미지 :",  photo1Path);
                 FileInputStream fileInputStream = new FileInputStream(photo1Path);
                 Log.i("이미지추가 ",  "했음");
-                connectUrl = new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAdd.do");
+                connectUrl = new URL("http://" + ip + ":8080/ttowang/businessAdd.do");
 
                 // open connection
                 conn = (HttpURLConnection) connectUrl.openConnection();

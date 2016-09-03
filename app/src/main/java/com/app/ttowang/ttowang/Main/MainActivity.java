@@ -54,9 +54,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        //sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        //ip = sharedPreferences.getString("ip", "");
+
         mContext = this;
 
-        sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
+        //sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
         Edit = sharedPreferences.edit();
 
         if(sharedPreferences.getInt("openNumber",0) == 0){  //처음 열었으면

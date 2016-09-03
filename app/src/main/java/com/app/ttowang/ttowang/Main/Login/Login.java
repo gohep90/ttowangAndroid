@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
     String userGender;
 
     String encodedString="";
-    String ip=MainActivity.ip;
+    String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         Intent i = getIntent();
         tel = i.getExtras().getString("tel");
