@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
+import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 
 import java.io.BufferedInputStream;
@@ -258,6 +259,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
                 myBusinessShopAdapter.listViewItemList.set(nowposition, item);
                 myBusinessShop.adapter.notifyDataSetChanged();
                 Log.i("매장 어댑터 ","새로 고친다");
+                stamp.spinnerRefresh();
             }else{
                 Toast.makeText(myBusinessIndividualEdit.mContext,"수정 실패", Toast.LENGTH_SHORT).show();
             }

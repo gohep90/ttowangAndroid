@@ -6,13 +6,13 @@
 
     <style name="AppThemeRed2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary_red</item>
-        <item name="colorPrimaryDark">@color/color_primary_red_dark</item>
+        <item name="colorPrimaryDark">@color/color_primary_red</item>
         <item name="colorAccent">@color/color_accent_pink</item>
     </style>
 
     <style name="AppThemeRed" parent="AppTheme">
         <item name="colorPrimary">@color/color_primary_red</item>
-        <item name="colorPrimaryDark">@color/color_primary_red_dark</item>
+        <item name="colorPrimaryDark">@color/color_primary_red</item>
         <item name="colorAccent">@color/FAB</item>
     </style>
 

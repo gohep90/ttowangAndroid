@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,19 @@ import com.app.ttowang.ttowang.Main.Login.Tel;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Enumeration;
+import java.util.Properties;
 
 public class Mainsetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
@@ -184,6 +198,8 @@ public class Mainsetting extends Fragment {
             public void onClick(View v){
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + userTel));//액션 수행할 때도 Intent 사용
                 startActivity(intent);
+                Log.i("스탬프 선물","누름");
+
             }
         });
 
@@ -195,5 +211,6 @@ public class Mainsetting extends Fragment {
 
         return view;
     }
+
 
 }

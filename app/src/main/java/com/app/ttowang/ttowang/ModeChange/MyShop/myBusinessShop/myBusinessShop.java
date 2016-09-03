@@ -90,9 +90,10 @@ public class myBusinessShop extends AppCompatActivity {
 
 
 
-    public class businessDownAsyncTask extends AsyncTask<String,Integer,String> {
+    public static class businessDownAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
+            myBusinessShopAdapter.listViewItemList.clear();
         }
 
         @Override
@@ -173,8 +174,7 @@ public class myBusinessShop extends AppCompatActivity {
                 JSONArray jArr =json.getJSONArray("List");
                 if(jArr.length()==0){
 
-                    finish();
-                    Toast.makeText(myBusinessShop.this, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(myBusinessShop.mContext, "등록된 매장이 없습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (int i = 0; i < jArr.length(); i++ ) {
@@ -214,5 +214,13 @@ public class myBusinessShop extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    final public static void myBusinessRefresh(){
+
+        new businessDownAsyncTask().execute();
+
+        Log.i("스탬프 스피너 - ","스피너 리프레쉬 한다");
+
     }
 }

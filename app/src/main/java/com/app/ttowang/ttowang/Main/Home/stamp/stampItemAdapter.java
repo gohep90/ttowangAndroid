@@ -58,7 +58,8 @@ public class stampItemAdapter extends BaseAdapter {
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         stampItemClass stampItemClass = listViewItemList.get(position);
-        if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+1)){
+
+        if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+1)){   //1번째
             //stamp0.setText(position+"1"+"\n 사용");
             stamp0.setImageResource(R.drawable.stamp1);
         }else if((home.totalStampNumber) >=  ((position*10)+1)) {
@@ -68,6 +69,7 @@ public class stampItemAdapter extends BaseAdapter {
             //stamp0.setText(position+"1"+"\n no");
             stamp0.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+2)){
             //stamp1.setText(position+"2"+"\n 사용");
             stamp1.setImageResource(R.drawable.stamp1);
@@ -78,6 +80,7 @@ public class stampItemAdapter extends BaseAdapter {
             //stamp1.setText(position+"2"+"\n no");
             stamp1.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+3)){
             //stamp2.setText(position+"3"+"\n 사용");
             stamp2.setImageResource(R.drawable.stamp1);
@@ -88,6 +91,7 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp2.setText(position+"3"+"\n no");
             stamp2.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+4)){
           //  stamp3.setText(position+"4"+"\n 사용");
             stamp3.setImageResource(R.drawable.stamp1);
@@ -98,6 +102,7 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp3.setText(position+"4"+"\n no");
             stamp3.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+5)){
            // stamp4.setText(position+"5"+"\n 사용");
             stamp4.setImageResource(R.drawable.stamp1);
@@ -108,6 +113,7 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp4.setText(position+"5"+"\n no");
             stamp4.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+6)){
            // stamp5.setText(position+"6"+"\n 사용");
             stamp5.setImageResource(R.drawable.stamp1);
@@ -118,6 +124,7 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp5.setText(position+"6"+"\n no");
             stamp5.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+7)){
            // stamp6.setText(position+"7"+"\n 사용");
             stamp6.setImageResource(R.drawable.stamp1);
@@ -128,6 +135,7 @@ public class stampItemAdapter extends BaseAdapter {
           //  stamp6.setText(position+"7"+"\n no");
             stamp6.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+8)){
            // stamp7.setText(position+"8"+"\n 사용");
             stamp7.setImageResource(R.drawable.stamp1);
@@ -138,6 +146,7 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp7.setText(position+"8"+"\n no");
             stamp7.setImageResource(R.drawable.stamp3);
         }
+
         if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+9)){
           //  stamp8.setText(position+"9"+"\n 사용");
             stamp8.setImageResource(R.drawable.stamp1);
@@ -148,7 +157,8 @@ public class stampItemAdapter extends BaseAdapter {
            // stamp8.setText(position+"9"+"\n no");
             stamp8.setImageResource(R.drawable.stamp3);
         }
-        if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+10)){
+
+        if(home.totalStampNumber - home.remainStampNumber >=  ((position*10)+10)){  //10번째
           //  stamp9.setText((position+1)+"0"+"\n 사용");
             stamp9.setImageResource(R.drawable.stamp1);
         }else if((home.totalStampNumber) >=  ((position*10)+10)) {

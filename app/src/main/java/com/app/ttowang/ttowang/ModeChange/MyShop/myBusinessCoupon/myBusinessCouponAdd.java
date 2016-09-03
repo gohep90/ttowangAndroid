@@ -162,8 +162,9 @@ public class myBusinessCouponAdd extends Activity {
 
 
             if(!result.equals("")){
-                myBusinessCoupon.adapter.addItem( couponName, stampNeed,businessId,couponCode) ;
-                myBusinessCoupon.adapter.notifyDataSetChanged();
+                //myBusinessCoupon.adapter.addItem( couponName, stampNeed,businessId,couponCode) ;
+                myBusinessCoupon.CouponRefresh();
+                //myBusinessCoupon.adapter.notifyDataSetChanged();
                 Log.i("coupon 어댑터 ","새로 고친다");
             }else {
                 Toast.makeText(myBusinessCoupon.mContext,"추가 실패", Toast.LENGTH_SHORT).show();
