@@ -183,7 +183,8 @@ public class myBusinessStoreAdd extends AppCompatActivity {
      }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {    //설정한 시간 가져오기 부분
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {    //설정한 시간 가져오기 부분
         if (requestCode==100) {
                 if(resultCode== Activity.RESULT_OK) {
                     try {
@@ -503,7 +504,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 Log.i("이미지 :",  photo1Path);
                 FileInputStream fileInputStream = new FileInputStream(photo1Path);
                 Log.i("이미지추가 ",  "했음");
-                connectUrl = new URL("http://" + MainActivity.ip + ":8080/ttowang/uploadFile.do");
+                connectUrl = new URL("http://" + MainActivity.ip + ":8080/ttowang/saveImage.jsp");
 
                 // open connection
                 conn = (HttpURLConnection) connectUrl.openConnection();
