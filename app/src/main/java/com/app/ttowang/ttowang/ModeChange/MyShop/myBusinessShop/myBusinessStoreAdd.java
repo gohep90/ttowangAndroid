@@ -13,18 +13,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -34,7 +31,6 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -64,15 +60,15 @@ public class myBusinessStoreAdd extends AppCompatActivity {
             businessGroupEdittext;
 
     String
-            businessLicense,
-            businessName,
-            businessTel,
-            businessInfo,
-            businessTime,
-            businessAddress,
-            businessMenu,
-            businessBenefit,
-            businessGroup,
+            businessLicense="",
+            businessName="",
+            businessTel="",
+            businessInfo="",
+            businessTime="",
+            businessAddress="",
+            businessMenu="",
+            businessBenefit="",
+            businessGroup="",
             photo1Path="",
             photo2Path="",
             photo3Path="",
@@ -116,9 +112,9 @@ public class myBusinessStoreAdd extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 0);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent ,100);
             }
         });
 
@@ -136,6 +132,10 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 businessBenefit =String.valueOf(businessBenefitEdittext.getText());
                 businessGroup =String.valueOf(businessGroupEdittext.getText());
 
+
+                new ImageAsyncTask().execute();
+                Toast.makeText(myBusinessStoreAdd.this,"이미지 추가", Toast.LENGTH_SHORT).show();
+             /*
                 if(
                     !businessLicense.equals("") &
                     !businessName.equals("") &
@@ -158,6 +158,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 }else{
                     Toast.makeText(myBusinessStoreAdd.this,"빈칸이 있습니다.", Toast.LENGTH_SHORT).show();
                 }
+                */
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -166,29 +167,28 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
     }
 
+    public String getImageNameToUri(Uri data) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(Uri.parse(data.toString()), null, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        cursor.moveToFirst();
+
+        String imgPath = cursor.getString(column_index);
+        String photoName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+
+        return imgPath;
+     }
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {    //설정한 시간 가져오기 부분
-        switch (requestCode) {
-            case 0:
+        if (requestCode==100) {
                 if(resultCode== Activity.RESULT_OK) {
                     try {
-
-                        String[] proj = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = getContentResolver().query(Uri.parse(data.getData().toString()), null, null, null, null);
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-                        cursor.moveToFirst();
-
-                        String imgPath = cursor.getString(column_index);
-
-                        String photoName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
-
-                        String photoUri = imgPath;
+                        photo1Path = getImageNameToUri(data.getData()); //이미지 절대경로 구하기!!
+                       // Log.i("기존 - ", "가져온 이미지 " + photo1Path);
 
                         // Toast.makeText(ChoiceSell.this, photoUri, Toast.LENGTH_SHORT).show();
                         //Log.i("이미지 :", absolutePath);
@@ -199,10 +199,10 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         //options.inSampleSize = calculateInSampleSize(options,550,600);     //포토 리사이즈
                         options.inSampleSize = 4;
-                        Bitmap image_bitmap = BitmapFactory.decodeFile(photoUri, options);
+                        Bitmap image_bitmap = BitmapFactory.decodeFile(photo1Path, options);
 
 
-                        ExifInterface exif = new ExifInterface(photoUri);     //이미지 자동회전 방지!!
+                        ExifInterface exif = new ExifInterface(photo1Path);     //이미지 자동회전 방지!!
                         int exifOrientation = exif.getAttributeInt(
                                 ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
                         int exifDegree;
@@ -244,6 +244,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                     } catch (Exception e) {
 
                         photouri1 = data.getData();
+                        Log.i("photouri1 :", "가져온 이미지 " + photouri1);
 
                         Log.i("매장 추가 - ", "가져온 이미지 " + photouri1);
 
@@ -269,6 +270,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                         }
                         cursor.close();
                         Log.i("매장 추가 - ", "가져온 이미지 절대경로" + photo1Path);
+                        Log.i("photo1Path :", "가져온 이미지 " + photo1Path);
 
                         businessphoto1.setText(photo1Path);
 
@@ -480,16 +482,14 @@ public class myBusinessStoreAdd extends AppCompatActivity {
 
 
 
-    public class ImageAsyncTask extends AsyncTask<String,Integer,String> {
+    public class ImageAsyncTask extends AsyncTask<Void,Integer,String> {
         @Override
-        protected String doInBackground(String... params) {  // 통신을 위한 Thread
-
-                doFileUpload();
-
+        protected String doInBackground(Void... params) {  // 통신을 위한 Thread
+            doFileUpload();
             return null;
         }
 
-        public String doFileUpload() {
+        public void doFileUpload() {
             URL connectUrl = null;
             HttpURLConnection conn = null;
             DataOutputStream dos = null;
@@ -503,7 +503,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 Log.i("이미지 :",  photo1Path);
                 FileInputStream fileInputStream = new FileInputStream(photo1Path);
                 Log.i("이미지추가 ",  "했음");
-                connectUrl = new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAdd.do");
+                connectUrl = new URL("http://" + MainActivity.ip + ":8080/ttowang/uploadFile.do");
 
                 // open connection
                 conn = (HttpURLConnection) connectUrl.openConnection();
@@ -514,13 +514,15 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 conn.setRequestProperty("Connection", "Keep-Alive");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
+               // conn.connect();
+
                 Log.i("이미지 :", "연결??");
                 // write data
                 dos = new DataOutputStream(conn.getOutputStream());
 
 
                 StringBuffer pd = new StringBuffer();
-                pd.append(delimiter);
+       /*         pd.append(delimiter);
                 pd.append(setText("userId", String.valueOf(userId)));
                 pd.append(delimiter);
                 pd.append(setText("businessLicense", businessLicense));
@@ -546,6 +548,9 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 pd.append(setText("businessType", "1"));
                 pd.append(delimiter);
                 pd.append(setText("businessGroup", businessGroup));
+*/
+                pd.append(delimiter);
+                pd.append(setText("businessName", businessName));
                 pd.append(delimiter);
                 pd.append(setImage("image", photo1Path));
                 pd.append("\r\n");
@@ -578,19 +583,17 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 BufferedReader rd = null;
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                 String line = null;
-                String result = "";
+                //String result = "";
                 while ((line = rd.readLine()) != null) {
-                    result += line;
+                    //result += line;
+                    Log.d("BufferedReader: ", line);
                 }
                 dos.close();
-                return result;
             } catch (MalformedURLException e) {
                 Log.d("MalformedURLException", e.toString());
             }catch(Exception ex){
                 Log.d("MalformedURLException", ex.toString());
             }
-
-            return null;
         }
 
         //텍스트값 처리
@@ -603,8 +606,10 @@ public class myBusinessStoreAdd extends AppCompatActivity {
             return "Content-Disposition: form-data; name=\""+iname+"\";filename=\""+image+"\"\r\n";
         }
 
+
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             Log.i("myBusinessShop - ", " 내 매장 등록");
+
 
             if(result!=null) {
                 Log.i("서버에서 받은 전체 내용 : ", result);
