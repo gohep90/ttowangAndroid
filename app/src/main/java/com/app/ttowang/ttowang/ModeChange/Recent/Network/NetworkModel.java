@@ -38,8 +38,11 @@ public class NetworkModel {
         public void onFail(int code);
     }
 
-    public void getRecent(final OnNetworkResultListener<recentList> listener){
-        client.get(SERVER_URL + "/checkMembership.do", new AsyncHttpResponseHandler() {
+    public void getSelectRecent(final OnNetworkResultListener<recentList> listener,String businessId){
+        RequestParams params = new RequestParams();
+        params.put("BUSINESSID", businessId);
+
+        client.get(SERVER_URL + "/selectRecentList.do",params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ArrayList<recent> List = new ArrayList<>();
@@ -62,6 +65,22 @@ public class NetworkModel {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
             }
+        });
+    }
+
+    public void getDeleteRecent(final OnNetworkResultListener<recentList> listener,
+                                String userId, String businessId, String StampDate, String StampNum){
+        RequestParams params = new RequestParams();
+        params.put("USERID", userId);
+        params.put("BUSINESSID", businessId);
+        params.put("STAMPDATE", StampDate);
+        params.put("STAMPNUM", StampNum);
+
+        client.get(SERVER_URL + "/deleteRecentStamp.do", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {  }
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {   }
         });
     }
 }
