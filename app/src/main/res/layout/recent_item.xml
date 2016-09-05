@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/recentitembg">
+    android:background="#ff607c">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="1"
+        android:text="10"
         android:id="@+id/recentSeq"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:layout_gravity="center_vertical"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_marginLeft="15dp"
-        android:layout_weight="1" />
+        android:layout_weight="2"
+        android:minWidth="20dp"
+        android:maxWidth="20dp"
+        android:textAlignment="center" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="54dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="홍길동"
         android:id="@+id/recentName"
         android:textColor="#FFF"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_marginLeft="15dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="3"
         android:singleLine="false"
         android:maxWidth="54dp"
         android:minLines="1"
-        android:minWidth="54dp" />
+        android:minWidth="54dp"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,7 +47,7 @@
         android:textColor="#FFF"
         android:textStyle="bold"
         android:layout_gravity="center_vertical"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_marginLeft="17dp"
         android:typeface="normal"
         android:layout_weight="10" />
@@ -58,7 +62,7 @@
         android:textStyle="bold"
         android:layout_gravity="center_vertical"
         android:typeface="sans"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_marginLeft="15dp"
         android:layout_weight="3" />
 
@@ -66,7 +70,7 @@
         android:layout_width="50dp"
         android:layout_height="31dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textView"
+        android:id="@+id/recentCancel"
         android:layout_gravity="center_vertical"
         android:background="@drawable/recentcancelbtn"
         android:layout_marginLeft="15dp"

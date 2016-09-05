@@ -5,42 +5,29 @@ package com.app.ttowang.ttowang.ModeChange.Recent;
  */
 
 public class recent {
-    String businessId,userId,seq;
+    String seq,userName,stampDate,userId,couponUsing,stampNum,stampTime;
 
-    recent(String seq, String businessId, String userId) {
+    recent(String seq, String userName, String stampDate,String stampTime) {
         this.seq = seq;
-        this.businessId = businessId;
-        this.userId = userId;
+        this.userName = userName;
+        this.stampDate = stampDate;
+        this.stampTime = stampTime;
     }
 
-    public String getBusinessId() {return businessId;}
+    public String getSeq() {
+        return seq;
+    }
+
+    public String getUserName() {return userName;}
+
+    public String getStampDate() {return stampDate;}
 
     public String getUserId() {return userId;}
 
-    public String getSeq() {
-        return seq;
+    public String getCouponUsing() {return couponUsing;}
+
+    public String getStampNum() {return stampNum;}
+
+    public String getStampTime() {return stampTime;
     }
-
-
-
-    /*
-    String seq,userName,stampDate,stampTime;
-
-    public String getSeq() {
-        return seq;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getStampDate() {
-        return stampDate;
-    }
-
-    public String getStampTime() {
-        return stampTime;
-    }
-    */
-
 }
