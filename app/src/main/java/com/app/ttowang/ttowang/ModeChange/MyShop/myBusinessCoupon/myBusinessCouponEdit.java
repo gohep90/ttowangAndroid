@@ -135,7 +135,7 @@ public class myBusinessCouponEdit extends Activity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponUpdate.do");
+                url=new URL("http://" + ip + ":8080/ttowang/couponUpdate.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

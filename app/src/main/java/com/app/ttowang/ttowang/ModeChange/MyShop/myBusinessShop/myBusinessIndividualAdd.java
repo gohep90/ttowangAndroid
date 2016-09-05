@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,14 +51,20 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
             businessBenefit,
             businessGroup;
 
-    String userId;
+    int userId;
+
+    String ip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessstoreadd);
         mContext = this;
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        userId = i.getExtras().getInt("userId");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
 
         businessNameEdittext = (EditText)findViewById(R.id.businessName);

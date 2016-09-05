@@ -71,7 +71,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static String state = "first";
 
-    static String userId = MainActivity.user;
+    static int userId;
     /*
     static List photoName = new ArrayList();     //즐겨찾기 매장 사진
     static List businessId = new ArrayList();     //즐겨찾기 매장 Id
@@ -101,6 +101,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
 
@@ -328,7 +329,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID",userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             encodedString = encodeString(prop);
 
@@ -730,7 +731,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID",userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             encodedString = encodeString(prop);
 

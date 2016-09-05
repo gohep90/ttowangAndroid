@@ -58,6 +58,9 @@ public class myBusinessCouponAdapter extends BaseAdapter {
         final int pos = position;
         final Context context = parent.getContext();
 
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -193,8 +196,6 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
             Properties prop = new Properties();
 
-
-
             prop.setProperty("businessId",businessId);
             prop.setProperty("couponCode",couponCode);
             Log.i("couponDel - ",businessId + " " + couponCode);
@@ -202,7 +203,7 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
             try{
 
-                url = new URL("http://" + MainActivity.ip + ":8080/ttowang/couponDelete.do");
+                url = new URL("http://" + ip + ":8080/ttowang/couponDelete.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

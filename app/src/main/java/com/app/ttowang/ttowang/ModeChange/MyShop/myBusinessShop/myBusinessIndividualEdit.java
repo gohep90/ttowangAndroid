@@ -49,7 +49,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
             businessBenefit,
             businessGroup;
 
-    String userId;
+    int userId;
     int nowposition;
     String ip;
 
@@ -60,10 +60,11 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         mContext = this;
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        //userId = i.getExtras().getString("userId");
         businessId = i.getExtras().getString("businessId");
         nowposition = i.getExtras().getInt("position");
 
@@ -184,7 +185,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
             prop.setProperty("businessGroup", String.valueOf(businessGroup.getText()));
 */
             prop.setProperty("businessId", businessId);
-            prop.setProperty("userId", userId);
+            prop.setProperty("userId", String.valueOf(userId));
             prop.setProperty("businessLicense", "");
             prop.setProperty("businessName", businessName);
             prop.setProperty("businessTel", businessTel);
@@ -259,7 +260,7 @@ public class myBusinessIndividualEdit extends AppCompatActivity {
                 myBusinessShopAdapter.listViewItemList.set(nowposition, item);
                 myBusinessShop.adapter.notifyDataSetChanged();
                 Log.i("매장 어댑터 ","새로 고친다");
-                stamp.spinnerRefresh();
+                //stamp.spinnerRefresh();
             }else{
                 Toast.makeText(myBusinessIndividualEdit.mContext,"수정 실패", Toast.LENGTH_SHORT).show();
             }

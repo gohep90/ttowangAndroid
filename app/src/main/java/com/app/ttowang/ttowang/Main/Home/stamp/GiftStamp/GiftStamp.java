@@ -40,7 +40,7 @@ public class GiftStamp extends Activity {
     String ip;
 
     String businessId ="";
-    static String userId = MainActivity.user;
+    static int userId;
 
     EditText stampnumber,telnumber;
     Button btn_send;
@@ -53,6 +53,7 @@ public class GiftStamp extends Activity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
@@ -107,7 +108,7 @@ public class GiftStamp extends Activity {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("userId", userId);
+            prop.setProperty("userId",  String.valueOf(userId));
             prop.setProperty("businessId", businessId);
             prop.setProperty("userTel", String.valueOf(telnumber.getText()));
             prop.setProperty("stampNumber", String.valueOf(stampnumber.getText()));

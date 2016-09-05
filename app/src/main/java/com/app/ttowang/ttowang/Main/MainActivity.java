@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,8 +24,21 @@ import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
     //final DBHelper dbHelper = new DBHelper(getActivi(), "alarm.db", null, 1);
@@ -47,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     public static PagerAdapter pagerAdapter;
     TabLayout tabLayout;
 
+    int userId;
+    String userTel;
+    String encodedString="", result="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //startActivity(new Intent(this,Loading.class));  //로딩화면
@@ -54,12 +72,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        //sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
-        //ip = sharedPreferences.getString("ip", "");
+        sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userTel = sharedPreferences.getString("userTel", "");
+        userId = sharedPreferences.getInt("userId", 0);
+
+        //방금 회원가입한 사람 userId 가져오기
+        if (userId == 0) {
+            Toast.makeText(getApplicationContext(), "userId X", Toast.LENGTH_SHORT).show();
+            CheckAsyncTaskCall();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "userId O", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
+        }
 
         mContext = this;
-
-        //sharedPreferences = getSharedPreferences("setting",MODE_PRIVATE);
         Edit = sharedPreferences.edit();
 
         if(sharedPreferences.getInt("openNumber",0) == 0){  //처음 열었으면
@@ -84,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {        //현재 뷰페이저 번호 가져오기
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
             @Override
             public void onPageSelected(int position) {
 
@@ -122,11 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
-
 
     private void initViewPagerAndTabs() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -199,6 +222,112 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // 방금 회원가입한 사람 userId 가져오기
+    public void CheckAsyncTaskCall(){
+        new CheckAsyncTask().execute();
+    }
+
+    public class CheckAsyncTask extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection = null;
+            URL url = null;
+            DataOutputStream out = null;
+            BufferedInputStream buf = null;
+            BufferedReader bufreader = null;
+
+            Properties prop = new Properties();
+            prop.setProperty("userTel", userTel);
+
+            encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/checkUser.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line = null;
+                String result = "";
+
+                while((line=bufreader.readLine()) != null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            checkList(result);
+        }
+    }
+
+    private void checkList(String recv) {
+
+        Log.i("서버에서 받은 전체 내용 : ", recv);
+
+        try{
+            JSONObject json=new JSONObject(recv);
+            JSONArray jArr =json.getJSONArray("checkUser");
+
+            json = jArr.getJSONObject(0);
+            userId = json.getInt("userId");
+
+            SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);   //쉐어드 객체 얻기
+            SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
+            sharedPreferencesEditor.putInt("userId", userId);
+            sharedPreferencesEditor.commit();
+
+            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
 
     public void onBackPressed(){
         AlertDialog.Builder alert_confirm = new AlertDialog.Builder(MainActivity.this);

@@ -163,7 +163,7 @@ public class myBusinessCouponAdd extends Activity {
 
             if(!result.equals("")){
                 //myBusinessCoupon.adapter.addItem( couponName, stampNeed,businessId,couponCode) ;
-                myBusinessCoupon.CouponRefresh();
+                //myBusinessCoupon.CouponRefresh();
                 //myBusinessCoupon.adapter.notifyDataSetChanged();
                 Log.i("coupon 어댑터 ","새로 고친다");
             }else {

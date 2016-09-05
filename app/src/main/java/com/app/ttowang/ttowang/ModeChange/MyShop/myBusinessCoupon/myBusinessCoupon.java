@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -40,7 +41,8 @@ public class myBusinessCoupon extends AppCompatActivity {
     String businessId="" ;
     static myBusinessCouponAdapter adapter;
 
-    static String userId = MainActivity.user;
+    int userId;
+    String ip;
     ArrayList<String> spinnerKeys = new ArrayList<String>();
     ArrayList<String> spinnerValues = new ArrayList<String>();
     KeyValueArrayAdapter spn_adapter;
@@ -55,6 +57,10 @@ public class myBusinessCoupon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinesscoupon_main);
         mContext = this;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         spinner = (Spinner)findViewById(R.id.spinner);
 
@@ -157,12 +163,12 @@ public class myBusinessCoupon extends AppCompatActivity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

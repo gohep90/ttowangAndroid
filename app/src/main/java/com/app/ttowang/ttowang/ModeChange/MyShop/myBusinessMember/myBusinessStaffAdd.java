@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -56,7 +57,8 @@ public class myBusinessStaffAdd extends AppCompatActivity {
     Button btn_addstamp; //적립하기버튼
     TextView text_telvalue; //번호입력하는부분
 
-    String userId;
+    String ip;
+    int userId;
     String businessId ="";
     Button businessphoto1;
 
@@ -72,7 +74,10 @@ public class myBusinessStaffAdd extends AppCompatActivity {
         setContentView(R.layout.mybusinessstaffadd);
         mContext = this;
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        userId = i.getExtras().getInt("userId");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         Toast.makeText(myBusinessStaffAdd.this, "유저아이디 : " + userId, Toast.LENGTH_SHORT).show();
 
@@ -309,7 +314,7 @@ public class myBusinessStaffAdd extends AppCompatActivity {
 
             try{
                 //url=new URL("http://192.168.0.2:8181/ttowang/businessAdd.do");
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/staffAdd.do");
+                url=new URL("http://" + ip + ":8080/ttowang/staffAdd.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

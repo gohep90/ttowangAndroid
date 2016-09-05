@@ -30,7 +30,6 @@ public class ChangeModeMain extends AppCompatActivity {
     public static int first = 0;
     public static String businessId = "2";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeRed);
@@ -38,9 +37,7 @@ public class ChangeModeMain extends AppCompatActivity {
         setContentView(R.layout.modechangemain);
         mContext = this;
         initViewPagerAndTabs();
-//
     }
-
 
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);

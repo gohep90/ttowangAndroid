@@ -1,5 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange.Stamp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,10 +49,12 @@ public class stamp extends Fragment {
     TextView text_stampnum; //스템프갯수입력하는부분
 
     String encodedString;
-    String ip= MainActivity.ip;
     String businessId ="";
-    String userId = MainActivity.user;
+    String ip;
+    int userId;
     int focus = 1; //첫 포커스를 번호창으로 줌
+
+    Context mContext;
 
     Spinner spinner;
     KeyValueArrayAdapter spn_adapter;
@@ -77,7 +81,6 @@ public class stamp extends Fragment {
         spn_adapter.setDropDownViewResource(R.layout.spinner_item);
 
         businessListAsyncTaskCall();
-
 
         //스피너 선택 리스너
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -107,10 +110,13 @@ public class stamp extends Fragment {
         });
         */
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
+        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
         btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
-        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
 
         btn_0 = (Button) view.findViewById(R.id.btn_0);
         btn_1 = (Button) view.findViewById(R.id.btn_1);
@@ -402,7 +408,7 @@ public class stamp extends Fragment {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 

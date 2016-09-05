@@ -55,7 +55,6 @@ public class businessMain extends Fragment {
 
     String encodedString="";
     //String ip= MainActivity.ip;
-    SharedPreferences sharedPreferences;
     String ip;
 
 

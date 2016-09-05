@@ -35,12 +35,11 @@ import java.util.Properties;
  */
 public class myBusinessShopSelectType extends Activity {
 
-    String ip;
     RelativeLayout ChangeCouponRelative;
 
     Button store,individual;
 
-    String userId;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +48,12 @@ public class myBusinessShopSelectType extends Activity {
         setContentView(R.layout.mybusinessshop_selecttype);
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
-        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         store = (Button)findViewById(R.id.store);
         individual = (Button)findViewById(R.id.individual);
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        //userId = i.getExtras().getString("userId");
 
         store.setOnClickListener(new View.OnClickListener() {
             @Override

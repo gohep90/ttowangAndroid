@@ -2,7 +2,9 @@ package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +37,9 @@ import java.util.Properties;
 public class ChangeCouponAdapter extends BaseAdapter {
 
     String couponName, businessId, couponCode,stampNeed;
-    String ip= MainActivity.ip;
-    static String userId = MainActivity.user;
+    String ip;
+    int userId;
+    //static String userId = MainActivity.user;
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<ChangeCouponItem> listViewItemList = new ArrayList<ChangeCouponItem>() ;
@@ -55,8 +58,13 @@ public class ChangeCouponAdapter extends BaseAdapter {
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         final int pos = position;
         final Context context = parent.getContext();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -146,7 +154,6 @@ public class ChangeCouponAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
-
     //스탬프 쿠폰전환
     public void changeAsyncTaskCall(){
         new changeAsyncTask().execute();
@@ -183,13 +190,15 @@ public class ChangeCouponAdapter extends BaseAdapter {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("userId", userId);
+            prop.setProperty("userId", String.valueOf(userId));
             prop.setProperty("businessId", businessId);
             prop.setProperty("couponName", couponName);
             prop.setProperty("couponCode", couponCode);
             prop.setProperty("stampNeed", stampNeed);
 
             String encodedString = encodeString(prop);
+
+
 
             try{
                 url=new URL("http://" + ip + ":8080/ttowang/stampToCoupon.do");
@@ -213,7 +222,7 @@ public class ChangeCouponAdapter extends BaseAdapter {
                 String line=null;
                 String result="";
 
-                while((line=bufreader.readLine())!=null){
+                while((line=bufreader.readLine()) != null){
                     result += line;
                 }
 

@@ -44,7 +44,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
     private RelativeLayout viewlayout;
 
     //String ip= MainActivity.ip;
-    static String userId = MainActivity.user;
+    static int userId;
     String businessId="";
 
 
@@ -77,6 +77,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
     }
 
     @Override
@@ -221,7 +222,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
             Properties prop = new Properties();
             prop.setProperty("BUSINESSID", businessId);
-            prop.setProperty("USERID", userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 

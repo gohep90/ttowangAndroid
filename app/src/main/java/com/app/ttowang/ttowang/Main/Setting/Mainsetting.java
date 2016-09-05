@@ -43,11 +43,9 @@ public class Mainsetting extends Fragment {
     TextView emailclick, callclick, facebookclick;
     ViewGroup myInfoclick, logoutclick, notice,alarm_switch;
     TextView alarm_switch_on, alarm_switch_off;
-
     TextView myName, myTel, myEmail;
 
     String userTel, userName, userBirth, userGender, userEmail;
-    int userCode = 0;
     int onSwitch=0;//재훈
     String ip = "";
 /*
@@ -78,7 +76,6 @@ public class Mainsetting extends Fragment {
         alarm_switch_on = (TextView)view.findViewById(R.id.alarm_switch_on);
         alarm_switch_off = (TextView)view.findViewById(R.id.alarm_switch_off);
 
-
         myName = (TextView)view.findViewById(R.id.myName);//xml에서 TextView id가져와
         myTel = (TextView)view.findViewById(R.id.myTel);//xml에서 TextView id가져와
         myEmail = (TextView)view.findViewById(R.id.myEmail);//xml에서 TextView id가져와
@@ -90,11 +87,11 @@ public class Mainsetting extends Fragment {
         userName=sharedPreferences.getString("userName", "");
         userBirth=sharedPreferences.getString("userBirth", "");
         userGender=sharedPreferences.getString("userGender", "");
-        userEmail=sharedPreferences.getString("userEmail", "");
+        //userEmail=sharedPreferences.getString("userEmail", "");
 
         myTel.setText(userTel);
         myName.setText(userName);
-        myEmail.setText(userEmail);
+        //myEmail.setText(userEmail);
 
         /*
         if(sharedPreferences.getString("name", "").equals("")) {//저장된게 없으면 실행하고 저장된게 있으면 하지마 근데 이거 없어도 됨 뭐지?
@@ -119,7 +116,7 @@ public class Mainsetting extends Fragment {
             alarm_switch_on.setTextColor(Color.parseColor("#000000"));
             alarm_switch_off.setTextColor(Color.parseColor("#ff005c"));
         }
-//재훈
+        //재훈
         alarm_switch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(onSwitch==0){//on이라면 off로
@@ -136,7 +133,7 @@ public class Mainsetting extends Fragment {
                 }
             }
         });
-//재훈
+        //재훈
 
         modeChange.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -156,7 +153,6 @@ public class Mainsetting extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), myInfoEdit.class);
                 startActivity(intent);
-
             }
         });
 
@@ -166,17 +162,16 @@ public class Mainsetting extends Fragment {
 
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);   //쉐어드 객체 얻기
                 SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
+                sharedPreferencesEditor.putString("userId", "");
                 sharedPreferencesEditor.putString("userTel", "");
                 sharedPreferencesEditor.putString("userName", "");
                 sharedPreferencesEditor.putString("userBirth", "");
                 sharedPreferencesEditor.putString("userGender", "");
-                sharedPreferencesEditor.putInt("userCode", 0);
-                sharedPreferencesEditor.putString("userEmail", "");
+                //sharedPreferencesEditor.putString("userEmail", "");
                 sharedPreferencesEditor.commit();
 
                 Intent i = new Intent(getActivity().getApplicationContext(), Tel.class);
                 startActivity(i);
-
                 getActivity().finish();
             }
         });
@@ -211,6 +206,4 @@ public class Mainsetting extends Fragment {
 
         return view;
     }
-
-
 }
