@@ -79,12 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //방금 회원가입한 사람 userId 가져오기
         if (userId == 0) {
-            Toast.makeText(getApplicationContext(), "userId X", Toast.LENGTH_SHORT).show();
             CheckAsyncTaskCall();
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "userId O", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
         }
 
         mContext = this;
@@ -155,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment(home.createInstance(0), "홈");
+        pagerAdapter.addFragment(home.createInstance(0), "단골매장");
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
         pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
         pagerAdapter.addFragment(Mainsetting.createInstance(3), "설정");
@@ -321,8 +316,6 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
             sharedPreferencesEditor.putInt("userId", userId);
             sharedPreferencesEditor.commit();
-
-            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
 
         }catch(JSONException e){
             e.printStackTrace();
