@@ -79,12 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //방금 회원가입한 사람 userId 가져오기
         if (userId == 0) {
-            Toast.makeText(getApplicationContext(), "userId X", Toast.LENGTH_SHORT).show();
             CheckAsyncTaskCall();
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "userId O", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
         }
 
         mContext = this;
@@ -321,8 +316,6 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
             sharedPreferencesEditor.putInt("userId", userId);
             sharedPreferencesEditor.commit();
-
-            Toast.makeText(getApplicationContext(), "userId : " + userId, Toast.LENGTH_SHORT).show();
 
         }catch(JSONException e){
             e.printStackTrace();

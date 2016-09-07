@@ -1,6 +1,6 @@
 package com.app.ttowang.ttowang.Main.Login;
 
-        import android.content.DialogInterface;
+import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.os.AsyncTask;
@@ -77,6 +77,8 @@ public class Tel extends AppCompatActivity {
         edt_confirm = (EditText)findViewById(R.id.edt_confirm);
         btn_send = (Button)findViewById(R.id.btn_send);
         btn_confirm = (Button)findViewById(R.id.btn_confirm);
+
+        edt_confirm.setText("1");
 
         buttonClickListener();
     }
@@ -209,19 +211,17 @@ public class Tel extends AppCompatActivity {
 
             // 정회원이거나 준회원일때
             if(jArr != null && jArr.length() > 0) {
-
                 json = jArr.getJSONObject(0);
                 userCode = json.getInt("userCode"); //정회원과 준회원 구분
-                userId = json.getInt("userId");
 
                 // 정회원일때
                 if(userCode == 1) {
+                    Toast.makeText(getApplicationContext(), "정회원입니다.", Toast.LENGTH_SHORT).show();
+
+                    userId = json.getInt("userId");
                     userName = json.getString("userName");
                     userBirth = json.getString("userBirth");
                     userGender = json.getString("userGender");
-                    //userEmail = json.getString("userEmail");
-
-                    Toast.makeText(getApplicationContext(), "정회원입니다.", Toast.LENGTH_SHORT).show();
 
                     // 자동 로그인
                     SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);   //쉐어드 객체 얻기
@@ -231,32 +231,41 @@ public class Tel extends AppCompatActivity {
                     sharedPreferencesEditor.putString("userName", userName);
                     sharedPreferencesEditor.putString("userBirth", userBirth);
                     sharedPreferencesEditor.putString("userGender", userGender);
-                    //sharedPreferencesEditor.putString("userEmail", userEmail);
+                    if(json.length() == 7) { //이메일이 NULL이 아닐 때
+                        userEmail = json.getString("userEmail");
+                        sharedPreferencesEditor.putString("userEmail", userEmail);
+                    }
                     sharedPreferencesEditor.commit();
 
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
                     finish();
+
                 }
 
                 // 준회원일때
                 else {
                     Toast.makeText(getApplicationContext(), "준회원입니다.", Toast.LENGTH_SHORT).show();
+
                     Intent i = new Intent(getApplicationContext(), Login.class);
                     i.putExtra("userTel", edt_tel.getText().toString());
                     startActivity(i);
                     finish();
+
                 }
             }
 
             // 회원이 아닐때
             else {
                 Toast.makeText(getApplicationContext(), "회원이 아닙니다.", Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 i.putExtra("userTel", edt_tel.getText().toString());
                 startActivity(i);
                 finish();
+
             }
+
         }catch(JSONException e){
             e.printStackTrace();
         }

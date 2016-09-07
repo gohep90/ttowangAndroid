@@ -87,11 +87,11 @@ public class Mainsetting extends Fragment {
         userName=sharedPreferences.getString("userName", "");
         userBirth=sharedPreferences.getString("userBirth", "");
         userGender=sharedPreferences.getString("userGender", "");
-        //userEmail=sharedPreferences.getString("userEmail", "");
+        userEmail=sharedPreferences.getString("userEmail", "");
 
         myTel.setText(userTel);
         myName.setText(userName);
-        //myEmail.setText(userEmail);
+        myEmail.setText(userEmail);
 
         /*
         if(sharedPreferences.getString("name", "").equals("")) {//저장된게 없으면 실행하고 저장된게 있으면 하지마 근데 이거 없어도 됨 뭐지?
@@ -167,7 +167,7 @@ public class Mainsetting extends Fragment {
                 sharedPreferencesEditor.putString("userName", "");
                 sharedPreferencesEditor.putString("userBirth", "");
                 sharedPreferencesEditor.putString("userGender", "");
-                //sharedPreferencesEditor.putString("userEmail", "");
+                sharedPreferencesEditor.putString("userEmail", "");
                 sharedPreferencesEditor.commit();
 
                 Intent i = new Intent(getActivity().getApplicationContext(), Tel.class);

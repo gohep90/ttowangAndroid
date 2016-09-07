@@ -72,11 +72,11 @@ public class Modesetting extends Fragment {
         userName=sharedPreferences.getString("userName", "");
         userBirth=sharedPreferences.getString("userBirth", "");
         userGender=sharedPreferences.getString("userGender", "");
-        //userEmail=sharedPreferences.getString("userEmail", "");
+        userEmail=sharedPreferences.getString("userEmail", "");
 
         myTel.setText(userTel);
         myName.setText(userName);
-        //myEmail.setText(userEmail);
+        myEmail.setText(userEmail);
 
         if(onSwitch == 0) {//off라면 on으로
             alarm_switch_on.setTextColor(Color.parseColor("#ff005c"));
@@ -135,7 +135,7 @@ public class Modesetting extends Fragment {
                 sharedPreferencesEditor.putString("userName", "");
                 sharedPreferencesEditor.putString("userBirth", "");
                 sharedPreferencesEditor.putString("userGender", "");
-                //sharedPreferencesEditor.putString("userEmail", "");
+                sharedPreferencesEditor.putString("userEmail", "");
                 sharedPreferencesEditor.commit();
 
                 Intent i = new Intent(getActivity().getApplicationContext(), Tel.class);

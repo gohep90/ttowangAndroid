@@ -102,6 +102,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
                     else {
+
                         LoginAsyncTaskCall();
 
                         Toast.makeText(getApplicationContext(), "회원가입", Toast.LENGTH_SHORT).show();
@@ -116,7 +117,8 @@ public class Login extends AppCompatActivity {
                         sharedPreferencesEditor.putString("userName", edt_name.getText().toString());
                         sharedPreferencesEditor.putString("userBirth", edt_birth.getText().toString());
                         sharedPreferencesEditor.putString("userGender", userGender);
-                        //sharedPreferencesEditor.putString("userEmail", edt_email.getText().toString());
+                        if(edt_email.getText().toString() != null || edt_email.getText().toString().length() > 0)
+                            sharedPreferencesEditor.putString("userEmail", edt_email.getText().toString());
                         sharedPreferencesEditor.commit();
                         finish();
                     }
@@ -167,7 +169,10 @@ public class Login extends AppCompatActivity {
             prop.setProperty("userName", edt_name.getText().toString());
             prop.setProperty("userBirth", edt_birth.getText().toString());
             prop.setProperty("userGender", userGender);
-            prop.setProperty("userEmail", edt_email.getText().toString());
+
+            if(edt_email.getText().toString() == null || edt_email.getText().toString().length() == 0) {
+            } else
+                prop.setProperty("userEmail", edt_email.getText().toString());
 
             encodedString = encodeString(prop);
 
