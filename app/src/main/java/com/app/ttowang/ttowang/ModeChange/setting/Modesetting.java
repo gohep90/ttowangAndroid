@@ -54,9 +54,9 @@ public class Modesetting extends Fragment {
         myInfoclick=(ViewGroup) view.findViewById(R.id.myInfo);
         logoutclick=(ViewGroup) view.findViewById(R.id.logout);
         notice=(ViewGroup) view.findViewById(R.id.notice);
-        emailclick=(TextView) view.findViewById(R.id.emailclick);
-        callclick=(TextView) view.findViewById(R.id.callclick);
-        facebookclick=(TextView) view. findViewById(R.id.facebookclick);
+        //emailclick=(TextView) view.findViewById(R.id.emailclick);
+        //callclick=(TextView) view.findViewById(R.id.callclick);
+        //facebookclick=(TextView) view. findViewById(R.id.facebookclick);
         alarm_switch=(ViewGroup) view.findViewById(R.id.alarm_switch);//재훈
         alarm_switch_on = (TextView)view.findViewById(R.id.alarm_switch_on);
         alarm_switch_off = (TextView)view.findViewById(R.id.alarm_switch_off);
@@ -152,24 +152,6 @@ public class Modesetting extends Fragment {
             }
         });
 
-        emailclick.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Toast.makeText(getActivity(), userEmail, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        callclick.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + userTel));//액션 수행할 때도 Intent 사용
-                startActivity(intent);
-            }
-        });
-
-        facebookclick.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Toast.makeText(getActivity(), "페이스북", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return view;
     }

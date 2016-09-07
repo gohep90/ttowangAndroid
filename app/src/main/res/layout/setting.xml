@@ -44,13 +44,12 @@
                         android:layout_width="0dp"
                         android:layout_weight="3"
                         android:layout_height="match_parent"
-                        android:text="NOTICE"
+                        android:text="공지사항"
                         android:gravity="left|center"
                         android:textSize="20dp"
                         android:textColor="#ff005c"
                         android:background="#ffffff"
-                        android:textStyle="bold"
-                        android:layout_marginRight="15dp"/>
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="6"
@@ -91,21 +90,18 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="4"
+                        android:layout_weight="3"
                         android:layout_height="match_parent"
-                        android:text="PUSH ALARM"
+                        android:text="푸쉬알람"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:textColor="#000000"
                         android:gravity="left|center" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"/>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
+                        android:layout_weight="6"
                         android:id="@+id/alarm_switch">
 
                         <TextView
@@ -140,10 +136,6 @@
                             android:gravity="center" />
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -187,7 +179,7 @@
                             android:layout_weight="9"
                             android:background="#ffffff"
                             android:layout_height="match_parent"
-                            android:text="MY INFO"
+                            android:text="내 정보"
                             android:textSize="20dp"
                             android:textStyle="bold"
                             android:textColor="#000000"
@@ -199,7 +191,7 @@
                         android:background="#ffffff"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="105dp"
                         >
                         <LinearLayout
                             android:layout_width="0dp"
@@ -217,9 +209,10 @@
                                 android:scaleType="fitStart"
                                 android:layout_width="100dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ya"
-                                android:layout_gravity="left"
-                                android:foregroundGravity="left" />
+                                android:src="@drawable/man"
+
+                                android:layout_gravity="left|center"
+                                android:foregroundGravity="left|center" />
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -298,7 +291,7 @@
                         android:layout_weight="9"
                         android:background="#ffffff"
                         android:layout_height="match_parent"
-                        android:text="APP INFO"
+                        android:text="앱 정보"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:textColor="#000000"
@@ -362,7 +355,7 @@
                         android:layout_weight="9"
                         android:background="#ffffff"
                         android:textColor="#000000"
-                        android:text="LOGOUT"
+                        android:text="로그아웃"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:gravity="left|center"/>
@@ -373,102 +366,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#ff375f"/>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:background="#ffffff">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-
-
-                    android:background="#ffffff"
-                    >
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="10dp"
-                        android:scaleType="centerInside"
-                        android:layout_gravity="center"
-                        android:src="@drawable/seto"
-                        android:foregroundGravity="left|center" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:background="#ffffff"
-                        android:layout_height="match_parent"
-                        android:text="CONTACT US"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:gravity="left|center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="#ffffff"
-                    >
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-
-                        android:layout_marginRight="10dp"
-                        />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="9"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:id="@+id/emailclick"
-                            android:background="#ffffff"
-                            android:textSize="20dp"
-                            android:textColor="#ff005c"
-                            android:text="EMAIL"
-                            />
-
-                        <TextView
-                            android:id="@+id/callclick"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="#ffffff"
-                            android:textSize="20dp"
-                            android:textColor="#ff005c"
-                            android:text="CALL"
-                            />
-
-                        <TextView
-                            android:id="@+id/facebookclick"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
-                            android:background="#ffffff"
-                            android:textSize="20dp"
-                            android:textColor="#ff005c"
-                            android:text="FACEBOOK" />
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#ff375f"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -498,7 +396,7 @@
                         android:layout_weight="9"
                         android:layout_height="match_parent"
                         android:id="@+id/modeChange"
-                        android:text="MODE CHANGE"
+                        android:text="모드변경"
                         android:gravity="left|center"
                         android:background="#ffffff"
                         android:textSize="20dp"

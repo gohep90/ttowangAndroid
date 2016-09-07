@@ -43,10 +43,10 @@ public class ChangeModeMain extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment(stamp.createInstance(0), "Stamp");
-        pagerAdapter.addFragment(myshop.createInstance(1), "MY SHOP");
-        pagerAdapter.addFragment(recentActivity.createInstance(2), "RECENT");
-        pagerAdapter.addFragment(Modesetting.createInstance(3), "SETTING");
+        pagerAdapter.addFragment(stamp.createInstance(0), "적립");
+        pagerAdapter.addFragment(myshop.createInstance(1), "내 매장");
+        pagerAdapter.addFragment(recentActivity.createInstance(2), "적립목록");
+        pagerAdapter.addFragment(Modesetting.createInstance(3), "설정");
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

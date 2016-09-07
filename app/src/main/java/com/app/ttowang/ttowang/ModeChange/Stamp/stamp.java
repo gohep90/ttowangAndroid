@@ -112,7 +112,8 @@ public class stamp extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
-        userId = sharedPreferences.getInt("userId", 0);
+        //userId = sharedPreferences.getInt("userId", 0);
+        userId = Integer.parseInt(MainActivity.user);
 
         text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);

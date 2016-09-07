@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     //public static String ip = "192.168.21.208"; //장지은 아이피
 
-    public static String user ="2";
+    public static String user ="5";
 
     public static ViewPager viewPager;
     public static PagerAdapter pagerAdapter;
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragment(home.createInstance(0), "홈");
+        pagerAdapter.addFragment(home.createInstance(0), "단골매장");
         pagerAdapter.addFragment(businessMain.createInstance(1), "전체매장");
         pagerAdapter.addFragment(eventMain.createInstance(2), "이벤트");
         pagerAdapter.addFragment(Mainsetting.createInstance(3), "설정");
