@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by jangjieun on 2016. 8. 19..
  */
 public class recentList {
-    static ArrayList<com.app.ttowang.ttowang.ModeChange.Recent.recent> stampList;
+    public static ArrayList<com.app.ttowang.ttowang.ModeChange.Recent.recent> stampList;
 
     public void setStampList(ArrayList<recent> stampList) {
         this.stampList = stampList;
