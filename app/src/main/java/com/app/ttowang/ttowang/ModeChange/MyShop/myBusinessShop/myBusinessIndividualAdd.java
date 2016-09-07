@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -51,14 +51,20 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
             businessBenefit,
             businessGroup;
 
-    String userId;
+    int userId;
+
+    String ip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mybusinessindividualdd);
+        setContentView(R.layout.mybusinessstoreadd);
         mContext = this;
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        userId = i.getExtras().getInt("userId");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
 
         businessNameEdittext = (EditText)findViewById(R.id.businessName);
@@ -225,7 +231,7 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
                 JSONArray jArr =json.getJSONArray("List");
                 json = jArr.getJSONObject(0);
                 Log.i("서버에서 받은 비즈니스 아이디 : ", json.getString("businessId"));
-/*
+
                 myBusinessShop.adapter.addItem(
                         "2",
                         json.getString("businessId"),
@@ -240,9 +246,7 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
                         businessGroup
                 );
                 myBusinessShop.adapter.notifyDataSetChanged();
-                */
-                myBusinessShop.myBusinessRefresh();
-                //stamp.spinnerRefresh();
+
             }catch(JSONException e){
                 e.printStackTrace();
             }

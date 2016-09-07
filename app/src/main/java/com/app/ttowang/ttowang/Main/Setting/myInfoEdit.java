@@ -119,20 +119,32 @@ public class myInfoEdit extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // 'yes'
-                                    MyInfoEditAsyncTaskCall();
+                                    if(change_edt_name.getText().toString() == null || change_edt_name.getText().toString().length() == 0)
+                                        Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
-                                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
-                                    SharedPreferences.Editor Edit= sharedPreferences.edit();
-                                    Edit.putString("userName", change_edt_name.getText().toString());
-                                    Edit.putString("userBirth", change_edt_birth.getText().toString());
-                                    Edit.putString("userEmail", change_edt_email.getText().toString());
-                                    Edit.putString("userGender", stringGender);
-                                    Edit.commit();
+                                    else if(change_edt_birth.getText().toString() == null || change_edt_birth.getText().toString().length() == 0)
+                                        Toast.makeText(getApplicationContext(), "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
+                                    else {
 
-                                    finish();
+                                        MyInfoEditAsyncTaskCall();
+
+                                        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);//쉐어드객체 다시 얻기
+                                        SharedPreferences.Editor Edit= sharedPreferences.edit();
+                                        Edit.putString("userName", change_edt_name.getText().toString());
+                                        Edit.putString("userBirth", change_edt_birth.getText().toString());
+                                        Edit.putString("userEmail", change_edt_email.getText().toString());
+                                        Edit.putString("userEmail", change_edt_email.getText().toString());
+                                        Edit.putString("userGender", stringGender);
+                                        Edit.commit();
+
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+
+                                        finish();
+                                    }
+
+
                                 }
                             }).setNegativeButton("취소",
                             new DialogInterface.OnClickListener() {
@@ -211,7 +223,9 @@ public class myInfoEdit extends AppCompatActivity {
             prop.setProperty("userName", change_edt_name.getText().toString());
             prop.setProperty("userBirth", change_edt_birth.getText().toString());
             prop.setProperty("userGender", stringGender);
-            prop.setProperty("userEmail", change_edt_email.getText().toString());
+            if(change_edt_email.getText().toString() == null || change_edt_email.getText().toString().length() == 0) {
+            } else
+                prop.setProperty("userEmail", change_edt_email.getText().toString());
 
             encodedString = encodeString(prop);
 
@@ -240,12 +254,6 @@ public class myInfoEdit extends AppCompatActivity {
                 while((line=bufreader.readLine()) != null){
                     result += line;
                 }
-
-                prop.setProperty("userTel", change_text_tel.getText().toString());
-                prop.setProperty("userName", change_edt_name.getText().toString());
-                prop.setProperty("userBirth", change_edt_birth.getText().toString());
-                prop.setProperty("userGender", stringGender);
-                prop.setProperty("userEmail", change_edt_email.getText().toString());
 
                 return result;
 

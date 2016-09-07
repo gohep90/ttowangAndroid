@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -28,17 +33,16 @@ import java.util.Properties;
 
 public class Login extends AppCompatActivity {
 
+    String encodedString="", result="";
+    String ip;
+
+    String userTel;
+    int userId;
+    String userGender="남"; //처음은 남자
+
     TextView text_tel;
     EditText edt_name, edt_birth, edt_email;
-    String tel;
-
     Button btn_m, btn_w, btn_join;
-
-    int gender = 0;//남0, 여1
-    String userGender;
-
-    String encodedString="";
-    String ip=MainActivity.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +50,20 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         Intent i = getIntent();
-        tel = i.getExtras().getString("tel");
-
-        text_tel = (TextView)findViewById(R.id.text_tel);
-        text_tel.setText(tel);
+        userTel = i.getExtras().getString("userTel");
 
         edt_name = (EditText)findViewById(R.id.edt_name);
         edt_birth = (EditText)findViewById(R.id.edt_birth);
         edt_email = (EditText)findViewById(R.id.edt_email);
-
         btn_m = (Button)findViewById(R.id.btn_m);
         btn_w = (Button)findViewById(R.id.btn_w);
         btn_join = (Button)findViewById(R.id.btn_join);
+
+        text_tel = (TextView)findViewById(R.id.text_tel);
+        text_tel.setText(userTel);
 
         buttonClickListener();
     }
@@ -79,7 +83,7 @@ public class Login extends AppCompatActivity {
                     btn_w.setBackgroundResource(R.drawable.btn_ngender);
                     btn_m.setTextColor(getResources().getColorStateList(R.color.m));
                     btn_w.setTextColor(getResources().getColorStateList(R.color.w));
-                    gender = 0;
+                    userGender="남";
                     break;
 
                 case R.id.btn_w:
@@ -87,7 +91,7 @@ public class Login extends AppCompatActivity {
                     btn_w.setBackgroundResource(R.drawable.btn_gender);
                     btn_m.setTextColor(getResources().getColorStateList(R.color.w));
                     btn_w.setTextColor(getResources().getColorStateList(R.color.m));
-                    gender = 1;
+                    userGender="여";
                     break;
 
                 case R.id.btn_join:
@@ -98,27 +102,24 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "생년월일을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
                     else {
-                        if(gender==0)
-                            userGender = "남";
-                        else
-                            userGender = "여";
+
+                        LoginAsyncTaskCall();
 
                         Toast.makeText(getApplicationContext(), "회원가입", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(i);
-                        LoginAsyncTaskCall();
 
                         // 자동로그인
                         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);   //쉐어드 객체 얻기
                         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
-                        sharedPreferencesEditor.putString("userTel", tel);
+                        sharedPreferencesEditor.putInt("userId", 0);
+                        sharedPreferencesEditor.putString("userTel", userTel);
                         sharedPreferencesEditor.putString("userName", edt_name.getText().toString());
                         sharedPreferencesEditor.putString("userBirth", edt_birth.getText().toString());
                         sharedPreferencesEditor.putString("userGender", userGender);
-                        sharedPreferencesEditor.putString("userEmail", edt_email.getText().toString());
-                        sharedPreferencesEditor.putInt("userCode", 1);
+                        if(edt_email.getText().toString() != null || edt_email.getText().toString().length() > 0)
+                            sharedPreferencesEditor.putString("userEmail", edt_email.getText().toString());
                         sharedPreferencesEditor.commit();
-
                         finish();
                     }
                     break;
@@ -137,7 +138,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {  // 통신을 위한 Thread
-            String result =recvList();
+            String result = recvList();
             return result;
         }
 
@@ -157,23 +158,26 @@ public class Login extends AppCompatActivity {
 
         private String recvList() { //데이터 보내기!!
 
-            HttpURLConnection urlConnection=null;
-            URL url =null;
-            DataOutputStream out=null;
-            BufferedInputStream buf=null;
-            BufferedReader bufreader=null;
+            HttpURLConnection urlConnection = null;
+            URL url = null;
+            DataOutputStream out = null;
+            BufferedInputStream buf = null;
+            BufferedReader bufreader = null;
 
             Properties prop = new Properties();
-            prop.setProperty("userTel", tel);
+            prop.setProperty("userTel", userTel);
             prop.setProperty("userName", edt_name.getText().toString());
             prop.setProperty("userBirth", edt_birth.getText().toString());
             prop.setProperty("userGender", userGender);
-            prop.setProperty("userEmail", edt_email.getText().toString());
+
+            if(edt_email.getText().toString() == null || edt_email.getText().toString().length() == 0) {
+            } else
+                prop.setProperty("userEmail", edt_email.getText().toString());
 
             encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/updateUser.do");
+                url=new URL("http://" + ip + ":8080/ttowang/insertUser.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -194,15 +198,9 @@ public class Login extends AppCompatActivity {
                 String line = null;
                 String result = "";
 
-                while((line=bufreader.readLine()) != null){
+                while((line = bufreader.readLine()) != null){
                     result += line;
                 }
-
-                prop.setProperty("userTel", tel);
-                prop.setProperty("userName", edt_name.getText().toString());
-                prop.setProperty("userBirth", edt_birth.getText().toString());
-                prop.setProperty("userGender", userGender);
-                prop.setProperty("userEmail", edt_email.getText().toString());
 
                 return result;
 

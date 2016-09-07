@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,7 @@ import java.util.Properties;
 public class myBusinessCouponEdit extends Activity {
 
 
-    String ip= MainActivity.ip;
+    String ip;
     RelativeLayout ChangeCouponRelative;
 
     Button CouponEdit;
@@ -52,6 +53,9 @@ public class myBusinessCouponEdit extends Activity {
         setContentView(R.layout.mybusinesscoupon_add);
         CouponEdit = (Button)findViewById(R.id.CouponAdd);
         CouponEdit.setText("쿠폰 수정");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         i = getIntent();
         couponNameEditText = (EditText)findViewById(R.id.couponNameEditText);
@@ -131,7 +135,7 @@ public class myBusinessCouponEdit extends Activity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponUpdate.do");
+                url=new URL("http://" + ip + ":8080/ttowang/couponUpdate.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

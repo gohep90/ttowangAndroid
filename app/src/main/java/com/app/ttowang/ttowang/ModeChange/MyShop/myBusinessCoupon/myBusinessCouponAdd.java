@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,7 @@ import java.util.Properties;
 public class myBusinessCouponAdd extends Activity {
 
     String businessId="";
-    String ip= MainActivity.ip;
+    String ip;
     RelativeLayout ChangeCouponRelative;
 
     Button CouponAdd;
@@ -49,6 +50,9 @@ public class myBusinessCouponAdd extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mybusinesscoupon_add);
         CouponAdd = (Button)findViewById(R.id.CouponAdd);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
@@ -159,7 +163,7 @@ public class myBusinessCouponAdd extends Activity {
 
             if(!result.equals("")){
                 //myBusinessCoupon.adapter.addItem( couponName, stampNeed,businessId,couponCode) ;
-                myBusinessCoupon.CouponRefresh();
+                //myBusinessCoupon.CouponRefresh();
                 //myBusinessCoupon.adapter.notifyDataSetChanged();
                 Log.i("coupon 어댑터 ","새로 고친다");
             }else {

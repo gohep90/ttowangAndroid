@@ -1,48 +1,48 @@
 package com.app.ttowang.ttowang.Main.Login;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.support.v7.app.AlertDialog;
+        import android.support.v7.app.AppCompatActivity;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Main.Loading.Loading;
-import com.app.ttowang.ttowang.Main.MainActivity;
-import com.app.ttowang.ttowang.R;
+        import com.app.ttowang.ttowang.Main.Loading.Loading;
+        import com.app.ttowang.ttowang.Main.MainActivity;
+        import com.app.ttowang.ttowang.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Enumeration;
-import java.util.Properties;
+        import java.io.BufferedInputStream;
+        import java.io.BufferedReader;
+        import java.io.DataOutputStream;
+        import java.io.InputStreamReader;
+        import java.net.HttpURLConnection;
+        import java.net.URL;
+        import java.net.URLEncoder;
+        import java.util.Enumeration;
+        import java.util.Properties;
 
 public class Tel extends AppCompatActivity {
 
+    String encodedString="", result="";
+    String ip;
+
+    int userId;
+    int userCode = 0; //일반사용자 = 1, 준회원 = 4
     String userTel, userName, userBirth, userGender, userEmail;
-    int userCode = 0;
 
     EditText edt_tel, edt_confirm;
     Button btn_send, btn_confirm;
-
-    String encodedString="";
-    String result="";
-    String ip=MainActivity.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,34 +53,32 @@ public class Tel extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-        sharedPreferencesEditor.putString("ip", "172.30.1.3" + "");  //ip 설정하기 저장하기
+        sharedPreferencesEditor.putString("ip", "14.63.213.208" + "");  //ip 설정하기 저장하기
         sharedPreferencesEditor.commit();
 
-        //ip = sharedPreferences.getString("ip", "");
-        userTel=sharedPreferences.getString("userTel", "");
-        userName=sharedPreferences.getString("userName", "");
-        userBirth=sharedPreferences.getString("userBirth", "");
-        userGender=sharedPreferences.getString("userGender", "");
-        userCode=sharedPreferences.getInt("userCode", 0);
-        userEmail=sharedPreferences.getString("userEmail", "");
+        ip = sharedPreferences.getString("ip", "");
+        userTel = sharedPreferences.getString("userTel", "");
 
-        //로그인 되어있으면
+        //로그인 되어있으면 MainActivity
         if (!userTel.equals("")) {
+
+            Toast.makeText(getApplicationContext(), "로그인 O", Toast.LENGTH_SHORT).show();
+
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
-            Toast.makeText(getApplicationContext(), "로그인되어있음", Toast.LENGTH_SHORT).show();
         }
-        //로그인 안되어있으면
+        //로그인 안되어있으면 Tel
         else {
-            Toast.makeText(getApplicationContext(), "로그인안되어있음", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그인 X", Toast.LENGTH_SHORT).show();
         }
 
         edt_tel = (EditText)findViewById(R.id.edt_tel);
         edt_confirm = (EditText)findViewById(R.id.edt_confirm);
-
         btn_send = (Button)findViewById(R.id.btn_send);
         btn_confirm = (Button)findViewById(R.id.btn_confirm);
+
+        edt_confirm.setText("1");
 
         buttonClickListener();
     }
@@ -113,10 +111,8 @@ public class Tel extends AppCompatActivity {
                 case R.id.btn_confirm:
                     if(edt_confirm.getText().toString() == null || edt_confirm.getText().toString().length() == 0)
                         Toast.makeText(getApplicationContext(), "인증번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-
-                    else {
+                    else
                         CheckAsyncTaskCall();
-                    }
                     break;
             }
         }
@@ -129,12 +125,11 @@ public class Tel extends AppCompatActivity {
     public class CheckAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute() {
-
         }
 
         @Override
         protected String doInBackground(String... params) {  // 통신을 위한 Thread
-            result =recvList();
+            result = recvList();
             return result;
         }
 
@@ -184,10 +179,10 @@ public class Tel extends AppCompatActivity {
                 buf = new BufferedInputStream(urlConnection.getInputStream());
                 bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
 
-                String line=null;
-                String result="";
+                String line = null;
+                String result = "";
 
-                while((line=bufreader.readLine()) != null){
+                while((line = bufreader.readLine()) != null){
                     result += line;
                 }
 
@@ -216,55 +211,61 @@ public class Tel extends AppCompatActivity {
 
             // 정회원이거나 준회원일때
             if(jArr != null && jArr.length() > 0) {
-
                 json = jArr.getJSONObject(0);
-                userCode = json.getInt("userCode");
-                userTel = json.getString("userTel");
-                userName = json.getString("userName");
-                userBirth = json.getString("userBirth");
-                userGender = json.getString("userGender");
-                userEmail = json.getString("userEmail");
+                userCode = json.getInt("userCode"); //정회원과 준회원 구분
 
                 // 정회원일때
                 if(userCode == 1) {
                     Toast.makeText(getApplicationContext(), "정회원입니다.", Toast.LENGTH_SHORT).show();
+
+                    userId = json.getInt("userId");
+                    userName = json.getString("userName");
+                    userBirth = json.getString("userBirth");
+                    userGender = json.getString("userGender");
+
                     // 자동 로그인
                     SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);   //쉐어드 객체 얻기
                     SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();                        //쉐어드 쓰기
-                    sharedPreferencesEditor.putString("userTel", userTel);
+                    sharedPreferencesEditor.putInt("userId", userId);
+                    sharedPreferencesEditor.putString("userTel", edt_tel.getText().toString());
                     sharedPreferencesEditor.putString("userName", userName);
                     sharedPreferencesEditor.putString("userBirth", userBirth);
                     sharedPreferencesEditor.putString("userGender", userGender);
-                    sharedPreferencesEditor.putString("userEmail", userEmail);
-                    sharedPreferencesEditor.putInt("userCode", userCode);
+                    if(json.length() == 7) { //이메일이 NULL이 아닐 때
+                        userEmail = json.getString("userEmail");
+                        sharedPreferencesEditor.putString("userEmail", userEmail);
+                    }
                     sharedPreferencesEditor.commit();
 
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
-
                     finish();
+
                 }
 
                 // 준회원일때
                 else {
                     Toast.makeText(getApplicationContext(), "준회원입니다.", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), Login.class);
-                    i.putExtra("tel", edt_tel.getText().toString());
-                    startActivity(i);
 
+                    Intent i = new Intent(getApplicationContext(), Login.class);
+                    i.putExtra("userTel", edt_tel.getText().toString());
+                    startActivity(i);
                     finish();
+
                 }
             }
 
             // 회원이 아닐때
             else {
                 Toast.makeText(getApplicationContext(), "회원이 아닙니다.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getApplicationContext(), Login.class);
-                i.putExtra("tel", edt_tel.getText().toString());
-                startActivity(i);
 
+                Intent i = new Intent(getApplicationContext(), Login.class);
+                i.putExtra("userTel", edt_tel.getText().toString());
+                startActivity(i);
                 finish();
+
             }
+
         }catch(JSONException e){
             e.printStackTrace();
         }

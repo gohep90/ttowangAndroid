@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.Main.Home.stamp.GiftStamp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,9 +34,13 @@ import java.util.Properties;
  */
 public class GiftStamp extends Activity {
 
-    String ip= MainActivity.ip;
+    //String ip= MainActivity.ip;
+
+    SharedPreferences sharedPreferences;
+    String ip;
+
     String businessId ="";
-    static String userId = MainActivity.user;
+    static int userId;
 
     EditText stampnumber,telnumber;
     Button btn_send;
@@ -45,6 +50,10 @@ public class GiftStamp extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.giftstamp);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
@@ -99,7 +108,7 @@ public class GiftStamp extends Activity {
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("userId", userId);
+            prop.setProperty("userId",  String.valueOf(userId));
             prop.setProperty("businessId", businessId);
             prop.setProperty("userTel", String.valueOf(telnumber.getText()));
             prop.setProperty("stampNumber", String.valueOf(stampnumber.getText()));

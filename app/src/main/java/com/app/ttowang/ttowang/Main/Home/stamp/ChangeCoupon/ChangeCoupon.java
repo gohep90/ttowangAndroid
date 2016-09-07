@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.Main.Home.stamp.ChangeCoupon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +38,8 @@ import java.util.Properties;
 public class ChangeCoupon extends Activity {
 
     String businessId="";
-    String ip= MainActivity.ip;
+    String ip;
+    int userId;
     RelativeLayout ChangeCouponRelative;
 
     ListView listview ;
@@ -53,6 +55,10 @@ public class ChangeCoupon extends Activity {
         mContext = this;
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         //Toast.makeText(MainActivity.mContext, "businessId = "+businessId, Toast.LENGTH_SHORT).show();
 

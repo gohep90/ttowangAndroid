@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
  * Created by Park on 2016-08-05.
  */
 public class myBusinessShopAdapter extends BaseAdapter {
+    int userId;
+
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     public static ArrayList<myBusinessShopItem> listViewItemList = new ArrayList<myBusinessShopItem>() ;
 
@@ -38,6 +41,9 @@ public class myBusinessShopAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Context context = parent.getContext();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        userId = sharedPreferences.getInt("userId", 0);
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -66,7 +72,7 @@ public class myBusinessShopAdapter extends BaseAdapter {
 
                 if(listViewItem.businessType.equals("1")) {   //정식 매장 이면
                     Intent intent = new Intent(myBusinessShop.mContext, myBusinessStoreEdit.class);   //인텐트로 넘겨줄건데요~
-                    intent.putExtra("userId", MainActivity.user);
+                    intent.putExtra("userId", userId);
                     intent.putExtra("businessId", listViewItem.getBusinessId());
                     intent.putExtra("businessLicense", listViewItem.getBusinessLicense());
                     intent.putExtra("businessName", listViewItem.getBusinessName());
@@ -81,7 +87,7 @@ public class myBusinessShopAdapter extends BaseAdapter {
                     myBusinessShop.mContext.startActivity(intent);
                 }else{  //개인 사업자이면
                     Intent intent = new Intent(myBusinessShop.mContext, myBusinessIndividualEdit.class);   //인텐트로 넘겨줄건데요~
-                    intent.putExtra("userId", MainActivity.user);
+                    intent.putExtra("userId", userId);
                     intent.putExtra("businessId", listViewItem.getBusinessId());
                     intent.putExtra("businessName", listViewItem.getBusinessName());
                     intent.putExtra("businessTel", listViewItem.getBusinessTel());

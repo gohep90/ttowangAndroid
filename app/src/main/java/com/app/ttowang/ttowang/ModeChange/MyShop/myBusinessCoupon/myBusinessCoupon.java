@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,10 +38,11 @@ import java.util.Properties;
  */
 public class myBusinessCoupon extends AppCompatActivity {
 
-    static String businessId="" ;
+    String businessId="" ;
     static myBusinessCouponAdapter adapter;
 
-    static String userId = MainActivity.user;
+    int userId;
+    String ip;
     ArrayList<String> spinnerKeys = new ArrayList<String>();
     ArrayList<String> spinnerValues = new ArrayList<String>();
     KeyValueArrayAdapter spn_adapter;
@@ -55,6 +57,10 @@ public class myBusinessCoupon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinesscoupon_main);
         mContext = this;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         spinner = (Spinner)findViewById(R.id.spinner);
 
@@ -157,12 +163,12 @@ public class myBusinessCoupon extends AppCompatActivity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -227,7 +233,7 @@ public class myBusinessCoupon extends AppCompatActivity {
 
 
 
-    public static class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
+    public class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
             myBusinessCouponAdapter.listViewItemList.clear();
@@ -309,7 +315,7 @@ public class myBusinessCoupon extends AppCompatActivity {
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("couponList");
                 if(jArr.length()==0){
-                    Toast.makeText(myBusinessCoupon.mContext, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(myBusinessCoupon.this, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();     //리스트
                     return;
                 }
@@ -325,13 +331,5 @@ public class myBusinessCoupon extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-    final public static void CouponRefresh(){
-
-        new CouponDownAsyncTask().execute();
-
-        Log.i("쿠폰 목록 - ","목록 리프레쉬 한다");
-
     }
 }

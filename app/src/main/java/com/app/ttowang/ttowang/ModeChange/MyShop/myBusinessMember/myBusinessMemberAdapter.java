@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +34,8 @@ import java.util.Properties;
  */
 public class myBusinessMemberAdapter extends BaseAdapter {
 
+    String ip;
+
     String businessId,userId,userName;
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     public static ArrayList<myBusinessMemberItem> listViewItemList = new ArrayList<myBusinessMemberItem>() ;
@@ -53,6 +56,9 @@ public class myBusinessMemberAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -189,7 +195,7 @@ public class myBusinessMemberAdapter extends BaseAdapter {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/staffDel.do");
+                url=new URL("http://" + ip + ":8080/ttowang/staffDel.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

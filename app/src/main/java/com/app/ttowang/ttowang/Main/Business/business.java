@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main.Business;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,14 +55,20 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
     String [] photoList = new String[10];   //사진 최대 10개??
     int count=0;
 
-    String ip= MainActivity.ip;
-    static String userId = MainActivity.user;  //로그인시 ID값 저장해야함
+    SharedPreferences sharedPreferences;
+    String ip;
+    //String ip= MainActivity.ip;
+    int userId;  //로그인시 ID값 저장해야함
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
 
         //////////////////////////지도///////////////////////////////////
@@ -86,7 +93,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         img_group   =   (ImageView)findViewById(R.id.img_group);
         img_bookMark =  (ImageView)findViewById(R.id.img_bookMark);
 
-
         //즐겨찾기 등록버튼
         img_bookMark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +103,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
         //초기값 불러오기
         BusinessAsyncTaskCall();
-
-
     }
 
 
@@ -134,9 +138,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         });
 
     }
-
-
-
 
     //비지니스 초기 상세정보 가져오기
     public void BusinessAsyncTaskCall(){
@@ -295,13 +296,6 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-
-
-
-
-
-
-
     //즐겨찾기 등록 스레드
     public void BookMarkAsyncTaskCall(){
         new BookMarkAsyncTask().execute();
@@ -339,7 +333,7 @@ public class business extends AppCompatActivity implements OnMapReadyCallback {
 
             Properties prop = new Properties();
             prop.setProperty("businessId", businessId);
-            prop.setProperty("userId", userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 

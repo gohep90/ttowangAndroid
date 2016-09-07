@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,10 +38,18 @@ public class myBusinessShop extends AppCompatActivity {
 
     static myBusinessShopAdapter adapter;
 
+    static String ip;
+    static int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessshop_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
+
         mContext = this;
         ListView listview ;
 
@@ -72,7 +81,7 @@ public class myBusinessShop extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), myBusinessShopSelectType.class);   //인텐트로 넘겨줄건데요~
-                intent.putExtra("userId", MainActivity.user);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
                 //Toast.makeText(myBusinessShop.this,"추가 버튼", Toast.LENGTH_SHORT).show();
 
@@ -119,12 +128,12 @@ public class myBusinessShop extends AppCompatActivity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",MainActivity.user);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAll.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessAll.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

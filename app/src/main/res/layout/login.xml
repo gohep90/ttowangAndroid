@@ -218,7 +218,8 @@
                     android:textSize="15dp"
                     android:background="@null"
                     android:gravity="bottom"
-                    android:paddingLeft="5dp"/>
+                    android:paddingLeft="5dp"
+                    android:inputType="number"/>
 
             </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessMember;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,7 +38,8 @@ import java.util.Properties;
  */
 public class myBusinessMember extends AppCompatActivity {
     public static Context mContext;
-    String userId = MainActivity.user;
+    int userId;
+    static String ip;
     static myBusinessMemberAdapter adapter;
     Spinner spinner;
     KeyValueArrayAdapter spn_adapter;
@@ -51,6 +53,10 @@ public class myBusinessMember extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessmember_main);
         mContext = this;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
 
         spinner = (Spinner)findViewById(R.id.spinner);
 
@@ -114,7 +120,7 @@ public class myBusinessMember extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), myBusinessStaffAdd.class);   //인텐트로 넘겨줄건데요~
-                intent.putExtra("userId", MainActivity.user);
+                intent.putExtra("userId", userId);
                 intent.putExtra("position", nowposition);
 
                 startActivity(intent);
@@ -166,12 +172,12 @@ public class myBusinessMember extends AppCompatActivity {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -273,7 +279,7 @@ public class myBusinessMember extends AppCompatActivity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/searchAllMyStaff.do");
+                url=new URL("http://" + ip + ":8080/ttowang/searchAllMyStaff.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

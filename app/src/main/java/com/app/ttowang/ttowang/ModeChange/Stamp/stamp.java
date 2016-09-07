@@ -1,5 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange.Stamp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,15 +49,17 @@ public class stamp extends Fragment {
     TextView text_stampnum; //스템프갯수입력하는부분
 
     String encodedString;
-    String ip= MainActivity.ip;
     String businessId ="";
-    static String userId = MainActivity.user;
+    String ip;
+    int userId;
     int focus = 1; //첫 포커스를 번호창으로 줌
 
-    static Spinner spinner;
-    static KeyValueArrayAdapter spn_adapter;
-    static ArrayList<String> spinnerKeys = new ArrayList<String>();
-    static ArrayList<String> spinnerValues = new ArrayList<String>();
+    Context mContext;
+
+    Spinner spinner;
+    KeyValueArrayAdapter spn_adapter;
+    ArrayList<String> spinnerKeys = new ArrayList<String>();
+    ArrayList<String> spinnerValues = new ArrayList<String>();
 
     public static stamp createInstance(int itemsCount) {
         stamp stamp = new stamp();
@@ -77,7 +81,6 @@ public class stamp extends Fragment {
         spn_adapter.setDropDownViewResource(R.layout.spinner_item);
 
         businessListAsyncTaskCall();
-
 
         //스피너 선택 리스너
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -107,10 +110,14 @@ public class stamp extends Fragment {
         });
         */
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        //userId = sharedPreferences.getInt("userId", 0);
+        userId = Integer.parseInt(MainActivity.user);
 
+        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
         btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
-        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
 
         btn_0 = (Button) view.findViewById(R.id.btn_0);
         btn_1 = (Button) view.findViewById(R.id.btn_1);
@@ -366,7 +373,7 @@ public class stamp extends Fragment {
         new businessListAsyncTask().execute();
     }
 
-    public static class businessListAsyncTask extends AsyncTask<String,Integer,String> {
+    public class businessListAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
             spn_adapter.clear();
@@ -402,7 +409,7 @@ public class stamp extends Fragment {
 
             Properties prop = new Properties();
 
-            prop.setProperty("userId",userId);
+            prop.setProperty("userId", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 
@@ -446,8 +453,7 @@ public class stamp extends Fragment {
             try{
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("spinnerList");
-                spinnerValues.clear();
-                spinnerKeys.clear();
+
                 for (int i = 0; i < jArr.length(); i++ ) {
                     json = jArr.getJSONObject(i);
 
@@ -466,13 +472,5 @@ public class stamp extends Fragment {
                 e.printStackTrace();
             }
         }
-    }
-
-    final public static void spinnerRefresh(){
-
-        //new businessListAsyncTask().execute();
-
-        Log.i("스탬프 스피너 - ","스피너 리프레쉬 한다");
-
     }
 }

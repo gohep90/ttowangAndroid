@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessShop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,22 +35,25 @@ import java.util.Properties;
  */
 public class myBusinessShopSelectType extends Activity {
 
-    String ip= MainActivity.ip;
     RelativeLayout ChangeCouponRelative;
 
     Button store,individual;
 
-    String userId;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mybusinessshop_selecttype);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        userId = sharedPreferences.getInt("userId", 0);
+
         store = (Button)findViewById(R.id.store);
         individual = (Button)findViewById(R.id.individual);
         Intent i = getIntent();
-        userId = i.getExtras().getString("userId");
+        //userId = i.getExtras().getString("userId");
 
         store.setOnClickListener(new View.OnClickListener() {
             @Override

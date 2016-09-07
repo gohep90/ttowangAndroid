@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -31,6 +32,9 @@ import java.util.Properties;
  * Created by Park on 2016-08-05.
  */
 public class myBusinessCouponAdapter extends BaseAdapter {
+
+    String ip;
+
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     public static ArrayList<myBusinessCouponItem> listViewItemList = new ArrayList<myBusinessCouponItem>() ;
 
@@ -50,8 +54,12 @@ public class myBusinessCouponAdapter extends BaseAdapter {
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         final int pos = position;
         final Context context = parent.getContext();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -188,15 +196,14 @@ public class myBusinessCouponAdapter extends BaseAdapter {
 
             Properties prop = new Properties();
 
-
-
             prop.setProperty("businessId",businessId);
             prop.setProperty("couponCode",couponCode);
             Log.i("couponDel - ",businessId + " " + couponCode);
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponDelete.do");
+
+                url = new URL("http://" + ip + ":8080/ttowang/couponDelete.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

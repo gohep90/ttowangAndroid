@@ -3,6 +3,7 @@ package com.app.ttowang.ttowang.Main.Home;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -33,14 +34,17 @@ import java.util.Properties;
 
 public class homeFragment extends android.support.v4.app.Fragment{
 
+    public static SharedPreferences sharedPreferences;
+    public static String ip;
+
     private View rootView;
     private TextView businessName,myRemainStamp,myTotalStamp,businessLocation;
     private ImageView mybusinessimg;
     private int number = -1;
     private RelativeLayout viewlayout;
 
-    String ip= MainActivity.ip;
-    static String userId = MainActivity.user;
+    //String ip= MainActivity.ip;
+    static int userId;
     String businessId="";
 
 
@@ -71,6 +75,9 @@ public class homeFragment extends android.support.v4.app.Fragment{
         number = getArguments() != null ? getArguments().getInt("number") : 1;
         Log.i("homeFragment - ","onCreate "+ number);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
     }
 
     @Override
@@ -215,7 +222,7 @@ public class homeFragment extends android.support.v4.app.Fragment{
 
             Properties prop = new Properties();
             prop.setProperty("BUSINESSID", businessId);
-            prop.setProperty("USERID", userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             String encodedString = encodeString(prop);
 

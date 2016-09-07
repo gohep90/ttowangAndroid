@@ -71,7 +71,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|bottom"
                         android:paddingBottom="10dp"
-                        android:hint="스탬프 갯수를 입력해주세요"
+                        android:hint="스템프 갯수를 입력해주세요."
                         android:textSize="15dp"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"/>

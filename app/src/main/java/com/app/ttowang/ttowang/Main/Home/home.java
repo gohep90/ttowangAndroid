@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.Main.Home;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,9 @@ import java.util.Properties;
 
 public class home extends Fragment implements homeFragment.OnFragmentInteractionListener {
 
+    public static SharedPreferences sharedPreferences;
+    public static String ip;
+
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     public static ViewPager upViewPager;
@@ -67,7 +71,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static String state = "first";
 
-    static String userId = MainActivity.user;
+    static int userId;
     /*
     static List photoName = new ArrayList();     //즐겨찾기 매장 사진
     static List businessId = new ArrayList();     //즐겨찾기 매장 Id
@@ -94,6 +98,11 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
+
         //LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.home, container, false);
 
         /*
@@ -320,13 +329,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID",userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             encodedString = encodeString(prop);
 
             try{
 
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/selectMyBusinesses.do");
+                url=new URL("http://" + ip + ":8080/ttowang/selectMyBusinesses.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
@@ -372,6 +381,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     private static void jsonFirstList(String recv) {
 
+
+
         Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
 
         try{
@@ -382,7 +393,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
 
             int i;
-
 
             for (i = 0; i < jArr.length(); i++ ) {
                 json = jArr.getJSONObject(i);
@@ -721,13 +731,13 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             BufferedReader bufreader=null;
 
             Properties prop = new Properties();
-            prop.setProperty("USERID",userId);
+            prop.setProperty("USERID", String.valueOf(userId));
 
             encodedString = encodeString(prop);
 
             try{
 
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/selectMyBusinesses.do");
+                url=new URL("http://" + ip + ":8080/ttowang/selectMyBusinesses.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);

@@ -2,6 +2,7 @@ package com.app.ttowang.ttowang.Main.Business;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -53,7 +54,8 @@ public class businessMain extends Fragment {
     MyListAdapter adapter;
 
     String encodedString="";
-    String ip= MainActivity.ip;
+    //String ip= MainActivity.ip;
+    String ip;
 
 
     @Nullable
@@ -61,6 +63,9 @@ public class businessMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
 
         View result =inflater.inflate(R.layout.business_main, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
        // SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
       //  ip = sharedPreferences.getString("ip", ""); //데이터 가져오기
