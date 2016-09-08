@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.HomeList.HomeList;
 import com.app.ttowang.ttowang.Main.Login.Tel;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.Main.Setting.myInfoEdit;
@@ -25,7 +26,7 @@ public class Modesetting extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     View view;
-    TextView modeChange;
+    TextView modeChange,homelist;
     TextView emailclick, callclick,facebookclick;//재훈
     ViewGroup myInfoclick, logoutclick, notice,alarm_switch;
     TextView alarm_switch_on, alarm_switch_off;
@@ -64,7 +65,7 @@ public class Modesetting extends Fragment {
         myName = (TextView)view.findViewById(R.id.myName);//xml에서 TextView id가져와
         myTel = (TextView)view.findViewById(R.id.myTel);//xml에서 TextView id가져와
         myEmail = (TextView)view.findViewById(R.id.myEmail);//xml에서 TextView id가져와
-
+        homelist = (TextView)view.findViewById(R.id.homelist);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences",getActivity().MODE_PRIVATE);
         //Edit = sharedPreferences.edit();//수정하겠다는 객체 얻기
         ip = sharedPreferences.getString("ip", "");
@@ -152,6 +153,14 @@ public class Modesetting extends Fragment {
             }
         });
 
+
+        homelist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), HomeList.class);
+                startActivity(i);
+            }
+        });
 
         return view;
     }

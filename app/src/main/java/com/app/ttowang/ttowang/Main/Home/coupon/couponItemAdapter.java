@@ -107,7 +107,7 @@ public class couponItemAdapter extends BaseAdapter {
                 Log.i("쿠폰 - ",position + " 번째 " + listViewItem.getCouponUse() + " " + listViewItem.getCouponNum());
                 Log.i("쿠폰 사용함",pos + " 번째 쿠폰");
                 if(listViewItem.getCouponUse().equals("0")) {   //사용한거면
-                    Toast.makeText(MainActivity.mContext, listViewItem.getCouponUse() + " 이미 사용한 쿠폰 입니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.mContext,"이미 사용한 쿠폰 입니다.", Toast.LENGTH_SHORT).show();
                 }else{  //안사용 한거면
                     //Toast.makeText(MainActivity.mContext, position + "번째 사용 하기", Toast.LENGTH_SHORT).show();
                     couponNum = listViewItem.getCouponNum();

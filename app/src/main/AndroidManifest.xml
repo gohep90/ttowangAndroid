@@ -102,6 +102,9 @@
 
         <activity
             android:name=".ModeChange.MyShop.myBusinessMember.myBusinessStaffAdd"/>
+
+        <activity
+            android:name=".Main.Home.HomeList.HomeList"/>
     </application>
 
 </manifest>

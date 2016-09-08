@@ -37,19 +37,20 @@ import java.util.Properties;
  */
 public class myBusinessCoupon extends AppCompatActivity {
 
-    String businessId="" ;
+    static String businessId="" ;
     static myBusinessCouponAdapter adapter;
 
     int userId;
-    String ip;
+    static String ip;
     ArrayList<String> spinnerKeys = new ArrayList<String>();
     ArrayList<String> spinnerValues = new ArrayList<String>();
     KeyValueArrayAdapter spn_adapter;
 
 
     Spinner spinner;
-    ListView listview ;
+    public static ListView couponlistview ;
 
+    static int Couponadd = 0;
     public static Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +94,10 @@ public class myBusinessCoupon extends AppCompatActivity {
         adapter = new myBusinessCouponAdapter() ;
 
         // 리스트뷰 참조 및 Adapter달기
-        listview = (ListView) findViewById(R.id.listView);
-        listview.setAdapter(adapter);
+        couponlistview = (ListView) findViewById(R.id.listView);
+        couponlistview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        couponlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
@@ -232,7 +233,7 @@ public class myBusinessCoupon extends AppCompatActivity {
 
 
 
-    public class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
+    public static class CouponDownAsyncTask extends AsyncTask<String,Integer,String> {
 
         protected void onPreExecute(){
             myBusinessCouponAdapter.listViewItemList.clear();
@@ -313,8 +314,10 @@ public class myBusinessCoupon extends AppCompatActivity {
             try{
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("couponList");
+                adapter.clearItem();
+
                 if(jArr.length()==0){
-                    Toast.makeText(myBusinessCoupon.this, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(myBusinessCoupon.mContext, "등록된 쿠폰이 없습니다.", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();     //리스트
                     return;
                 }
@@ -325,10 +328,21 @@ public class myBusinessCoupon extends AppCompatActivity {
                 }
 
                 adapter.notifyDataSetChanged();     //리스트
-
+                if(Couponadd==1){
+                    couponlistview.setSelection(jArr.length());
+                    Couponadd = 0;
+                }
             }catch(JSONException e){
                 e.printStackTrace();
             }
         }
+    }
+
+    final public static void stampRefresh(){
+        Couponadd = 1;
+        new CouponDownAsyncTask().execute();
+        Log.i("내 쿠폰 - ","쿠폰 리프레쉬 한다");
+
+
     }
 }
