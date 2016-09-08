@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
 import org.json.JSONArray;
@@ -188,7 +187,7 @@ public class myBusinessIndividualAdd extends AppCompatActivity {
 
             try{
                 //url=new URL("http://192.168.0.2:8181/ttowang/businessAdd.do");
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/businessAdd.do");
+                url=new URL("http://" + ip + ":8080/ttowang/businessAdd.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

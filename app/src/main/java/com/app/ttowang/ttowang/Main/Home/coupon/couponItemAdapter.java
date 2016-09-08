@@ -1,7 +1,11 @@
 package com.app.ttowang.ttowang.Main.Home.coupon;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +19,16 @@ import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * Created by srpgs2 on 2016-08-01.
@@ -25,6 +38,10 @@ public class couponItemAdapter extends BaseAdapter {
     private ArrayList<couponItemClass> listViewItemList = new ArrayList<couponItemClass>() ;
     private Button useCoupon;
     private TextView couponName, couponNumber;
+
+    String couponNum="";
+    String ip;
+
 
     private LinearLayout thisCoupon;
     // ListViewAdapter의 생성자
@@ -43,6 +60,9 @@ public class couponItemAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -72,7 +92,9 @@ public class couponItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if(useCoupon.getText().equals("사용 하기")) {
-                    Toast.makeText(MainActivity.mContext, position + "번째", Toast.LENGTH_SHORT).show();
+                    Dialog(home.myAllBusinessCouponName.get(home.nowbusiness).get(position));
+                    couponNum=home.myAllBusinessCouponNum.get(home.nowbusiness).get(position);
+                    //Toast.makeText(MainActivity.mContext, home.myAllBusinessCouponNum.get(home.nowbusiness).get(position), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.mContext, position + "번째 사용 완료", Toast.LENGTH_SHORT).show();
                 }
@@ -103,5 +125,108 @@ public class couponItemAdapter extends BaseAdapter {
         couponItemClass item = new couponItemClass();
         listViewItemList.add(item);
     }
+
+
+    private void Dialog(String name) {
+        //businessId=String.valueOf(home.myAllBusiness.get(number).get(0));  //businessId 받아오기
+        AlertDialog.Builder _alert = new AlertDialog.Builder(MainActivity.mContext);
+        _alert.setTitle(name);
+        _alert.setMessage("정말로 쿠폰을 사용하시겠습니까?").setCancelable(true);
+
+        _alert.setPositiveButton("취소", null);
+
+        _alert.setNegativeButton("사용", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int thisid) {
+
+                useCouponAsyncTaskCall();  //쿠폰 사용
+                //home.PagerAdapter.notifyDataSetChanged;
+
+            }
+        });
+
+        _alert.show();
+    }
+
+
+    //비지니스 초기 상세정보 가져오기
+    public void useCouponAsyncTaskCall(){
+        new useCouponAsyncTask().execute();
+    }
+
+    public class useCouponAsyncTask extends AsyncTask<String,Integer,String> {
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            String result =recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection=null;
+            URL url =null;
+            DataOutputStream out=null;
+            BufferedInputStream buf=null;
+            BufferedReader bufreader=null;
+
+            Properties prop = new Properties();
+            prop.setProperty("couponNum", couponNum);
+
+            String encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/couponUse.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line=null;
+                String result="";
+
+                while((line=bufreader.readLine())!=null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            Toast.makeText(MainActivity.mContext, "쿠폰을 사용합니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

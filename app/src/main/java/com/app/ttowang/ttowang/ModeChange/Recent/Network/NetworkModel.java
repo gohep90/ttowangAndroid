@@ -1,12 +1,13 @@
 package com.app.ttowang.ttowang.ModeChange.Recent.Network;
 
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
-import com.loopj.android.http.*;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by jangjieun on 2016. 8. 19..
  */
 public class NetworkModel {
-    String ip= MainActivity.ip;
+    String ip="14.63.213.208";
 
     private String SERVER_URL = "http://"+ip+":8080/ttowang";
     AsyncHttpClient client;

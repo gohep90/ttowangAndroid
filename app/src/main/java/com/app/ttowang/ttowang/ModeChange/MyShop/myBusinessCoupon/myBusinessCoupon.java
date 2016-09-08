@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.MyShop.KeyValueArrayAdapter;
 import com.app.ttowang.ttowang.R;
 
@@ -274,7 +273,7 @@ public class myBusinessCoupon extends AppCompatActivity {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/couponList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/couponList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);

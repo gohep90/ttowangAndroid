@@ -14,7 +14,6 @@ import android.view.Menu;
 
 import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myshop;
-import com.app.ttowang.ttowang.ModeChange.Recent.recent;
 import com.app.ttowang.ttowang.ModeChange.Recent.recentActivity;
 import com.app.ttowang.ttowang.ModeChange.Stamp.stamp;
 import com.app.ttowang.ttowang.ModeChange.setting.Modesetting;
@@ -28,7 +27,7 @@ public class ChangeModeMain extends AppCompatActivity {
 
     public static Context mContext;
     public static int first = 0;
-    public static String businessId = "2";
+    //public static String businessId = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

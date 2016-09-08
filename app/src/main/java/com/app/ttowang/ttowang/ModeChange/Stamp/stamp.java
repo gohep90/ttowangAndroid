@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.ttowang.ttowang.Main.MainActivity;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.ModeChange.MyShop.KeyValueArrayAdapter;
 import com.app.ttowang.ttowang.R;
@@ -112,8 +111,8 @@ public class stamp extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
-        //userId = sharedPreferences.getInt("userId", 0);
-        userId = Integer.parseInt(MainActivity.user);
+        userId = sharedPreferences.getInt("userId", 0);
+        //userId = Integer.parseInt(MainActivity.user);
 
         text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
@@ -414,7 +413,7 @@ public class stamp extends Fragment {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + MainActivity.ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
