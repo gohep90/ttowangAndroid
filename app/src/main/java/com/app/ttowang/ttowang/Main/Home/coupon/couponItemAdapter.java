@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,14 @@ import java.util.Properties;
  */
 public class couponItemAdapter extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<couponItemClass> listViewItemList = new ArrayList<couponItemClass>() ;
+    public ArrayList<couponItemClass> listViewItemList = new ArrayList<couponItemClass>() ;
     private Button useCoupon;
     private TextView couponName, couponNumber;
 
     String couponNum="";
     String ip;
 
+    public static int pos;
 
     private LinearLayout thisCoupon;
     // ListViewAdapter의 생성자
@@ -58,11 +60,14 @@ public class couponItemAdapter extends BaseAdapter {
     // position에 위치한 데이터를 화면에 출력하는데 사용될 View를 리턴. : 필수 구현
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final int pos = position;
+        pos = position;
         final Context context = parent.getContext();
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("sharedPreferences", context.MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
+
+
+        final couponItemClass listViewItem = listViewItemList.get(position);
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -80,7 +85,7 @@ public class couponItemAdapter extends BaseAdapter {
         couponName.setText(home.myAllBusinessCouponName.get(home.nowbusiness).get(position));
         couponNumber.setText(home.myAllBusinessCouponNum.get(home.nowbusiness).get(position));
 
-        if(home.myAllBusinessCouponUse.get(home.nowbusiness).get(position).equals("0")){    //사용했으면
+        if(listViewItem.getCouponUse().equals("0")){    //사용했으면
             thisCoupon.setBackgroundColor(Color.parseColor("#ededed"));
             useCoupon.setBackgroundColor(Color.parseColor("#d8d8d8"));
             useCoupon.setText("사용 완료");
@@ -92,18 +97,28 @@ public class couponItemAdapter extends BaseAdapter {
         }
         // 아이템 내 각 위젯에 데이터 반영
 
+
         useCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(useCoupon.getText().equals("사용 하기")) {
-                    Dialog(home.myAllBusinessCouponName.get(home.nowbusiness).get(position));
-                    couponNum=home.myAllBusinessCouponNum.get(home.nowbusiness).get(position);
-                    //Toast.makeText(MainActivity.mContext, home.myAllBusinessCouponNum.get(home.nowbusiness).get(position), Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MainActivity.mContext, position + "번째 사용 완료", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.mContext, position+ " 번째 " + useCoupon.getText(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.mContext, listViewItem.getCouponUse()+"", Toast.LENGTH_SHORT).show();
+
+                Log.i("쿠폰 - ",position + " 번째 " + listViewItem.getCouponUse() + " " + listViewItem.getCouponNum());
+                Log.i("쿠폰 사용함",pos + " 번째 쿠폰");
+                if(listViewItem.getCouponUse().equals("0")) {   //사용한거면
+                    Toast.makeText(MainActivity.mContext, listViewItem.getCouponUse() + " 이미 사용한 쿠폰 입니다.", Toast.LENGTH_SHORT).show();
+                }else{  //안사용 한거면
+                    //Toast.makeText(MainActivity.mContext, position + "번째 사용 하기", Toast.LENGTH_SHORT).show();
+                    couponNum = listViewItem.getCouponNum();
+                    Dialog(listViewItem.getCouponName());
+
+                    //Toast.makeText(MainActivity.mContext, position + "번째 사용 완료", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
+
         return convertView;
     }
 
@@ -123,11 +138,6 @@ public class couponItemAdapter extends BaseAdapter {
 
     public void clearItem(){
         listViewItemList.clear();
-    }
-
-    public void addItem() {
-        couponItemClass item = new couponItemClass();
-        listViewItemList.add(item);
     }
 
 
@@ -228,10 +238,34 @@ public class couponItemAdapter extends BaseAdapter {
             }
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+
             Toast.makeText(MainActivity.mContext, "쿠폰을 사용합니다.", Toast.LENGTH_SHORT).show();
+            UseupdateCoupon();
 
         }
     }
 
+    /*
+    public void addItem(String couponNum, String couponUse, String couponName ,String businessId , String couponCode) {
+        couponItemClass item = new couponItemClass();
+        item.setCouponNum(couponNum);
+        item.setCouponUse(couponUse);
+        item.setCouponName(couponName);
+        item.setBusinessId(businessId);
+        item.setCouponCode(couponCode);
+    }
+    */
 
+    public void addItem(String couponNum, String couponUse, String couponName) {
+        couponItemClass item = new couponItemClass();
+        item.setCouponNum(couponNum);
+        item.setCouponUse(couponUse);
+        item.setCouponName(couponName);
+
+        listViewItemList.add(item);
+    }
+
+    public void UseupdateCoupon(){
+        home.stampRefresh();
+    }
 }

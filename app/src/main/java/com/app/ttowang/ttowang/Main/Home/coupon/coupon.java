@@ -49,19 +49,20 @@ public class coupon extends android.support.v4.app.ListFragment{
 
         Log.d("coupon - ", "onActivityCreated");
 
-        setAddAdapter(home.myCouponNumber);    //처음 초기화
+        setAddAdapter(home.nowbusiness ,home.myCouponNumber);    //처음 초기화
 
         //list.setSelection(home.myCouponNumber);      // 처음은 코드로 하단으로 넘어준다
         Log.i("coupon - ","초기화 쿠폰 리스트 갯수 " +home.myCouponNumber);
 
     }
 
-    public static void setAddAdapter(int a){
+    public static void setAddAdapter(int business, int a){
 
-        adapter.clearItem();                 //클리어 해주고
-        for(int i = 1; i <= a; i++){        //하나씩 추가
-            adapter.addItem();
-            Log.i("coupon - ","스템프 리스트 추가" + i);
+        adapter.clearItem(); //클리어 해주고
+        for(int i = 0; i < a; i++){        //하나씩 추가
+            Log.i("coupon - ","쿠폰 추가 " + (i) + " " + home.myAllBusinessCouponNum.get(business).get(i) + " " + home.myAllBusinessCouponUse.get(business).get(i) + " " + home.myAllBusinessCouponName.get(business).get(i));
+            adapter.addItem(home.myAllBusinessCouponNum.get(business).get(i),home.myAllBusinessCouponUse.get(business).get(i),home.myAllBusinessCouponName.get(business).get(i) );
+
         }
         adapter.notifyDataSetChanged();      //수정됐다고 알림
     }

@@ -270,7 +270,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             MainActivity.first = 1;
         }else{
             try {
-                coupon.setAddAdapter(myCouponNumber);
+                coupon.setAddAdapter(nowbusiness, myCouponNumber);
                 Log.i("home - ", "쿠폰 리스트 갯수 : " + myCouponNumber);
             } catch (Exception e) {
 
@@ -380,8 +380,6 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
     }
 
     private static void jsonFirstList(String recv) {
-
-
 
         Log.i("home - ", "서버에서 받은 전체 내용 : " + recv);
 
