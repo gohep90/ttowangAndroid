@@ -85,6 +85,10 @@ public class couponItemAdapter extends BaseAdapter {
             useCoupon.setBackgroundColor(Color.parseColor("#d8d8d8"));
             useCoupon.setText("사용 완료");
             //useCoupon.setClickable(false);
+        }else{
+            thisCoupon.setBackgroundColor(Color.parseColor("#FFDDDD"));
+            useCoupon.setBackgroundColor(Color.parseColor("#FFB9B9"));
+            useCoupon.setText("사용 하기");
         }
         // 아이템 내 각 위젯에 데이터 반영
 
@@ -225,6 +229,7 @@ public class couponItemAdapter extends BaseAdapter {
         }
         protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
             Toast.makeText(MainActivity.mContext, "쿠폰을 사용합니다.", Toast.LENGTH_SHORT).show();
+
         }
     }
 
