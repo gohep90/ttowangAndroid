@@ -413,7 +413,7 @@ public class stamp extends Fragment {
             String encodedString = encodeString(prop);
 
             try{
-                url=new URL("http://" + ip + ":8080/ttowang/spinnerList.do");
+                url=new URL("http://" + ip + ":8080/ttowang/spinnerListStaff.do");
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setDoInput(true);
@@ -451,7 +451,7 @@ public class stamp extends Fragment {
             Log.i("서버에서 받은 전체 내용 : ", result);
             try{
                 JSONObject json=new JSONObject(result);
-                JSONArray jArr =json.getJSONArray("spinnerList");
+                JSONArray jArr =json.getJSONArray("spinnerListStaff");
 
                 for (int i = 0; i < jArr.length(); i++ ) {
                     json = jArr.getJSONObject(i);
