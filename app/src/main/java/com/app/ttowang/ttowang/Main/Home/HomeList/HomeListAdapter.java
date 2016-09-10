@@ -66,21 +66,21 @@ public class HomeListAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView mybusineecouponname = (TextView) convertView.findViewById(R.id.mybusineecouponname) ;
-
+        TextView mybusineename = (TextView) convertView.findViewById(R.id.mybusineename) ;
+        TextView mybusineegroup = (TextView) convertView.findViewById(R.id.mybusineegroup) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final HomeListItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        mybusineecouponname.setText(listViewItem.getCouponName());
-
+        mybusineename.setText(listViewItem.getBusinessName());
+        mybusineegroup.setText(listViewItem.getBusinessGroup());
 
         convertView.setOnClickListener(new View.OnClickListener(){  //수정
            @Override
            public void onClick(View v) {
 
-               Toast.makeText(HomeList.mContext,listViewItem.getCouponName(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(HomeList.mContext,listViewItem.getBusinessName(), Toast.LENGTH_SHORT).show();
 
            }
         });
@@ -114,11 +114,11 @@ public class HomeListAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String CouponName) {
+    public void addItem(String BusinessName, String BusinessGroup) {
         HomeListItem item = new HomeListItem();
 
-        item.setCouponName(CouponName);
-
+        item.setBusinessName(BusinessName);
+        item.setBusinessGroup(BusinessGroup);
         listViewItemList.add(item);
 
     }

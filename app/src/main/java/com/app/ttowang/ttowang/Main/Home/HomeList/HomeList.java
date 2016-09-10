@@ -57,9 +57,9 @@ public class HomeList extends AppCompatActivity {
 
         // Adapter 생성
         adapter = new HomeListAdapter() ;
-
-        for(int i = 0; i<30;i++){
-            adapter.addItem(String.valueOf(i)) ;
+        adapter.clearItem();
+        for(int i = 0; i<12;i++){
+            adapter.addItem(String.valueOf(i) + "번째 매장", "힙합") ;
         }
 
 

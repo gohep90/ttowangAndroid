@@ -5,13 +5,15 @@ package com.app.ttowang.ttowang.Main.Home.HomeList;
  */
 public class HomeListItem {
 
-    private String CouponName;
+    private String BusinessName,BusinessGroup;
 
 
-    public void setCouponName(String couponName) {
-        CouponName = couponName ;
+    public void setBusinessName(String businessName) {
+        BusinessName = businessName ;
     }
-
+    public void setBusinessGroup(String businessGroup) {
+        BusinessGroup = businessGroup ;
+    }
     /*
     public void setCouponCode(String couponCode) {
         CouponCode = couponCode;
@@ -25,8 +27,11 @@ public class HomeListItem {
 */
 
 
-    public String getCouponName() {
-        return this.CouponName;
+    public String getBusinessName() {
+        return this.BusinessName;
+    }
+    public String getBusinessGroup() {
+        return this.BusinessGroup;
     }
     /*
     public String getCouponCode() {
