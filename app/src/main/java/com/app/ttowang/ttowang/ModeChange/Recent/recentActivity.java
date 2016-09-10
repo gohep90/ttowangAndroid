@@ -109,6 +109,7 @@ public class recentActivity extends Fragment {
             cancelTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /*
                     if (recentList.stampList.get(pos).getCouponUsing().equals("FALSE")) {
                         recentDeleteConfirm.setMessage("적립을 취소하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                                 new DialogInterface.OnClickListener() {
@@ -144,7 +145,7 @@ public class recentActivity extends Fragment {
                         });
                         recentConfirm.setMessage("이미 쿠폰으로 변경된 적립정보입니다.");
                         recentConfirm.show();
-                    }
+                    }*/
                 }
             });
             return convertView;

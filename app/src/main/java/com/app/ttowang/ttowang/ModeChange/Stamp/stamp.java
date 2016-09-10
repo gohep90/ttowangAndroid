@@ -1,6 +1,7 @@
 package com.app.ttowang.ttowang.ModeChange.Stamp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.ModeChange.Stamp.AddStamp.AddStamp;
+import com.app.ttowang.ttowang.ModeChange.Stamp.AddStamp.AddStampList;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
 import com.app.ttowang.ttowang.ModeChange.MyShop.KeyValueArrayAdapter;
 import com.app.ttowang.ttowang.R;
@@ -40,18 +43,15 @@ public class stamp extends Fragment {
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
 
     View view;
-    //Button modeChange;
 
     Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_back; //번호입력버튼 and 빽버튼
-    Button btn_addstamp; //적립하기버튼
+    Button btn_searchtel; //적립하기버튼
     TextView text_telvalue; //번호입력하는부분
-    TextView text_stampnum; //스템프갯수입력하는부분
 
-    String encodedString;
+    String encodedString="", result="";
     String businessId ="";
     String ip;
     int userId;
-    int focus = 1; //첫 포커스를 번호창으로 줌
 
     Context mContext;
 
@@ -88,35 +88,19 @@ public class stamp extends Fragment {
                 KeyValueArrayAdapter adapter = (KeyValueArrayAdapter) parent.getAdapter();
                 //Toast.makeText(myBusinessCoupon.this, adapter.getEntry(position), Toast.LENGTH_SHORT).show();
                 businessId = adapter.getEntry(position);
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-        /*
-        modeChange = (Button) view.findViewById(R.id.modeChange);
-
-
-        modeChange.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "체인지모드.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
-            }
-        });
-        */
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
         userId = sharedPreferences.getInt("userId", 0);
-        //userId = Integer.parseInt(MainActivity.user);
 
-        text_stampnum = (TextView) view.findViewById(R.id.text_stampnum);
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
-        btn_addstamp = (Button) view.findViewById(R.id.btn_addstamp);
+        btn_searchtel = (Button) view.findViewById(R.id.btn_searchtel);
 
         btn_0 = (Button) view.findViewById(R.id.btn_0);
         btn_1 = (Button) view.findViewById(R.id.btn_1);
@@ -129,8 +113,6 @@ public class stamp extends Fragment {
         btn_8 = (Button) view.findViewById(R.id.btn_8);
         btn_9 = (Button) view.findViewById(R.id.btn_9);
         btn_back = (Button) view.findViewById(R.id.btn_back);
-
-        text_stampnum.setText("1"); // 스템프 갯수 초기값을 1로 준다
 
         buttonClickListener();
 
@@ -149,10 +131,9 @@ public class stamp extends Fragment {
         btn_8.setOnClickListener(ClickListener);
         btn_9.setOnClickListener(ClickListener);
 
-        btn_addstamp.setOnClickListener(ClickListener);
+        btn_searchtel.setOnClickListener(ClickListener);
         btn_back.setOnClickListener(ClickListener);
 
-        text_stampnum.setOnClickListener(ClickListener);
         text_telvalue.setOnClickListener(ClickListener);
     }
 
@@ -161,211 +142,58 @@ public class stamp extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
 
-                case R.id.btn_addstamp:
-                    //AddStampAsyncTaskCall();
+                case R.id.btn_searchtel:
 
-                    if(text_stampnum.getText().toString().equals("") || text_stampnum.getText().toString().length() == 0)
-                        Toast.makeText(getActivity(), "스템프 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(text_stampnum.getText().toString().equals("0"))
-                        Toast.makeText(getActivity(), "스템프 갯수를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(text_telvalue.getText().toString().equals("") || text_telvalue.getText().toString().length() == 0)
+                    if(text_telvalue.getText().toString().equals("") || text_telvalue.getText().toString().length() == 0)
                         Toast.makeText(getActivity(), "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    else if(text_telvalue.getText().toString().length() != 11)
-                        Toast.makeText(getActivity(), "전화번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
-
                     else {
-                        Toast.makeText(getActivity(), text_stampnum.getText().toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getActivity(), text_telvalue.getText().toString(), Toast.LENGTH_SHORT).show();
-
-                        //입력한 스템프 갯수를 입력한 번호에 적립 쓰레드
-                        AddStampAsyncTaskCall();
-                        //startActivity(new Intent(MainActivity.mContext,ChangeModeMain.class));
+                        try {
+                            CheckTelAsyncTaskCall();
+                        }catch (Exception e){
+                        }
                     }
-                    break;
-
-                case R.id.text_telvalue:
-                    focus = 1; //번호창을 누르면 포커스 이동
-                    break;
-
-                case R.id.text_stampnum:
-                    focus = 0; ////스템프 갯수창을 누르면 포커스 이동
-                    text_stampnum.setText(""); //스템프 갯수창을 누르면 초기화됨
-
-                    //edt_stampnum.setInputType(1);
-
-                    // 숫자로 나오게 하기
-                    //edt_stampnum.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                    //키보드 올라올때 화면 고정시키기(밀리지않게)
-                    //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-                    //이거 안하면 edittext를 두번 눌러야 키보드가 나와서
-                    //InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    //mgr.showSoftInput(edt_stampnum, InputMethodManager.SHOW_IMPLICIT);
-
 
                     break;
 
                 case R.id.btn_0:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "0");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "0");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "0");
                     break;
                 case R.id.btn_1:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "1");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "1");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "1");
                     break;
                 case R.id.btn_2:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "2");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "2");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "2");
                     break;
                 case R.id.btn_3:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "3");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "3");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "3");
                     break;
                 case R.id.btn_4:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "4");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "4");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "4");
                     break;
                 case R.id.btn_5:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "5");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "5");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "5");
                     break;
                 case R.id.btn_6:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "6");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "6");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "6");
                     break;
                 case R.id.btn_7:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "7");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "7");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "7");
                     break;
                 case R.id.btn_8:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "8");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "8");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "8");
                     break;
                 case R.id.btn_9:
-                    if(focus == 0)
-                        text_stampnum.setText(text_stampnum.getText().toString() + "9");
-                    else
-                        text_telvalue.setText(text_telvalue.getText().toString() + "9");
+                    text_telvalue.setText(text_telvalue.getText().toString() + "9");
                     break;
                 case R.id.btn_back:
-                    if(focus == 0){
-                        if (text_stampnum.getText().toString().length() == 0) {
-                        } else
-                            text_stampnum.setText(text_stampnum.getText().toString().substring(0, text_stampnum.getText().toString().length() - 1));
-                        break;
-                    }
+                    if (text_telvalue.getText().toString().length() == 0) {
+                    } else
+                        text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
+                    break;
 
-                    else {
-                        if (text_telvalue.getText().toString().length() == 0) {
-                        } else
-                            text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
-                        break;
-                    }
             }
         }
     };
-
-
-    //스탬프 적립 스레드
-    public void AddStampAsyncTaskCall(){
-        new AddStampAsyncTask().execute();
-    }
-
-    public class AddStampAsyncTask extends AsyncTask<String,Integer,String> {
-
-        @Override
-        protected String doInBackground(String... params) {  // 통신을 위한 Thread
-            String result =recvList();
-            return result;
-        }
-
-        public String encodeString(Properties params) {  //한글 encoding??
-            StringBuffer sb = new StringBuffer(256);
-            Enumeration names = params.propertyNames();
-
-            while (names.hasMoreElements()) {
-                String name = (String) names.nextElement();
-                String value = params.getProperty(name);
-                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
-
-                if (names.hasMoreElements()) sb.append("&");
-            }
-            return sb.toString();
-        }
-
-        private String recvList() { //데이터 보내고 받아오기!!
-
-            HttpURLConnection urlConnection=null;
-            URL url =null;
-            DataOutputStream out=null;
-            BufferedInputStream buf=null;
-            BufferedReader bufreader=null;
-
-            Properties prop = new Properties();
-            prop.setProperty("stampNum", text_stampnum.getText().toString());
-            prop.setProperty("userTel", text_telvalue.getText().toString());
-            prop.setProperty("businessId", businessId);
-
-            String encodedString = encodeString(prop);
-
-            try{
-                url=new URL("http://" + ip + ":8080/ttowang/addStamp.do");
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setUseCaches(false);
-
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                out = new DataOutputStream(urlConnection.getOutputStream());
-
-                out.writeBytes(encodedString);
-
-                out.flush();    //서버로 버퍼의 내용 전송
-
-                buf = new BufferedInputStream(urlConnection.getInputStream());
-                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
-
-                String line=null;
-                String result="";
-
-                while((line=bufreader.readLine())!=null){
-                    result += line;
-                }
-
-                return result;
-
-            }catch(Exception e){
-                e.printStackTrace();
-                return "";
-            }finally{
-                urlConnection.disconnect();  //URL 연결해제
-            }
-        }
-        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
-        }
-    }
-
 
     //비지니스 List (스피너)
     public void businessListAsyncTaskCall(){
@@ -470,6 +298,139 @@ public class stamp extends Fragment {
             }catch(JSONException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    //////////////////////////////////////////////   번호 체크   ////////////////////////////////////////////////////////////////////////////////////
+
+    public void CheckTelAsyncTaskCall(){
+        new CheckTelAsyncTask().execute();
+    }
+
+    public class CheckTelAsyncTask extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {  // 통신을 위한 Thread
+            result = recvList();
+            return result;
+        }
+
+        public String encodeString(Properties params) {  //한글 encoding??
+            StringBuffer sb = new StringBuffer(256);
+            Enumeration names = params.propertyNames();
+
+            while (names.hasMoreElements()) {
+                String name = (String) names.nextElement();
+                String value = params.getProperty(name);
+                sb.append(URLEncoder.encode(name) + "=" + URLEncoder.encode(value) );
+
+                if (names.hasMoreElements()) sb.append("&");
+            }
+            return sb.toString();
+        }
+
+        private String recvList() { //데이터 보내고 받아오기!!
+
+            HttpURLConnection urlConnection = null;
+            URL url = null;
+            DataOutputStream out = null;
+            BufferedInputStream buf = null;
+            BufferedReader bufreader = null;
+
+            Properties prop = new Properties();
+            prop.setProperty("tel", text_telvalue.getText().toString());
+
+            encodedString = encodeString(prop);
+
+            try{
+                url=new URL("http://" + ip + ":8080/ttowang/checkTel.do");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                out = new DataOutputStream(urlConnection.getOutputStream());
+
+                out.writeBytes(encodedString);
+
+                out.flush();    //서버로 버퍼의 내용 전송
+
+                buf = new BufferedInputStream(urlConnection.getInputStream());
+                bufreader = new BufferedReader(new InputStreamReader(buf,"utf-8"));
+
+                String line = null;
+                String result = "";
+
+                while((line = bufreader.readLine()) != null){
+                    result += line;
+                }
+
+                return result;
+
+            }catch(Exception e){
+                e.printStackTrace();
+                return "";
+            }finally{
+                urlConnection.disconnect();  //URL 연결해제
+            }
+        }
+
+        protected void onPostExecute(String result){  //Thread 이후 UI 처리 result는 Thread의 리턴값!!!
+            checkList(result);
+        }
+    }
+
+    private void checkList(String recv) {
+
+        Log.i("서버에서 받은 전체 내용 : ", recv);
+
+        try{
+            JSONObject json = new JSONObject(recv);
+            JSONArray jArr = json.getJSONArray("checkTel");
+
+            // 검색 결과가 없을 때
+            if(jArr.length() == 0){
+                Toast.makeText(getActivity(), String.valueOf(jArr.length()) + "명 있습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), AddStamp.class);
+                intent.putExtra("userTel", text_telvalue.getText().toString());
+                intent.putExtra("userName", "회원이 아닙니다.");
+                intent.putExtra("businessId", businessId);
+                startActivity(intent);
+                text_telvalue.setText("");
+            }
+
+            // 검색 결과가 한명일 때
+            else if(jArr.length() == 1) {
+                Toast.makeText(getActivity(), String.valueOf(jArr.length()) + "명 있습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), AddStamp.class);
+                intent.putExtra("userTel", jArr.getJSONObject(0).getString("userTel"));
+                intent.putExtra("userName", jArr.getJSONObject(0).getString("userName"));
+                intent.putExtra("businessId", businessId);
+                startActivity(intent);
+                text_telvalue.setText("");
+            }
+
+            // 검색 결과가 2명 이상일 때
+            else {
+                Toast.makeText(getActivity(), String.valueOf(jArr.length()) + "명 있습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), AddStampList.class);
+                intent.putExtra("jsonArray", jArr.toString());
+                intent.putExtra("businessId", businessId);
+                startActivity(intent);
+                text_telvalue.setText("");
+            }
+
+        }catch(JSONException e){
+            e.printStackTrace();
         }
     }
 }

@@ -53,6 +53,7 @@ public class Tel extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
         sharedPreferencesEditor.putString("ip", "14.63.213.208" + "");  //ip 설정하기 저장하기
+        //sharedPreferencesEditor.putString("ip", "172.30.1.31" + "");  //ip 설정하기 저장하기
         sharedPreferencesEditor.commit();
 
         ip = sharedPreferences.getString("ip", "");
