@@ -410,9 +410,18 @@ public class stamp extends Fragment {
             else if(jArr.length() == 1) {
                 Toast.makeText(getActivity(), String.valueOf(jArr.length()) + "명 있습니다.", Toast.LENGTH_SHORT).show();
 
+                String userName="";
+
+                //Log.i("AddStamp-- : ", jArr.getJSONObject(0).getString("userName"));
+                if(jArr.getJSONObject(0).getString("userCode").equals("1")){ //1 정회원,  4 준회원
+                    userName=jArr.getJSONObject(0).getString("userName");
+                }else{
+                    userName="준회원";
+                }
+
                 Intent intent = new Intent(getContext(), AddStamp.class);
                 intent.putExtra("userTel", jArr.getJSONObject(0).getString("userTel"));
-                intent.putExtra("userName", jArr.getJSONObject(0).getString("userName"));
+                intent.putExtra("userName", userName);
                 intent.putExtra("businessId", businessId);
                 startActivity(intent);
                 text_telvalue.setText("");

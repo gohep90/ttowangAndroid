@@ -2,14 +2,13 @@ package com.app.ttowang.ttowang.ModeChange.Stamp.AddStamp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +40,10 @@ public class AddStamp extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.addstamp);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+
 
         Intent i = getIntent();
         userTel = i.getExtras().getString("userTel");
