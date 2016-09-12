@@ -413,10 +413,10 @@ public class stamp extends Fragment {
                 String userName="";
 
                 //Log.i("AddStamp-- : ", jArr.getJSONObject(0).getString("userName"));
-                if(jArr.getJSONObject(0).getString("userCode").equals("1")){ //1 정회원,  4 준회원
-                    userName=jArr.getJSONObject(0).getString("userName");
-                }else{
+                if(jArr.getJSONObject(0).getString("userCode").equals("4")){ //1 정회원,  4 준회원
                     userName="준회원";
+                }else{
+                    userName=jArr.getJSONObject(0).getString("userName");
                 }
 
                 Intent intent = new Intent(getContext(), AddStamp.class);

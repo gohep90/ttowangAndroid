@@ -3,13 +3,8 @@ package com.app.ttowang.ttowang.ModeChange.Stamp.AddStamp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.app.ttowang.ttowang.R;
 
@@ -18,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class AddStampList extends Activity {
@@ -45,14 +39,14 @@ public class AddStampList extends Activity {
             for(int i=0; i < jArr.length(); i++){
 
                 JSONObject jObject = jArr.getJSONObject(i);  // JSONObject 추출
-                if(jObject.length() == 2) {
+                if(jObject.getString("userCode").equals("4")) {
                     String userTel = jObject.getString("userTel");
-                    String userName = jObject.getString("userName");
+                    String userName = "준회원";
                     datas.add(new AddStampListData(userTel, userName, businessId));
                 }
                 else {
                     String userTel = jObject.getString("userTel");
-                    String userName = "준회원";
+                    String userName = jObject.getString("userName");
                     datas.add(new AddStampListData(userTel, userName, businessId));
                 }
             }
