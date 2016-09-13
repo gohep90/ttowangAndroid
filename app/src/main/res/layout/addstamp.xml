@@ -64,14 +64,17 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <Button
                     android:id="@+id/btn_minus"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="-"
-                    android:textSize="30dp"/>
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:background="#FFA7A7"/>
 
             </LinearLayout>
 
@@ -93,14 +96,17 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <Button
                     android:id="@+id/btn_plus"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="+"
-                    android:textSize="30dp"/>
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:background="#FFA7A7"/>
 
             </LinearLayout>
 
@@ -109,14 +115,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="적   립 "
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="#FFA7A7"/>
 
         </LinearLayout>
         

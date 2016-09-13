@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -115,6 +117,7 @@ public class stamp extends Fragment {
         btn_back = (Button) view.findViewById(R.id.btn_back);
 
         buttonClickListener();
+        btn_back.setOnLongClickListener(mLongClickListener);
 
         return view;
     }
@@ -143,7 +146,6 @@ public class stamp extends Fragment {
             switch (v.getId()) {
 
                 case R.id.btn_searchtel:
-
                     if(text_telvalue.getText().toString().equals("") || text_telvalue.getText().toString().length() == 0)
                         Toast.makeText(getActivity(), "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     else {
@@ -152,47 +154,202 @@ public class stamp extends Fragment {
                         }catch (Exception e){
                         }
                     }
-
                     break;
 
                 case R.id.btn_0:
                     text_telvalue.setText(text_telvalue.getText().toString() + "0");
+
+                    btn_0.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_0.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_0.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_0.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_1:
                     text_telvalue.setText(text_telvalue.getText().toString() + "1");
+
+                    btn_1.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_1.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_1.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_1.setTextSize(30);
+                        }
+                    }, 100);
+
                     break;
+
                 case R.id.btn_2:
                     text_telvalue.setText(text_telvalue.getText().toString() + "2");
+
+                    btn_2.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_2.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_2.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_2.setTextSize(30);
+                        }
+                    }, 100);
+
                     break;
+
                 case R.id.btn_3:
                     text_telvalue.setText(text_telvalue.getText().toString() + "3");
+
+                    btn_3.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_3.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_3.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_3.setTextSize(30);
+                        }
+                    }, 100);
+
                     break;
+
                 case R.id.btn_4:
                     text_telvalue.setText(text_telvalue.getText().toString() + "4");
+
+                    btn_4.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_4.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_4.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_4.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_5:
                     text_telvalue.setText(text_telvalue.getText().toString() + "5");
+
+                    btn_5.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_5.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_5.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_5.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_6:
                     text_telvalue.setText(text_telvalue.getText().toString() + "6");
+
+                    btn_6.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_6.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_6.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_6.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_7:
                     text_telvalue.setText(text_telvalue.getText().toString() + "7");
+
+                    btn_7.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_7.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_7.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_7.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_8:
                     text_telvalue.setText(text_telvalue.getText().toString() + "8");
+
+                    btn_8.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_8.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_8.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_8.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_9:
                     text_telvalue.setText(text_telvalue.getText().toString() + "9");
+
+                    btn_9.setTextColor(getResources().getColorStateList(R.color.koo));
+                    btn_9.setTextSize(40);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_9.setTextColor(getResources().getColorStateList(R.color.black));
+                            btn_9.setTextSize(30);
+                        }
+                    }, 100);
                     break;
+
                 case R.id.btn_back:
                     if (text_telvalue.getText().toString().length() == 0) {
-                    } else
+                    } else {
                         text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
+                        btn_back.setBackgroundResource(R.drawable.back1);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                btn_back.setBackgroundResource(R.drawable.back);
+                            }
+                        }, 100);
+                    }
                     break;
 
             }
         }
+    };
+
+    Button.OnLongClickListener mLongClickListener = new Button.OnLongClickListener(){
+
+        public boolean onLongClick(View v) {
+            // TODO Auto-generated method stub
+            switch (v.getId()) {
+                case R.id.btn_back:
+
+                    btn_back.setBackgroundResource(R.drawable.back1);
+                    text_telvalue.setText("");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            btn_back.setBackgroundResource(R.drawable.back);
+                        }
+                    }, 100);
+
+                    // 롱클릭을 완전히 처리하면, 논리적 참을 반환한다.
+                    return true;
+            }
+            return false;
+        } // end onLongClick
     };
 
     //비지니스 List (스피너)
