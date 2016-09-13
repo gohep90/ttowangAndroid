@@ -18,20 +18,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#ff375f"
-        android:weightSum="4">
+        android:weightSum="4.2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center_horizontal|bottom">
 
             <TextView
-                android:id="@+id/text_addStampName"
+                android:id="@+id/text_addStampTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름"
-                android:textSize="20dp"
+                android:text="번호"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
 
@@ -44,10 +44,10 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/text_addStampTel"
+                android:id="@+id/text_addStampName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="번호"
+                android:text="이름"
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -73,23 +73,36 @@
                     android:layout_height="match_parent"
                     android:text="-"
                     android:textSize="30dp"
-                    android:textColor="@color/white"
-                    android:background="#FFA7A7"/>
+                    android:textColor="@color/black"
+                    android:background="@drawable/btn_plus"
+                    android:layout_marginLeft="30dp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:layout_marginBottom="10dp">
 
-                <EditText
-                    android:id="@+id/edt_stampnum"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textSize="20dp"
-                    android:inputType="number"/>
+                    android:background="#ff375f"
+                    android:layout_marginBottom="1.5dp">
+
+                    <EditText
+                        android:id="@+id/edt_stampnum"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:inputType="number"
+                        android:background="@null"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -105,8 +118,9 @@
                     android:layout_height="match_parent"
                     android:text="+"
                     android:textSize="30dp"
-                    android:textColor="@color/white"
-                    android:background="#FFA7A7"/>
+                    android:textColor="@color/black"
+                    android:background="@drawable/btn_plus"
+                    android:layout_marginRight="30dp"/>
 
             </LinearLayout>
 
@@ -124,9 +138,11 @@
                 android:layout_height="match_parent"
                 android:text="적   립 "
                 android:textSize="20dp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                android:background="#FFA7A7"/>
+                android:background="@drawable/btn_plus"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
         </LinearLayout>
         
