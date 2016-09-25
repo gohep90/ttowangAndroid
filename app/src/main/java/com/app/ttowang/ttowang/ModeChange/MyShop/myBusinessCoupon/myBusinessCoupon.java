@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -57,6 +58,7 @@ public class myBusinessCoupon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinesscoupon_main);
         setTheme(R.style.AppThemeGray);
+
         mContext = this;
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);

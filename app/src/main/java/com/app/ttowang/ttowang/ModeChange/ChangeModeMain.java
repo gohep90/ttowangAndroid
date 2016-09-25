@@ -36,6 +36,7 @@ public class ChangeModeMain extends AppCompatActivity {
         setContentView(R.layout.modechangemain);
         mContext = this;
         initViewPagerAndTabs();
+
     }
 
     private void initViewPagerAndTabs() {

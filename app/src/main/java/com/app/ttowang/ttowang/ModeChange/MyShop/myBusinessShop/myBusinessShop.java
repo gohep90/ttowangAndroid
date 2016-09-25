@@ -45,7 +45,7 @@ public class myBusinessShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinessshop_main);
-
+        setTheme(R.style.AppThemeGray);
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         ip = sharedPreferences.getString("ip", "");
         userId = sharedPreferences.getInt("userId", 0);

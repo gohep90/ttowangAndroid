@@ -16,11 +16,20 @@
         <item name="colorAccent">@color/FAB</item>
     </style>
 
-    <style name="AppThemeGray" parent="AppTheme">
+
+    <style name="AppThemeGray2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary_gray</item>
         <item name="colorPrimaryDark">@color/color_primary_gray</item>
         <item name="colorAccent">@color/FAB2</item>
     </style>
+
+    <style name="AppThemeGray" parent="AppTheme">
+        <item name="colorPrimary">@color/color_primary_gray</item>
+        <item name="colorPrimaryDark">@color/color_primary_gray</item>
+        <item name="colorAccent">@color/FAB2</item>
+
+    </style>
+
 
     <style name="tab_bar">
         <item name="android:layout_width">match_parent</item>
