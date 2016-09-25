@@ -44,6 +44,7 @@ public class recentActivity extends Fragment {
     AlertDialog.Builder recentDeleteConfirm;
     AlertDialog.Builder recentConfirm;
     Spinner spinner;
+    boolean change = false;
 
     public static recentActivity createInstance(int itemsCount) {
         recentActivity recent = new recentActivity();
@@ -88,6 +89,10 @@ public class recentActivity extends Fragment {
     }
 
     private void initRecentList(String BUSINESSID) {
+        if(change == true) {
+            change = false;
+            AdapterClear();
+        }
         NetworkModel.getInstance().getSelectRecent(new NetworkModel.OnNetworkResultListener<recentList>() {
             @Override
             public void onResult(recentList recentList) {
@@ -165,6 +170,7 @@ public class recentActivity extends Fragment {
                         KeyValueArrayAdapter adapter = (KeyValueArrayAdapter) parent.getAdapter();
 
                         businessId = adapter.getEntry(position);
+                        change = true;
 
                         initRecentList(businessId);
                     }
@@ -230,7 +236,7 @@ public class recentActivity extends Fragment {
                                         deleteRecentList(recentList.stampList.get(pos).getUserId(), businessId,
                                                 stampDate, recentList.stampList.get(pos).getStampNum());
 
-                                        ArRecentList.clear();
+                                        AdapterClear();
 
                                         initRecentList(businessId);
                                     }
