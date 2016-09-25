@@ -48,6 +48,7 @@ public class HomeList extends AppCompatActivity {
     public static ListView homelistView ;
 
     public static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

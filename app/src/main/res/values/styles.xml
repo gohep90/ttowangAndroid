@@ -15,7 +15,7 @@
         <item name="colorPrimaryDark">@color/color_primary_red</item>
         <item name="colorAccent">@color/FAB</item>
     </style>
-asd
+
     <style name="AppThemeGray" parent="AppTheme">
         <item name="colorPrimary">@color/color_primary_gray</item>
         <item name="colorPrimaryDark">@color/color_primary_gray</item>

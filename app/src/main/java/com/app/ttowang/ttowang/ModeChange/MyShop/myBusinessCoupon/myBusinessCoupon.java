@@ -56,6 +56,7 @@ public class myBusinessCoupon extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mybusinesscoupon_main);
+        setTheme(R.style.AppThemeGray);
         mContext = this;
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);

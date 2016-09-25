@@ -313,16 +313,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:gravity="center"
+                android:padding="20dp">
 
-                <Button
-                    android:id="@+id/btn_back"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/back"/>
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/backspace"
+                    android:id="@+id/btn_back"/>
 
             </LinearLayout>
 

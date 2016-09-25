@@ -51,7 +51,7 @@ public class ChangeCoupon extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.changecoupon_main);
-        //setTheme(R.style.AppDialogTheme);
+        setTheme(R.style.AppThemeRed);
         mContext = this;
         Intent i = getIntent();
         businessId = i.getExtras().getString("businessId");

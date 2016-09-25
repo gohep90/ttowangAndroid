@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +47,8 @@ public class stamp extends Fragment {
 
     View view;
 
-    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_back; //번호입력버튼 and 빽버튼
+    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9; //번호입력버튼 and 빽버튼
+    ImageView btn_back;
     Button btn_searchtel; //적립하기버튼
     TextView text_telvalue; //번호입력하는부분
 
@@ -114,7 +116,7 @@ public class stamp extends Fragment {
         btn_7 = (Button) view.findViewById(R.id.btn_7);
         btn_8 = (Button) view.findViewById(R.id.btn_8);
         btn_9 = (Button) view.findViewById(R.id.btn_9);
-        btn_back = (Button) view.findViewById(R.id.btn_back);
+        btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
         buttonClickListener();
         btn_back.setOnLongClickListener(mLongClickListener);
@@ -313,12 +315,12 @@ public class stamp extends Fragment {
                     if (text_telvalue.getText().toString().length() == 0) {
                     } else {
                         text_telvalue.setText(text_telvalue.getText().toString().substring(0, text_telvalue.getText().toString().length() - 1));
-                        btn_back.setBackgroundResource(R.drawable.back1);
+                        //btn_back.setBackgroundResource(R.drawable.back1);
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                btn_back.setBackgroundResource(R.drawable.back);
+                                //btn_back.setBackgroundResource(R.drawable.backspace);
                             }
                         }, 100);
                     }
@@ -335,13 +337,13 @@ public class stamp extends Fragment {
             switch (v.getId()) {
                 case R.id.btn_back:
 
-                    btn_back.setBackgroundResource(R.drawable.back1);
+                    //btn_back.setBackgroundResource(R.drawable.back1);
                     text_telvalue.setText("");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            btn_back.setBackgroundResource(R.drawable.back);
+                            //btn_back.setBackgroundResource(R.drawable.backspace);
                         }
                     }, 100);
 

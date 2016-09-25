@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Business.businessMain;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     String userTel;
     String encodedString="", result="";
 
-    Button btn_list;
+    ImageView btn_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         userTel = sharedPreferences.getString("userTel", "");
         userId = sharedPreferences.getInt("userId", 0);
 
-        btn_list = (Button)findViewById(R.id.btn_list);
+        btn_list = (ImageView) findViewById(R.id.btn_list);
 
         btn_list.setOnClickListener(new Button.OnClickListener() {
             @Override

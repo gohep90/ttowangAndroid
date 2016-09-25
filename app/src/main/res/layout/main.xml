@@ -54,11 +54,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2">
 
-                    <Button
-                        android:id="@+id/btn_list"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="list"/>
+                        android:src="@drawable/cards"
+                        android:id="@+id/btn_list"
+                        android:layout_margin="4dp"
+                        android:gravity="right"/>
+
 
                 </LinearLayout>
 
