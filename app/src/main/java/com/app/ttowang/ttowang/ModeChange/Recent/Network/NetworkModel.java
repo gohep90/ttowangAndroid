@@ -1,13 +1,11 @@
 package com.app.ttowang.ttowang.ModeChange.Recent.Network;
 
+import android.util.Log;
+
 import com.app.ttowang.ttowang.ModeChange.Recent.recent;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.app.ttowang.ttowang.ModeChange.Recent.recentSpinner;
+import com.loopj.android.http.*;
+import com.google.gson.*;
 
 import java.util.ArrayList;
 
@@ -40,15 +38,51 @@ public class NetworkModel {
         public void onFail(int code);
     }
 
+public void  getSelectSpinner(final OnNetworkResultListener<recentSpinnerList> listener, final String userId){
+        RequestParams params = new RequestParams();
+        params.put("userId", userId);
+
+        client.get(SERVER_URL + "/spinnerList.do", params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                ArrayList<recentSpinner> List = new ArrayList<>();
+                String strResult = new String(responseBody);
+                JsonObject jsonObject = new JsonParser().parse(strResult).getAsJsonObject();
+                JsonArray jsonArray = jsonObject.get("spinnerList").getAsJsonArray();
+
+                Gson gson = new Gson();
+
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    recentSpinner recentSpinner = gson.fromJson(jsonArray.get(i), recentSpinner.class);
+                    List.add(recentSpinner);
+                }
+
+                recentSpinnerList recentSpinnerList = new recentSpinnerList();
+                recentSpinnerList.spinner = List;
+
+                listener.onResult(recentSpinnerList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Log.i("지은", "리스너리스트 수신 실패");
+            }
+        });
+    }
+
     public void getSelectRecent(final OnNetworkResultListener<recentList> listener,String businessId){
         RequestParams params = new RequestParams();
         params.put("BUSINESSID", businessId);
 
-        client.get(SERVER_URL + "/selectRecentList.do",params, new AsyncHttpResponseHandler() {
+       //Log.i("지은 businessID ", businessId);
+
+        client.get(SERVER_URL + "/selectRecentList.do", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 ArrayList<recent> List = new ArrayList<>();
                 String strResult = new String(responseBody);
+
                 JsonObject jsonObject = new JsonParser().parse(strResult).getAsJsonObject();
                 JsonArray jsonArray = jsonObject.get("list").getAsJsonArray();
 
@@ -66,6 +100,7 @@ public class NetworkModel {
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Log.i("지은", "전체리스트 수신 실패");
             }
         });
     }
@@ -80,9 +115,15 @@ public class NetworkModel {
 
         client.get(SERVER_URL + "/deleteRecentStamp.do", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {  }
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+        //        Log.i("지은 1 ", recentList.stampList.get(0).getStampTime());
+
+                //listener.onResult(recentList);
+            }
             @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {   }
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                Log.i("지은 ","");
+            }
         });
     }
 }
