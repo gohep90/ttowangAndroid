@@ -31,7 +31,7 @@ public class ChangeModeMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeRed);
+        setTheme(R.style.AppThemeGray);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modechangemain);
         mContext = this;

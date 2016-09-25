@@ -48,7 +48,7 @@ import java.util.Properties;
 public class myBusinessStoreAdd extends AppCompatActivity {
     public static Context mContext;
 
-    Button upload,cancel;
+    Button upload;
     EditText
             businessLicenseEdittext,
             businessNameEdittext,
@@ -107,7 +107,7 @@ public class myBusinessStoreAdd extends AppCompatActivity {
         photo1 = (ImageView) findViewById(R.id.photo1);
 
         upload  =   (Button)findViewById(R.id.upload);
-        cancel = (Button)findViewById(R.id.cancel);
+        //cancel = (Button)findViewById(R.id.cancel);
         //new businessDownAsyncTask().execute();
 
 
@@ -166,12 +166,14 @@ public class myBusinessStoreAdd extends AppCompatActivity {
                 */
             }
         });
+        /*
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        */
     }
 
     public String getImageNameToUri(Uri data) {

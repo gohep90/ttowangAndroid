@@ -15,10 +15,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.Main.Business.businessMain;
 import com.app.ttowang.ttowang.Main.Event.eventMain;
+import com.app.ttowang.ttowang.Main.Home.HomeList.HomeList;
 import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.Main.Setting.Mainsetting;
 import com.app.ttowang.ttowang.ModeChange.ChangeModeMain;
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     String userTel;
     String encodedString="", result="";
 
+    Button btn_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //startActivity(new Intent(this,Loading.class));  //로딩화면
@@ -77,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
         ip = sharedPreferences.getString("ip", "");
         userTel = sharedPreferences.getString("userTel", "");
         userId = sharedPreferences.getInt("userId", 0);
+
+        btn_list = (Button)findViewById(R.id.btn_list);
+
+        btn_list.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : click event
+                Intent i = new Intent(getApplicationContext(), HomeList.class);
+                startActivity(i);
+            }
+        });
 
         //방금 회원가입한 사람 userId 가져오기
         if (userId == 0) {

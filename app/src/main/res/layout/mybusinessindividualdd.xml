@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/tools"
-    android:background="#ff375f"
+    android:background="#6CC0FF"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,24 +25,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:text="사업 이름"
-                    android:textSize="20dp"
-                    android:textColor="#ffffff"
-                    android:gravity="center"/>
+
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -50,7 +42,10 @@
                     android:id="@+id/businessName"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:hint="사업 이름"
+                    android:textColorHint="@color/white"/>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
