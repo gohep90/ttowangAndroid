@@ -53,8 +53,9 @@ import java.util.Properties;
 public class myBusinessStaffAdd extends AppCompatActivity {
     public static Context mContext;
 
-    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_back; //번호입력버튼 and 빽버튼
+    Button btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9; //번호입력버튼 and 빽버튼
     Button btn_addstamp; //적립하기버튼
+    ImageView btn_back;
     TextView text_telvalue; //번호입력하는부분
 
     String ip;
@@ -125,7 +126,7 @@ public class myBusinessStaffAdd extends AppCompatActivity {
         btn_7 = (Button) findViewById(R.id.btn_7);
         btn_8 = (Button) findViewById(R.id.btn_8);
         btn_9 = (Button) findViewById(R.id.btn_9);
-        btn_back = (Button) findViewById(R.id.btn_back);
+        btn_back = (ImageView) findViewById(R.id.btn_back);
 
         buttonClickListener();
 
