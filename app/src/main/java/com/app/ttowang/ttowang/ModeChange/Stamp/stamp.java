@@ -75,7 +75,9 @@ public class stamp extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
+        userId = sharedPreferences.getInt("userId", 0);
         view = inflater.inflate(R.layout.stamp,container, false);
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
@@ -99,9 +101,7 @@ public class stamp extends Fragment {
             }
         });
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
-        ip = sharedPreferences.getString("ip", "");
-        userId = sharedPreferences.getInt("userId", 0);
+
 
         text_telvalue = (TextView) view.findViewById(R.id.text_telvalue);
         btn_searchtel = (Button) view.findViewById(R.id.btn_searchtel);
@@ -439,7 +439,8 @@ public class stamp extends Fragment {
             try{
                 JSONObject json=new JSONObject(result);
                 JSONArray jArr =json.getJSONArray("spinnerListStaff");
-
+                spinnerValues.clear();
+                spinnerKeys.clear();
                 for (int i = 0; i < jArr.length(); i++ ) {
                     json = jArr.getJSONObject(i);
 
