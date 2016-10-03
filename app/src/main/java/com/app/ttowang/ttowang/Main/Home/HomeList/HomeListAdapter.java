@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon.myBusinessCouponEdit;
 import com.app.ttowang.ttowang.R;
+import com.bumptech.glide.Glide;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -57,7 +59,8 @@ public class HomeListAdapter extends BaseAdapter {
 
         final int pos = position;
         final Context context = parent.getContext();
-
+        SharedPreferences sharedPreferences = HomeList.mContext.getSharedPreferences("sharedPreferences",HomeList.mContext.MODE_PRIVATE);
+        ip = sharedPreferences.getString("ip", "");
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -67,14 +70,17 @@ public class HomeListAdapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView mybusineename = (TextView) convertView.findViewById(R.id.mybusineename) ;
-        TextView mybusineegroup = (TextView) convertView.findViewById(R.id.mybusineegroup) ;
+        TextView mybusineemap = (TextView) convertView.findViewById(R.id.mybusineemap) ;
+        ImageView mybusinessimg = (ImageView) convertView.findViewById(R.id.mybusinessimg) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final HomeListItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         mybusineename.setText(listViewItem.getBusinessName());
-        mybusineegroup.setText(listViewItem.getBusinessGroup());
+        mybusineemap.setText(listViewItem.getBusinessMap());
+        Glide.with(HomeList.mContext).load("http://" + ip + ":8080/ttowang/image/"+listViewItem.getBusinessPhoto()).into(mybusinessimg);
+
 
         convertView.setOnClickListener(new View.OnClickListener(){  //수정
            @Override
@@ -114,11 +120,12 @@ public class HomeListAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String BusinessName, String BusinessGroup) {
+    public void addItem(String BusinessName, String BusinessMap, String BusinessPhoto) {
         HomeListItem item = new HomeListItem();
 
         item.setBusinessName(BusinessName);
-        item.setBusinessGroup(BusinessGroup);
+        item.setBusinessMap(BusinessMap);
+        item.setBusinessPhoto(BusinessPhoto);
         listViewItemList.add(item);
 
     }

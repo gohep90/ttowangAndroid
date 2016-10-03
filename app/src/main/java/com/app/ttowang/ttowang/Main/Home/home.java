@@ -94,6 +94,8 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
 
     static String encodedString="";
 
+    public static int hometotlasu=0;
+
     public static int nowbusiness;
     @Nullable
     @Override
@@ -389,7 +391,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             JSONArray jCoupon =json.getJSONArray("coupon");
 
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
-
+            hometotlasu = jArr.length();
             int i;
 
             for (i = 0; i < jArr.length(); i++ ) {
@@ -527,7 +529,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             JSONArray jCoupon =json.getJSONArray("coupon");
 
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
-
+            hometotlasu = jArr.length();
             int i;
             myAllBusiness.clear();
             for (i = 0; i < jArr.length(); i++ ) {
@@ -787,7 +789,7 @@ public class home extends Fragment implements homeFragment.OnFragmentInteraction
             JSONArray jCoupon =json.getJSONArray("coupon");
 
             Log.i("home - ", "서버에서 받아온 매장 갯수" + jArr.length());
-
+            hometotlasu = jArr.length();
             int i;
             myAllBusiness.clear();
             for (i = 0; i < jArr.length(); i++ ) {

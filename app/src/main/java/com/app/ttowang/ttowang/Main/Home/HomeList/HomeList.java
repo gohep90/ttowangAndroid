@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.ModeChange.MyShop.KeyValueArrayAdapter;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon.myBusinessCouponAdd;
 import com.app.ttowang.ttowang.R;
@@ -59,10 +60,11 @@ public class HomeList extends AppCompatActivity {
         // Adapter 생성
         adapter = new HomeListAdapter() ;
         adapter.clearItem();
-        for(int i = 0; i<12;i++){
-            adapter.addItem(String.valueOf(i) + "번째 매장", "힙합") ;
+        if(home.hometotlasu != 0) {
+            for (int i = 0; i < home.hometotlasu; i++) {
+                adapter.addItem(home.myAllBusiness.get(i).get(1), home.myAllBusiness.get(i).get(2), home.myAllBusiness.get(i).get(3));
+            }
         }
-
 
         // 리스트뷰 참조 및 Adapter달기
         homelistView = (ListView) findViewById(R.id.homelistView);
@@ -77,7 +79,6 @@ public class HomeList extends AppCompatActivity {
                 HomeListItem item = (HomeListItem) parent.getItemAtPosition(position) ;
             }
         }) ;
-
 
     }
 
