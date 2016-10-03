@@ -62,7 +62,7 @@ public class HomeList extends AppCompatActivity {
         adapter.clearItem();
         if(home.hometotlasu != 0) {
             for (int i = 0; i < home.hometotlasu; i++) {
-                adapter.addItem(home.myAllBusiness.get(i).get(1), home.myAllBusiness.get(i).get(2), home.myAllBusiness.get(i).get(3));
+                adapter.addItem(home.myAllBusiness.get(i).get(1), home.myAllBusiness.get(i).get(2), home.myAllBusiness.get(i).get(3), i);
             }
         }
 
@@ -76,7 +76,7 @@ public class HomeList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
-                HomeListItem item = (HomeListItem) parent.getItemAtPosition(position) ;
+
             }
         }) ;
 
@@ -84,5 +84,9 @@ public class HomeList extends AppCompatActivity {
 
     final public static void stampRefresh(){
         Log.i("내 쿠폰 - ","쿠폰 리프레쉬 한다");
+    }
+
+    final public void thisfinish(){
+        finish();
     }
 }

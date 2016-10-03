@@ -1,5 +1,6 @@
 package com.app.ttowang.ttowang.Main.Home.HomeList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.ttowang.ttowang.Main.Home.home;
 import com.app.ttowang.ttowang.ModeChange.MyShop.myBusinessCoupon.myBusinessCouponEdit;
 import com.app.ttowang.ttowang.R;
 import com.bumptech.glide.Glide;
@@ -86,7 +88,9 @@ public class HomeListAdapter extends BaseAdapter {
            @Override
            public void onClick(View v) {
 
-               Toast.makeText(HomeList.mContext,listViewItem.getBusinessName(), Toast.LENGTH_SHORT).show();
+               //Toast.makeText(HomeList.mContext,listViewItem.getBusinessName(), Toast.LENGTH_SHORT).show();
+               home.upViewPager.setCurrentItem(listViewItem.getBusinessNum(), false);
+               ((Activity)context).finish();
 
            }
         });
@@ -120,12 +124,13 @@ public class HomeListAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String BusinessName, String BusinessMap, String BusinessPhoto) {
+    public void addItem(String BusinessName, String BusinessMap, String BusinessPhoto, int BusinessNum) {
         HomeListItem item = new HomeListItem();
 
         item.setBusinessName(BusinessName);
         item.setBusinessMap(BusinessMap);
         item.setBusinessPhoto(BusinessPhoto);
+        item.setBusinessNum(BusinessNum);
         listViewItemList.add(item);
 
     }

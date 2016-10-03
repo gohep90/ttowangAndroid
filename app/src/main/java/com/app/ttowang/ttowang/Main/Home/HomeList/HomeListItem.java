@@ -6,17 +6,20 @@ package com.app.ttowang.ttowang.Main.Home.HomeList;
 public class HomeListItem {
 
     private String BusinessName,BusinessMap,BusinessPhoto;
+    private int BusinessNum;
 
 
     public void setBusinessName(String businessName) {
         BusinessName = businessName ;
     }
-
     public void setBusinessMap(String businessMap) {
         BusinessMap = businessMap ;
     }
     public void setBusinessPhoto(String businessPhoto) {
         BusinessPhoto = businessPhoto ;
+    }
+    public void setBusinessNum(int businessNum) {
+        BusinessNum = businessNum ;
     }
     /*
     public void setCouponCode(String couponCode) {
@@ -40,6 +43,10 @@ public class HomeListItem {
     public String getBusinessPhoto() {
         return this.BusinessPhoto;
     }
+    public int getBusinessNum() {
+        return this.BusinessNum;
+    }
+
     /*
     public String getCouponCode() {
         return this.CouponCode ;
