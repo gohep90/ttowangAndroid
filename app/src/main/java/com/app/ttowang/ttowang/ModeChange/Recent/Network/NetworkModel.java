@@ -67,6 +67,7 @@ public void  getSelectSpinner(final OnNetworkResultListener<recentSpinnerList> l
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 Log.i("지은", "리스너리스트 수신 실패");
+                error.getMessage();
             }
         });
     }
@@ -74,8 +75,6 @@ public void  getSelectSpinner(final OnNetworkResultListener<recentSpinnerList> l
     public void getSelectRecent(final OnNetworkResultListener<recentList> listener,String businessId){
         RequestParams params = new RequestParams();
         params.put("BUSINESSID", businessId);
-
-       //Log.i("지은 businessID ", businessId);
 
         client.get(SERVER_URL + "/selectRecentList.do", params, new AsyncHttpResponseHandler() {
             @Override
@@ -101,12 +100,12 @@ public void  getSelectSpinner(final OnNetworkResultListener<recentSpinnerList> l
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
                 Log.i("지은", "전체리스트 수신 실패");
+                error.getMessage();
             }
         });
     }
 
-    public void getDeleteRecent(final OnNetworkResultListener<recentList> listener,
-                                String userId, String businessId, String StampDate, String StampNum){
+    public void getDeleteRecent(String userId, String businessId, String StampDate, String StampNum) {
         RequestParams params = new RequestParams();
         params.put("USERID", userId);
         params.put("BUSINESSID", businessId);
@@ -116,13 +115,12 @@ public void  getSelectSpinner(final OnNetworkResultListener<recentSpinnerList> l
         client.get(SERVER_URL + "/deleteRecentStamp.do", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-        //        Log.i("지은 1 ", recentList.stampList.get(0).getStampTime());
-
-                //listener.onResult(recentList);
+                Log.i("지은","DELETE 성공");
             }
             @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
-                Log.i("지은 ","");
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.i("지은","DELETE 실패");
+                error.getMessage();
             }
         });
     }
