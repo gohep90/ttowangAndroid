@@ -3,8 +3,13 @@ package com.app.ttowang.ttowang.ModeChange.Recent;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.Spinner;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,11 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 import com.app.ttowang.ttowang.ModeChange.MyShop.KeyValueArrayAdapter;
 import com.app.ttowang.ttowang.ModeChange.Recent.Network.NetworkModel;
@@ -28,17 +32,19 @@ import com.app.ttowang.ttowang.R;
 import java.util.ArrayList;
 
 public class recentActivity extends Fragment {
+    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", getActivity().MODE_PRIVATE);
     public final static String ITEMS_COUNT_KEY = "home$ItemsCount";
     View view;
-    ImageView search;
     ListView listRecent;
+    EditText inputSearch;
     ArrayList<recent> ArRecentList = new ArrayList<recent>();
+    ArrayList<recent> OriginalList = new ArrayList<recent>();
 
     ArrayList<String> ArRecentSpinnerKey = new ArrayList<>();
     ArrayList<String> ArRecentSpinnerValue = new ArrayList<>();
 
-    String businessId = null;
-    String userId = "5";
+    public String businessId = null;
+    int userId = sharedPreferences.getInt("userId", 0);;
     recentAdapter baseListAdapter;
     KeyValueArrayAdapter baseSelectAdapter = null;
     AlertDialog.Builder recentDeleteConfirm;
@@ -55,29 +61,24 @@ public class recentActivity extends Fragment {
         return recent;
     }
 
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
-        initSpinner(userId);
+        initSpinner(String.valueOf(userId));
     }
 
-    public void onResume() {
-        super.onResume();
-
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "검색검색.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.recent,container, false);
-        search = (ImageView) view.findViewById(R.id.search);
+        view = inflater.inflate(R.layout.recent, container, false);
+
         listRecent = (ListView) view.findViewById(R.id.recentListView);
+        inputSearch = (EditText) view.findViewById(R.id.recentInputSearch);
         spinner = (Spinner) view.findViewById(R.id.recentSpinner);
 
         baseListAdapter = new recentAdapter(getContext(), R.layout.recent_item, ArRecentList);
@@ -85,18 +86,37 @@ public class recentActivity extends Fragment {
         recentDeleteConfirm = new AlertDialog.Builder(getActivity());
         recentConfirm = new AlertDialog.Builder(getActivity());
 
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                recentActivity.this.baseListAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+
+            @Override
+            public void afterTextChanged(Editable arg0) { }
+        });
+
         return view;
     }
 
+
+    /**
+     * (최근스탬프리스트) SERVER에서 RECENT data를 가지고 와서 Adapter로 뿌려줌
+     * @param BUSINESSID
+     */
     private void initRecentList(String BUSINESSID) {
-        if(change == true) {
+        if (change == true ) {
             change = false;
             AdapterClear();
         }
         NetworkModel.getInstance().getSelectRecent(new NetworkModel.OnNetworkResultListener<recentList>() {
             @Override
             public void onResult(recentList recentList) {
-                String seq, userName, stampDate, stampTime;
+                String seq, userName, stampDate, stampTime, userTel;
                 recent recent;
                 for (int i = 0; i < recentList.getStampList().size(); i++) {
                     seq = String.valueOf(i + 1);
@@ -105,11 +125,13 @@ public class recentActivity extends Fragment {
                     //userNameTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
                     stampDate = recentList.getStampList().get(i).getStampDate();
                     stampTime = recentList.getStampList().get(i).getStampTime();
+                    userTel = recentList.getStampList().get(i).getUserTel();
 
-                    recent = new recent(seq, userName, stampDate, stampTime);
+                    recent = new recent(seq, userName, stampDate, stampTime,userTel);
                     ArRecentList.add(recent);
                 }
 
+                OriginalList = ArRecentList;
                 listRecent.setAdapter(baseListAdapter);
             }
 
@@ -119,30 +141,29 @@ public class recentActivity extends Fragment {
         }, BUSINESSID);
     }
 
-    private void deleteRecentList(String USERID,String BUSINESSID,String STAMPDATE,String STAMPNUM) {
-        NetworkModel.getInstance().getDeleteRecent(new NetworkModel.OnNetworkResultListener<recentList>() {
-            @Override
-            public void onResult(recentList result) {
-            }
 
-            @Override
-            public void onFail(int code) {
-                Log.i("지은", "DELETE 실패");
-            }
-        }, USERID, BUSINESSID, STAMPDATE, STAMPNUM);
+    /**
+     * (최근스탬프리스트) 해당 정보를 SERVER에서 삭제
+     * @param USERID
+     * @param BUSINESSID
+     * @param STAMPDATE
+     * @param STAMPNUM
+     */
+    private void deleteRecentList(String USERID, String BUSINESSID, String STAMPDATE, String STAMPNUM) {
+        NetworkModel.getInstance().getDeleteRecent(USERID, BUSINESSID, STAMPDATE, STAMPNUM);
     }
 
-    public void AdapterClear() {
-        ArRecentList.clear();
-    }
 
+    /**
+     * (스피너) SERVER에서 해당 USER의 담당 매장 list가지고 오기
+     * @param USERID
+     */
     private void initSpinner(String USERID) {
         NetworkModel.getInstance().getSelectSpinner(new NetworkModel.OnNetworkResultListener<recentSpinnerList>() {
             @Override
             public void onResult(recentSpinnerList recentSpinnerList) {
                 for (int i = 0; i < recentSpinnerList.getSpinner().size(); i++) {
                     ArRecentSpinnerKey.add(recentSpinnerList.getSpinner().get(i).getBusinessId());
-                    Log.i("지은 업소명",recentSpinnerList.getSpinner().get(i).getBusinessName());
                     ArRecentSpinnerValue.add(recentSpinnerList.getSpinner().get(i).getBusinessName());
                 }
                 setSpinnerAdapter(ArRecentSpinnerKey, ArRecentSpinnerValue);
@@ -154,10 +175,30 @@ public class recentActivity extends Fragment {
         }, USERID);
     }
 
-    private void setSpinnerAdapter(ArrayList<String> key,ArrayList<String> value) {
+    /**
+     * (최근스탬프리스트) 변경에 따라 list clear Action
+     */
+    public void AdapterClear() {
+        Log.i("지은", "=== 변경변경 ===");
+
+        ArRecentList.clear();
+        OriginalList.clear();
+
+        if(!inputSearch.getText().toString().matches("")) {
+            inputSearch.setText(null);
+        }
+    }
+
+
+    /**
+     * (스피너) Spinner Adapter
+     * @param key
+     * @param value
+     */
+    private void setSpinnerAdapter(ArrayList<String> key, ArrayList<String> value) {
         if (null != key) {
             if (null == baseSelectAdapter) {
-                baseSelectAdapter = new KeyValueArrayAdapter(getContext(),R.layout.spinner_item);
+                baseSelectAdapter = new KeyValueArrayAdapter(getContext(), R.layout.spinner_item);
 
                 baseSelectAdapter.setEntries(ArRecentSpinnerKey.toArray(new String[ArRecentSpinnerKey.size()]));
                 baseSelectAdapter.setEntryValues(ArRecentSpinnerValue.toArray(new String[ArRecentSpinnerValue.size()]));
@@ -172,6 +213,12 @@ public class recentActivity extends Fragment {
                         businessId = adapter.getEntry(position);
                         change = true;
 
+                        Log.i("지은","Spinner 변경!!!");
+
+                        if(!inputSearch.getText().toString().matches("")) {
+                            inputSearch.setText(null);
+                        }
+
                         initRecentList(businessId);
                     }
 
@@ -179,11 +226,19 @@ public class recentActivity extends Fragment {
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
-            } else{}
+            } else {
+            }
         }
     }
 
-    public class recentAdapter extends BaseAdapter{
+
+    /**
+     * (최근스탬프리스트) 적립리스트 Adapter
+     */
+    public class recentAdapter extends BaseAdapter {
+        ArrayList<recent> filterList = new ArrayList<recent>();
+        private Filter filter;
+
         Context seq;
         LayoutInflater inflacter;
         int layout;
@@ -192,7 +247,9 @@ public class recentActivity extends Fragment {
             seq = context;
             inflacter = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             layout = alayout;
+
             ArRecentList = aarSrc;
+            filterList = aarSrc;
         }
 
         public int getCount() {
@@ -204,41 +261,45 @@ public class recentActivity extends Fragment {
         }
 
         public long getItemId(int position) {
-            return position;
+            return ArRecentList.get(position).hashCode();
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
             final int pos = position;
             if (convertView == null)
                 convertView = inflacter.inflate(layout, parent, false);
-            TextView seqTV = (TextView)convertView.findViewById(R.id.recentSeq);
+
+            TextView seqTV = (TextView) convertView.findViewById(R.id.recentSeq);
+            TextView userNameTV = (TextView) convertView.findViewById(R.id.recentName);
+            TextView stampDateTV = (TextView) convertView.findViewById(R.id.recentDate);
+            TextView stampTimeTV = (TextView) convertView.findViewById(R.id.recentTime);
+            TextView cancelTV = (TextView) convertView.findViewById(R.id.recentCancel);
+
             seqTV.setText(ArRecentList.get(position).seq);
-            TextView userNameTV = (TextView)convertView.findViewById(R.id.recentName);
             userNameTV.setText(ArRecentList.get(position).userName);
+            stampDateTV.setText(ArRecentList.get(position).stampDate);
+            stampTimeTV.setText(ArRecentList.get(position).stampTime);
 
             //userNameTV.setTextSize(getResources().getDimension(R.dimen.textsize));
 
-            TextView stampDateTV = (TextView)convertView.findViewById(R.id.recentDate);
-            stampDateTV.setText(ArRecentList.get(position).stampDate);
-            TextView stampTimeTV = (TextView)convertView.findViewById(R.id.recentTime);
-            stampTimeTV.setText(ArRecentList.get(position).stampTime);
-
-            TextView cancelTV = (TextView) convertView.findViewById(R.id.recentCancel);
             cancelTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (recentList.stampList.get(pos).getCouponUsing().equals("FALSE")) {
+                    final int SEQ = Integer.valueOf(ArRecentList.get(pos).getSeq()) - 1;
+                    Log.i("지은","몇번째 클릭한건지 ? " + String.valueOf(SEQ));
+
+                    if (recentList.stampList.get(SEQ).getCouponUsing().equals("FALSE")) {
                         recentDeleteConfirm.setMessage("적립을 취소하시겠습니까?").setCancelable(false).setPositiveButton("확인",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        String stampDate = recentList.stampList.get(pos).getStampDate().replace("/", "-");
-                                        deleteRecentList(recentList.stampList.get(pos).getUserId(), businessId,
-                                                stampDate, recentList.stampList.get(pos).getStampNum());
+                                        String stampDate = recentList.stampList.get(SEQ).getStampDate().replace("/", "-");
+                                        deleteRecentList(recentList.stampList.get(SEQ).getUserId(), businessId,
+                                                stampDate, recentList.stampList.get(SEQ).getStampNum());
 
-                                        AdapterClear();
+                                        change = true;
 
-                                        initRecentList(businessId);
+                                        baseListAdapter.notifyDataSetChanged();
                                     }
                                 }).setNegativeButton("취소",
                                 new DialogInterface.OnClickListener() {
@@ -263,5 +324,73 @@ public class recentActivity extends Fragment {
             });
             return convertView;
         }
-    };
+
+        public Filter getFilter() {
+            Log.i("지은", "Before Filter1");
+            return new recentFilterSearch();
+        }
+
+        public class recentFilterSearch extends Filter {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String constraintStr = constraint.toString();
+                FilterResults result = new FilterResults();
+
+                Log.i("지은", "Before Filter2");
+
+                if (constraint != null && constraint.toString().length() > 0) {
+                    Log.i("지은", "Before Filter3");
+                    ArrayList<recent> filterItems = new ArrayList<recent>();
+                    filterItems.clear();
+
+                    synchronized (this) {
+                        Log.i("지은", "Before Filter4");
+                        Log.i("지은", "====================입력한 문구 = "+constraintStr);
+                        for (recent recent : ArRecentList) {
+                            Log.i("지은",recent.userName+" "+recent.userTel);
+                            if (recent.userTel.contains(constraintStr)) {
+                                Log.i("지은", "Before Filter4-1");
+                                filterItems.add(recent);
+                            }
+                        }
+                        Log.i("지은", "Before Filter5");
+                        result.count = filterItems.size();
+                        result.values = filterItems;
+
+                        Log.i("지은","ADD된 ItemList NAME = " + filterItems.get(0).getUserName());
+                    }
+                } else {
+                    synchronized (this) {
+                        result.count = OriginalList.size();
+                        result.values = new ArrayList<recent>(OriginalList);
+                    }
+                }
+                return result;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                Log.i("지은", "Before Filter6 results.count = " + results.count);
+                if(results.count == 0) {
+                    ArRecentList.clear();
+                    Toast.makeText(getActivity(), "등록한 회원이 없습니다", Toast.LENGTH_LONG).show();
+                    Log.i("지은",String.valueOf(change));
+                    if(inputSearch.getText().toString().matches("")) {
+                        Log.i("지은", "EditText는 NULL이당");
+                        change = true;
+                        initRecentList(businessId);
+                    }
+                }
+                else {
+                    ArRecentList = (ArrayList<recent>) results.values;
+                    Log.i("지은", String.valueOf(ArRecentList.size()));
+                    //notifyDataSetChanged();
+                    listRecent.setAdapter(baseListAdapter);
+                    for(int i=0;i<ArRecentList.size();i++){
+                        Log.i("지은", "PublishResults [" + i + "] : " + ArRecentList.get(i).getUserName());
+                    }
+                }
+            }
+        }
+    }
 }
